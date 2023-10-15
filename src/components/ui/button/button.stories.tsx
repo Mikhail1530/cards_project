@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from './'
+import LogOutOutline from "@/assets/icons/log-out-outline/LogOutOutline.tsx";
 
 const meta = {
   argTypes: {
+    title: { control: { type: 'text' } },
     variant: {
       control: { type: 'radio' },
       options: ['primary', 'secondary', 'tertiary', 'link'],
@@ -58,8 +60,18 @@ export const FullWidth: Story = {
 
 export const AsLink: Story = {
   args: {
-    as: 'a',
+    as: 'button',
     children: 'Link that looks like a button',
+    href: 'www.google.com',
+    variant: 'primary',
+  },
+}
+
+export const WithIcon: Story = {
+  args: {
+    as: 'button',
+    children: 'Button with Icon',
+    icon: <LogOutOutline />,
     variant: 'primary',
   },
 }
