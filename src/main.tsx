@@ -8,3 +8,6 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     <App />
   </StrictMode>
 )
+import './styles/index.scss'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/700.css'
