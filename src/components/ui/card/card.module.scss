@@ -1,19 +1,6 @@
 .card {
-  padding: 16px;
-
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-
-  transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 0 20px rgb(0 0 0 / 20%);
-}
-
-.icon {
-  margin-right: 8px;
-  color: #333;
+  width: 420px;
+  height: 552px;
+  background-color: var(--color-dark-700);
+  border: 1px solid #313131;
 }
