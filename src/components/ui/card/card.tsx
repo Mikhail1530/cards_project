@@ -4,24 +4,22 @@ import s from "@/components/ui/button/button.module.scss";
 
 type CommonProps = {
   children: ReactNode
-  contentClassName?: string
 } & ComponentProps<'div'>
 
-type ConditionalProps =
-  | {
-  iconComponent?: ReactNode
+type ConditionalProps = {
+  icon?: ReactNode
   title?: string
 }
 
 export type CardProps = CommonProps & ConditionalProps
 
 export const Card = (props: CardProps) => {
-  const { children, className, contentClassName, iconComponent, title, ...rest }= props
+  const { children, className, icon, title, ...rest }= props
 
   return (
-    <div className={` ${s.card} ${className}`} title={title}{...rest}>
-      card
-      {iconComponent}
+    <div className={` ${className}`} title={title}{...rest}>
+      {icon && <span className={s.icon}>{icon}</span>}
+      {children}
     </div>
   )
 }
