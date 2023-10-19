@@ -1,8 +1,8 @@
-import { Card } from "@/components/ui/card";
+import { Checkbox } from "@radix-ui/react-checkbox";
 
 
 export function App() {
   return <div>
-    <Card  className={"someNmae"} title={"cardtitle"}>Text</Card>
+    <Checkbox/>
   </div>
 }

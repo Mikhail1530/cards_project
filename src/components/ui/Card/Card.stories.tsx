@@ -15,6 +15,6 @@ type Story = StoryObj<typeof meta>
 
 export const card: Story = {
   args: {
-    children: 'Simple card',
+    children: 'Simple Card',
   },
 }

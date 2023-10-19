@@ -1,5 +1,5 @@
 import { ComponentProps, ReactNode } from 'react';
-import s from "@/components/ui/card/card.module.scss";
+import s from "@/components/ui/Card/Card.module.scss";
 
 type CardProps = {
   icon?: ReactNode;
