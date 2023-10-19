@@ -1,25 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from './'
+import { MyButton } from './'
+import LogOutOutline from "@/assets/icons/log-out-outline/LogOutOutline.tsx";
 
 const meta = {
   argTypes: {
+    title: { control: { type: 'text' } },
     variant: {
       control: { type: 'radio' },
       options: ['primary', 'secondary', 'tertiary', 'link'],
     },
   },
-  component: Button,
+  component: MyButton,
   tags: ['autodocs'],
-  title: 'Components/Button',
-} satisfies Meta<typeof Button>
+  title: 'Components/MyButton',
+} satisfies Meta<typeof MyButton>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    children: 'Primary Button',
+    children: 'Primary MyButton',
     disabled: false,
     variant: 'primary',
   },
@@ -27,21 +29,21 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    children: 'Secondary Button',
+    children: 'Secondary MyButton',
     disabled: false,
     variant: 'secondary',
   },
 }
 export const Tertiary: Story = {
   args: {
-    children: 'Tertiary Button',
+    children: 'Tertiary MyButton',
     disabled: false,
     variant: 'tertiary',
   },
 }
 export const Link: Story = {
   args: {
-    children: 'Tertiary Button',
+    children: 'Tertiary MyButton',
     disabled: false,
     variant: 'link',
   },
@@ -49,7 +51,7 @@ export const Link: Story = {
 
 export const FullWidth: Story = {
   args: {
-    children: 'Full Width Button',
+    children: 'Full Width MyButton',
     disabled: false,
     fullWidth: true,
     variant: 'primary',
@@ -58,8 +60,18 @@ export const FullWidth: Story = {
 
 export const AsLink: Story = {
   args: {
-    as: 'a',
+    as: 'button',
     children: 'Link that looks like a button',
+    href: 'www.google.com',
+    variant: 'primary',
+  },
+}
+
+export const WithIcon: Story = {
+  args: {
+    as: 'button',
+    children: 'MyButton with Icon',
+    icon: <LogOutOutline />,
     variant: 'primary',
   },
 }

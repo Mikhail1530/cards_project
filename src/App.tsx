@@ -1,3 +1,8 @@
+import { Card } from "@/components/ui/card";
+
+
 export function App() {
-  return <div>Hello</div>
+  return <div>
+    <Card  className={"someNmae"} title={"cardtitle"}>Text</Card>
+  </div>
 }
