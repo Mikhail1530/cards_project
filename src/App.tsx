@@ -1,11 +1,9 @@
-import { Button } from '@/components'
+import { Input } from '@/components/ui/input'
 
 export function App() {
   return (
     <div>
-      <Button as={'a'} href={'http//localhost:5173/hello'} variant={'link'}>
-        Link
-      </Button>
+      <Input className={'default'} placeholder={'hello'} type={'text'} />
     </div>
   )
 }

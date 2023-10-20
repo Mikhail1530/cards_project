@@ -14,10 +14,21 @@ type Story = StoryObj<typeof meta>
 
 export const InputDefault: Story = {
   args: {
-    className: 'default',
-    label: 'Input',
     placeholder: 'Input',
     type: 'text',
-    value: '',
+  },
+}
+
+export const InputSearch: Story = {
+  args: {
+    placeholder: 'Input',
+    type: 'search',
+  },
+}
+
+export const InputPassword: Story = {
+  args: {
+    placeholder: 'Input',
+    type: 'password',
   },
 }

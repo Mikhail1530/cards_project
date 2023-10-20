@@ -1,40 +1,53 @@
+.inputContainer {
+  position: relative;
+  display: flex;
+  width: 284px;
+  height: 36px;
+}
+
 .inputLabel {
   font-size: 14px;
   line-height: 24px;
-  color: #808080;
+  color: var(--color-dark-100);
 }
 
-input {
+.input {
   all: unset;
 
   box-sizing: border-box;
   width: 100%;
-  height: 36px;
+  height: 100%;
+  padding-right: 10px;
   padding-left: 12px;
 
-  color: #808080;
+  font-size: var(--font-size-m);
+  color: var(--color-dark-100);
 
   border: 1px solid #000;
   border-radius: 2px;
 }
 
-.default {
-  width: 284px;
-  color: #808080;
+.searchIcon {
+  all: unset;
+
+  position: absolute;
+  transform: translateY(20%);
+
+  padding-right: 12px;
+  padding-left: 12px;
+
+  color: var(--color-dark-100);
+
+  background: none;
+  border: none;
 }
 
-.secondary {
-  background-color: green;
-}
+.passwordIcon {
+  all: unset;
 
-.tertiary {
-  background-color: blue;
-}
+  position: absolute;
+  top: 7px;
+  right: 12px;
 
-.link {
-  background-color: yellow;
-}
-
-.fullWidth {
-  width: 100%;
+  color: var(--color-dark-100);
 }
