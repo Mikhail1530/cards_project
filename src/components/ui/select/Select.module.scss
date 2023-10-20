@@ -1,5 +1,4 @@
 .wrapper {
-  position: relative;
 }
 
 .title {
@@ -79,4 +78,14 @@
   position: relative;
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
+}
+
+.icon,
+.iconRotated {
+  fill: var(--color-light-100);
+  transition: 0.5s;
+}
+
+.iconRotated {
+  transform: rotate(180deg);
 }

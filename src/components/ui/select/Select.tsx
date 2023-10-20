@@ -1,3 +1,6 @@
+import { useState } from 'react'
+
+import { ArrowDownOutline } from '@/assets/icons/arrows/arrow-ios-Down-outline'
 import * as Select from '@radix-ui/react-select'
 import { SelectProps } from '@radix-ui/react-select'
 
@@ -17,8 +20,14 @@ export const SelectMenu = ({
   title,
   ...rest
 }: SelectMenuProps) => {
+  const [isOpened, setIsOpened] = useState<boolean>(false)
+
   const onChangeCallback = (value: string) => {
     onChangeOption && onChangeOption(value)
+  }
+
+  const toggleIsOpened = () => {
+    setIsOpened(!isOpened)
   }
 
   const mappedOptions = options.map((el, id) => (
@@ -28,20 +37,15 @@ export const SelectMenu = ({
     </Select.Item>
   ))
 
-  //     <Select.Group>
-  //     <Select.Label />
-  //     <Select.Item>
-  //     <Select.ItemText />
-  //     <Select.ItemIndicator />
-  //     </Select.Item>
-  // </Select.Group>
-
   return (
     <div className={s.wrapper}>
-      <Select.Root onValueChange={onChangeCallback} {...rest}>
+      <div className={s.title}>{title}</div>
+      <Select.Root onOpenChange={toggleIsOpened} onValueChange={onChangeCallback} {...rest}>
         <Select.Trigger className={s.trigger}>
           <Select.Value placeholder={placeholder} />
-          <Select.Icon />
+          <Select.Icon>
+            <ArrowDownOutline className={isOpened ? s.iconRotated : s.icon} />
+          </Select.Icon>
         </Select.Trigger>
 
         <Select.Portal>
@@ -51,7 +55,6 @@ export const SelectMenu = ({
             collisionPadding={0}
             position={'popper'}
             side={'top'}
-            sideOffset={-5}
           >
             <Select.Viewport className={s.viewport}>{mappedOptions}</Select.Viewport>
           </Select.Content>
