@@ -9,6 +9,7 @@ export type ButtonProps<T extends ElementType> = {
   title?: string
   variant?: 'link' | 'primary' | 'secondary' | 'tertiary'
   children?: string
+  className: string
 } & ComponentPropsWithoutRef<T>
 
 export const MyButton = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {

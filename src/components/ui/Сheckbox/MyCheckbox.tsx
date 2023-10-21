@@ -18,7 +18,6 @@ const MyCheckbox = <T extends ElementType = 'button'>(props: MyCheckboxProps<T>)
   const {as: Component = 'button', label, title, checked, className, onChange, ...rest} = props
 
   return (
-  <form>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Checkbox.Root checked={checked} onChangeChange={onChange} className={s.className} defaultChecked id="c1" {...rest} title={title}>
         <Checkbox.Indicator className={s.CheckboxIndicator}>
@@ -29,7 +28,6 @@ const MyCheckbox = <T extends ElementType = 'button'>(props: MyCheckboxProps<T>)
         {label}
       </label>
     </div>
-  </form>
   )
 }
 
