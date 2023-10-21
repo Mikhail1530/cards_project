@@ -15,6 +15,23 @@ type Story = StoryObj<typeof meta>
 
 export const checkboxDefault: Story = {
   args: {
-    children: 'default Checkbox',
+    label: "Checkbox default",
+    className: "buttonClassName"
+  },
+}
+
+export const checkboxChecked: Story = {
+  args: {
+    label: "Checked checkbox",
+    checked: true,
+    className: "buttonClassName"
+  },
+}
+
+export const checkboxUnchecked: Story = {
+  args: {
+    label: "Unchecked checkbox",
+    checked: false,
+    className: "buttonClassName"
   },
 }

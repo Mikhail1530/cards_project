@@ -1,4 +1,4 @@
-@mixin button {
+.button {
   cursor: pointer;
 
   display: flex;
@@ -28,8 +28,6 @@
 }
 
 .primary {
-  @include button;
-
   background-color: var(--color-accent-500);
   border: none;
   border-radius: 4px;
@@ -53,8 +51,6 @@
 }
 
 .secondary {
-  @include button;
-
   background-color: var(--color-dark-500);
   border-radius: 4px;
 
@@ -77,8 +73,6 @@
 }
 
 .tertiary {
-  @include button;
-
   color: var(--color-accent-500);
   background-color: var(--color-tertiary-500);
   border: 1px solid var(--color-accent-500);
@@ -103,8 +97,6 @@
 }
 
 .link {
-  @include button;
-
   color: var(--color-accent-500);
   background-color: var(--color-tertiary-500);
   border: 0;
