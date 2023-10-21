@@ -6,8 +6,8 @@
 }
 
 .inputLabel {
-  font-size: 14px;
-  line-height: 24px;
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
   color: var(--color-dark-100);
 }
 
@@ -23,12 +23,14 @@
   font-size: var(--font-size-m);
   color: var(--color-dark-100);
 
-  border: 1px solid #000;
+  border: 1px solid var(--color-dark-300);
   border-radius: 2px;
 }
 
 .searchIcon {
   all: unset;
+
+  cursor: pointer;
 
   position: absolute;
   transform: translateY(20%);
@@ -36,7 +38,7 @@
   padding-right: 12px;
   padding-left: 12px;
 
-  color: var(--color-dark-100);
+  color: var(--color-light-100) u;
 
   background: none;
   border: none;
@@ -45,9 +47,39 @@
 .passwordIcon {
   all: unset;
 
+  cursor: pointer;
+
   position: absolute;
   top: 7px;
   right: 12px;
 
-  color: var(--color-dark-100);
+  color: var(--color-light-100);
+}
+
+.errorInput {
+  border: 1px solid var(--color-danger-300);
+}
+
+.errorText {
+  color: var(--color-danger-300);
+}
+
+.active {
+  color: var(--color-light-100);
+  border: 1px solid var(--color-light-100);
+}
+
+.hover {
+  &:hover {
+    color: var(--color-dark-700);
+    border: 1px solid var(--color-dark-100);
+  }
+}
+
+.disabled {
+  border: 1px solid var(--color-dark-300);
+}
+
+.focus {
+  border: 2px solid var(--color-info-700);
 }

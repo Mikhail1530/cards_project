@@ -1,18 +1,21 @@
 import React, { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import classNames from 'classnames'
 
 import s from './input.module.scss'
 
 export type InputProps = {
+  active?: boolean
   className?: string
-  error?: string
-  inputIcon?: 'image' | 'search' | undefined
+  disabled?: boolean
+  error?: string | undefined
   label?: string
   onChange?: (value: string) => void
+  onEnter?: () => void
   placeholder?: string
+  theme?: 'active' | 'disabled' | 'focus' | 'hover'
   type: string
   value?: string
 } & ComponentPropsWithoutRef<'input'>
@@ -20,18 +23,23 @@ export type InputProps = {
 export const Input = forwardRef(
   (
     {
+      active,
       className,
+      disabled,
       error,
-      inputIcon,
       label,
+      onBlur,
       onChange,
+      onEnter,
       placeholder,
+      theme,
       type,
       value,
       ...restPros
     }: InputProps,
     ref: React.LegacyRef<HTMLInputElement> | undefined
   ) => {
+    const showError = !!error && error.length > 0
     const [inputValue, setInputValue] = useState(value)
     const [showPassword, SetShowPassword] = useState(false)
     const getType = (type: string) => {
@@ -46,7 +54,18 @@ export const Input = forwardRef(
       setInputValue(event.currentTarget.value)
     }
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter' && onEnter) {
+        onEnter()
+      }
+    }
+
     const inputClasses = classNames(s.input, {
+      [s.active]: theme === 'active',
+      [s.disabled]: theme === 'disabled',
+      [s.errorInput]: showError,
+      [s.focus]: theme === 'focus',
+      [s.hover]: theme === 'hover',
       [s.passwordInput]: type === 'password',
       [s.searchInput]: type === 'search',
     })
@@ -61,7 +80,7 @@ export const Input = forwardRef(
         <div className={s.inputContainer}>
           {type === 'search' && (
             <button className={s.searchIcon} type={'button'}>
-              <SearchOutlinedIcon />
+              <SearchTwoToneIcon />
             </button>
           )}
           {type === 'password' && (
@@ -75,7 +94,9 @@ export const Input = forwardRef(
           )}
           <input
             className={inputClasses}
+            disabled={disabled}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             placeholder={placeholder}
             type={getType(type)}
             value={inputValue}
@@ -84,6 +105,7 @@ export const Input = forwardRef(
             style={{ paddingLeft: type === 'search' ? '45px' : undefined }}
           />
         </div>
+        {showError && <span className={s.errorText}>{error}</span>}
       </div>
     )
   }
