@@ -6,7 +6,7 @@ interface ButtonProps {
    */
   backgroundColor?: string
   /**
-   * MyButton contents
+   * Button contents
    */
   label: string
   /**
