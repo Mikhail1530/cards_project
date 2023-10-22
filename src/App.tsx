@@ -1,9 +1,18 @@
-import { Input } from '@/components/ui/input'
+import { MyButton } from '@/components/ui/Button'
+import MyCheckbox from '@/components/ui/Сheckbox/MyCheckbox'
 
 export function App() {
   return (
     <div>
-      <Input className={'default'} placeholder={'hello'} type={'text'} />
+      <MyCheckbox checked className={''} label={'checkbox'} onChange={() => {}}>
+        checkxobx
+      </MyCheckbox>
+      <MyButton className={'kakoito'} variant={'link'}>
+        text
+      </MyButton>
+      <MyButton variant={'primary'}>text</MyButton>
+      <MyButton variant={'secondary'}>text</MyButton>
+      <MyButton variant={'tertiary'}>text</MyButton>
     </div>
   )
 }
