@@ -53,3 +53,12 @@ export const WithIcon: Story = {
     variant: 'primary',
   },
 }
+
+export const Disabled: Story = {
+  args: {
+    as: 'button',
+    children: 'Button with Icon',
+    disabled: true,
+    variant: 'primary',
+  },
+}
