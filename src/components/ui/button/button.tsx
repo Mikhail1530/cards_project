@@ -1,20 +1,35 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react'
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
-import s from './button.module.scss'
+import s from './Button.module.scss'
 
-export type ButtonProps<T extends ElementType = 'button'> = {
+export type ButtonProps<T extends ElementType> = {
   as?: T
   fullWidth?: boolean
+  icon?: ReactNode
+  title?: string
   variant?: 'link' | 'primary' | 'secondary' | 'tertiary'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
-  const { as: Component = 'button', className, fullWidth, variant = 'primary', ...rest } = props
+  const {
+    as: Component = 'button',
+    children,
+    className,
+    fullWidth,
+    icon,
+    title = '',
+    variant = 'primary',
+    ...rest
+  } = props
 
   return (
-    <Component
-      className={`${s[variant]} ${s.button} ${fullWidth ? s.fullWidth : ''} ${className}`}
+    <button
+      className={` ${s.button} ${s[variant]} ${fullWidth ? s.fullWidth : ''} ${className}`}
+      title={title}
       {...rest}
-    />
+    >
+      {icon && <span className={s.icon}>{icon}</span>}
+      {children}
+    </button>
   )
 }
