@@ -73,9 +73,7 @@ export const Input = forwardRef(
     return (
       <div>
         <div>
-          <label className={s.inputLabel} htmlFor={'icon'}>
-            Input
-          </label>
+          <label className={s.inputLabel}>Input</label>
         </div>
         <div className={s.inputContainer}>
           {type === 'search' && (
