@@ -1,8 +1,9 @@
-import * as Checkbox from '@radix-ui/react-checkbox';
-import { CheckIcon } from '@radix-ui/react-icons';
-import s from './MyCheckbox.module.scss';
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { ComponentPropsWithoutRef, ElementType } from 'react'
 
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
+
+import s from './MyCheckbox.module.scss'
 
 export type MyCheckboxProps<T extends ElementType> = {
   as?: T
@@ -13,11 +14,9 @@ export type MyCheckboxProps<T extends ElementType> = {
   className?: string
   //todo disabled, pointer remove
 } & ComponentPropsWithoutRef<T>
-
-//bez label checkbox tekst ne buet otrabatyvatj
-
+    
 const MyCheckbox = <T extends ElementType = 'button'>(props: MyCheckboxProps<T>) => {
-  const {as: Component = 'button', label, title, checked, className, onChange, ...rest} = props
+  const { as: Component = 'button', checked, className, label, onChange, title, ...rest } = props
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}> // todo get rid off
@@ -33,4 +32,4 @@ const MyCheckbox = <T extends ElementType = 'button'>(props: MyCheckboxProps<T>)
   )
 }
 
-export default MyCheckbox;
+export default MyCheckbox
