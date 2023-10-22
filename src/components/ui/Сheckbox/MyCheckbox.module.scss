@@ -17,23 +17,23 @@
   border-radius: 4px;
   outline: none;
 
-}
+  &:hover {
+    color: var(--color-dark-900);
+    background-color: rgb(0 0 0);
+    clip-path: circle(90%);
+    box-shadow: 0 0 0 10px var(--color-dark-500);
+  }
 
-.className:hover {
-  color: var(--color-dark-900);
-  background-color: rgb(0 0 0);
-  clip-path: circle(90%);
-  box-shadow: 0 0 0 10px var(--color-dark-500);
-}
+  &:active {
+    box-shadow: 0 0 0 10px var(--color-dark-100);
+  }
 
-.className:active {
-  box-shadow: 0 0 0 10px var(--color-dark-100);
-}
+  &:focus {
+    background-color: rgb(0 0 0);
+    clip-path: circle(90%);
+    box-shadow: 0 0 0 10px var(--color-dark-100);
+  }
 
-.className:focus {
-  background-color: rgb(0 0 0);
-  clip-path: circle(90%);
-  box-shadow: 0 0 0 10px var(--color-dark-100);
 }
 
 .CheckboxIndicator {

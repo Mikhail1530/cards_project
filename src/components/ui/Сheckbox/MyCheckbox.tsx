@@ -7,37 +7,28 @@ import s from './MyCheckbox.module.scss'
 
 export type MyCheckboxProps<T extends ElementType> = {
   as?: T
-  checked: boolean
-  className: string
-  label: string
-  onChange: () => void
   title?: string
+  label?: string
+  onChange?: () => void
+  checked?: boolean
+  className?: string
+  //todo disabled, pointer remove
 } & ComponentPropsWithoutRef<T>
-
+    
 const MyCheckbox = <T extends ElementType = 'button'>(props: MyCheckboxProps<T>) => {
   const { as: Component = 'button', checked, className, label, onChange, title, ...rest } = props
 
   return (
-    <form>
-      <div style={{ alignItems: 'center', display: 'flex' }}>
-        <Checkbox.Root
-          checked={checked}
-          className={s.className}
-          defaultChecked
-          id={'c1'}
-          onChangeChange={onChange}
-          {...rest}
-          title={title}
-        >
-          <Checkbox.Indicator className={s.CheckboxIndicator}>
-            <CheckIcon />
-          </Checkbox.Indicator>
-        </Checkbox.Root>
-        <label className={s.Label} htmlFor={'c1'}>
-          {label}
-        </label>
-      </div>
-    </form>
+    <div style={{ display: 'flex', alignItems: 'center' }}> // todo get rid off
+      <Checkbox.Root checked={checked} onChangeChange={onChange} className={s.className} defaultChecked id="c1" {...rest} title={title}>
+        <Checkbox.Indicator className={s.CheckboxIndicator}>
+          <CheckIcon/>
+        </Checkbox.Indicator>
+      </Checkbox.Root>
+      <label className={s.Label} htmlFor="c1">
+        {label}
+      </label>
+    </div>
   )
 }
 
