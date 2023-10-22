@@ -1,10 +1,9 @@
 import React, { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
-
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import classNames from 'classnames'
 
 import s from './input.module.scss'
+import EyeOutline from "@/assets/icons/eye-outline/EyeOutline.tsx";
+import SearchOutline from "@/assets/icons/search-outline/SearchOutline.tsx";
 
 export type InputProps = {
   active?: boolean
@@ -78,7 +77,7 @@ export const Input = forwardRef(
         <div className={s.inputContainer}>
           {type === 'search' && (
             <button className={s.searchIcon} type={'button'}>
-              <SearchTwoToneIcon />
+              <SearchOutline />
             </button>
           )}
           {type === 'password' && (
@@ -87,7 +86,7 @@ export const Input = forwardRef(
               onClick={() => SetShowPassword(!showPassword)}
               type={'button'}
             >
-              <VisibilityOutlinedIcon />
+              <EyeOutline/>
             </button>
           )}
           <input
