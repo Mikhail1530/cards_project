@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>
 export const checkboxDefault: Story = {
   args: {
     label: "Checkbox default",
-    className: "buttonClassName"
+    className: "buttonClassName",
   },
 }
 
