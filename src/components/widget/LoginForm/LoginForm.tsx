@@ -6,19 +6,19 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 //Defines the shape of the form data. Optional but good to use.
-type FormValues = {
-  email: string
-  password: string
-  rememberMe: boolean
-}
+// type FormValues = {
+//   email: string
+//   password: string
+//   rememberMe: boolean
+// }
+// we can replace this with:
+type FormValues = z.infer<typeof loginSchema>
 
 const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(3),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(3, 'Too short password').max(25),
+  rememberMe: z.boolean().optional(),
 })
-
-const emailRegex =
-  /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/
 
 export const LoginForm = () => {
   const {
@@ -26,7 +26,12 @@ export const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({ resolver: zodResolver(loginSchema) }) // formState has errors
+  } = useForm<FormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '', password: '', rememberMe: false },
+  }) // -> this is equal to type Typescripts: User = {name:string} ----> type PartialUser = Partial<User>
+  // formState has errors, zod by default adds "required" to all fields.
+  // If field is "undefined" e.g Checkbox and not false/true, we cannot send the form. So need to add default values which should be empty values ((string,false etc)
 
   const onSubmit = (data: FormValues) => {
     console.log(data) // we can send data from here, map it do whatever. This is object of data from fulfilled Form.
@@ -36,8 +41,8 @@ export const LoginForm = () => {
   const {
     field: { value, onChange }, // same as we would use useState hook but we don't need it coz of that
   } = useController({ name: 'rememberMe', control, defaultValue: false }) // -> name of checkbox (any other item). DefaultValue changes checkbox from undefined to false
-  console.log(errors)
 
+  console.log(errors)
   console.log(register('password'))
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
