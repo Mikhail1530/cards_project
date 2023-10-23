@@ -1,10 +1,12 @@
 import React, { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import classNames from 'classnames'
 
 import s from './input.module.scss'
+
+import passwordIcons from './../../../assets/icons/inputIcons/passwordIcons.svg'
+import passwordOpenIcons from './../../../assets/icons/inputIcons/passwordOpenIcons.svg'
+import searchIcons from './../../../assets/icons/inputIcons/searchIcons.png'
 
 export type InputProps = {
   active?: boolean
@@ -78,7 +80,7 @@ export const Input = forwardRef(
         <div className={s.inputContainer}>
           {type === 'search' && (
             <button className={s.searchIcon} type={'button'}>
-              <SearchTwoToneIcon />
+              <img alt={'icon'} className={s.searchIcon} src={searchIcons} />
             </button>
           )}
           {type === 'password' && (
@@ -87,7 +89,11 @@ export const Input = forwardRef(
               onClick={() => SetShowPassword(!showPassword)}
               type={'button'}
             >
-              <VisibilityOutlinedIcon />
+              {showPassword ? (
+                <img alt={'icon'} className={s.passwordIcon} src={passwordIcons} />
+              ) : (
+                <img alt={'icon'} className={s.passwordOpenIcon} src={passwordOpenIcons} />
+              )}
             </button>
           )}
           <input
