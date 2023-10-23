@@ -78,6 +78,7 @@ export const Input = forwardRef(
           {type === 'search' && (
             <button className={s.searchIcon} type={'button'}>
               <Search />
+              {/*<img alt={'icon'} className={s.searchIcon} src={searchIcons} />*/}
             </button>
           )}
           {type === 'password' && (
@@ -87,6 +88,11 @@ export const Input = forwardRef(
               type={'button'}
             >
               <Eye />
+              {/*{showPassword ? (*/}
+              {/*  <img alt={'icon'} className={s.passwordIcon} src={passwordIcons} />*/}
+              {/*) : (*/}
+              {/*  <img alt={'icon'} className={s.passwordOpenIcon} src={passwordOpenIcons} />*/}
+              {/*)}*/}
             </button>
           )}
           <input
