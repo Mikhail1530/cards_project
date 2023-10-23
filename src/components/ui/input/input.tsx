@@ -23,7 +23,8 @@ export const Input = forwardRef(
   (
     {
       active,
-      className,
+      className
+      ,
       disabled,
       error,
       label,
