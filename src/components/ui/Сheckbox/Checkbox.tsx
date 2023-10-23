@@ -11,7 +11,7 @@ export type CheckboxProps = {
   checked?: boolean
   className?: string
   disabled?: boolean
-  onBlur?: () => void
+  // onBlur?: () => void
   //FIXME: when disabled and checked background doesn't change.
 }
 
