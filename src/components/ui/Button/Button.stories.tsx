@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from './'
-import LogOutOutline from "@/assets/icons/log-out-outline/LogOutOutline.tsx";
+import Logout from '@/assets/icons/log-out/Logout.tsx'
 
 const meta = {
   argTypes: {
@@ -49,7 +49,7 @@ export const WithIcon: Story = {
   args: {
     as: 'button',
     children: 'Button with Icon',
-    icon: <LogOutOutline />,
+    icon: <Logout />,
     variant: 'primary',
   },
 }

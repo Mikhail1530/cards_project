@@ -2,8 +2,8 @@ import React, { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } fr
 import classNames from 'classnames'
 
 import s from './input.module.scss'
-import EyeOutline from "@/assets/icons/eye-outline/EyeOutline.tsx";
-import SearchOutline from "@/assets/icons/search-outline/SearchOutline.tsx";
+import Eye from '@/assets/icons/eye/Eye.tsx'
+import Search from '@/assets/icons/search-outline/search.tsx'
 
 export type InputProps = {
   active?: boolean
@@ -23,8 +23,7 @@ export const Input = forwardRef(
   (
     {
       active,
-      className
-      ,
+      className,
       disabled,
       error,
       label,
@@ -78,7 +77,7 @@ export const Input = forwardRef(
         <div className={s.inputContainer}>
           {type === 'search' && (
             <button className={s.searchIcon} type={'button'}>
-              <SearchOutline />
+              <Search />
             </button>
           )}
           {type === 'password' && (
@@ -87,7 +86,7 @@ export const Input = forwardRef(
               onClick={() => SetShowPassword(!showPassword)}
               type={'button'}
             >
-              <EyeOutline/>
+              <Eye />
             </button>
           )}
           <input
