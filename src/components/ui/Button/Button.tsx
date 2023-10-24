@@ -6,7 +6,7 @@ import s from './Button.module.scss'
 
 export type ButtonProps<T extends ElementType> = {
   as?: T
-  children?: string
+  children?: ReactNode | string
   className?: string
   fullWidth?: boolean
   icon?: ReactNode

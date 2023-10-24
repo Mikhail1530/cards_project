@@ -1,7 +1,6 @@
 import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import { clsx } from 'clsx'
-
 import s from './TextField.module.scss'
 import { Typography } from '@/components/ui/typography'
 import Eye from '@/assets/icons/eye/Eye.tsx'

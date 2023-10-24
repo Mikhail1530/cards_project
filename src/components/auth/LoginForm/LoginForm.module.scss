@@ -1,0 +1,46 @@
+.signupItem {
+  //color: var(--color-accent-500);
+  color: var(--color-light-100);
+}
+
+
+.signInContainer {
+  width: 75%;
+  margin: 25px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 12px;
+
+    .checkbox {}
+  }
+
+  .caption {
+    color: var(--color-light-100);
+    text-align: center;
+  }
+
+  .recoverPasswordLink {
+    display: flex;
+    flex-direction: row-reverse;
+    color: var(--color-light-100);
+  }
+}
+
+.signupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+
+  .signupItem {
+    //margin-top: 10px;
+    color: var(--color-light-100);
+  }
+
+  .signupLink {
+    color: var(--color-accent-500)
+  }
+}
