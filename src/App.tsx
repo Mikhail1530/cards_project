@@ -1,7 +1,9 @@
-import { Input } from "@/components/ui/input";
+import { LoginForm } from '@/components/auth/LoginForm'
 
 export function App() {
-  return <div>
-    <Input type={"password"}/>
-  </div>
+  return (
+    <div>
+      <LoginForm />
+    </div>
+  )
 }

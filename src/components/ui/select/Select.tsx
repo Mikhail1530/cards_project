@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { ArrowDownOutline } from '@/assets/icons/arrows/arrow-ios-Down-outline'
+import { ArrowDownOutline } from '@/assets/icons/arrows/Arrow-down.tsx'
 import * as Select from '@radix-ui/react-select'
 import { SelectProps } from '@radix-ui/react-select'
 

@@ -1,4 +1,4 @@
-export const LogOutOutline = () => {
+export const Logout = () => {
   return (
     <svg
       fill={'none'}
@@ -23,4 +23,4 @@ export const LogOutOutline = () => {
   )
 }
 
-export default LogOutOutline
+export default Logout
