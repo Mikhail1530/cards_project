@@ -56,18 +56,16 @@ export const LoginForm = () => {
               control={control}
               name={'rememberMe'}
             />
-
             <Typography className={s.recoverPasswordLink} as={'a'} variant={'body2'}>
               Forgot Password?
             </Typography>
-
+          </div>
+          <div className={s.signupContainer}>
             <Button className={s.button} type="submit" variant={'primary'}>
               Sign In
             </Button>
-          </div>
-          <div className={s.signupContainer}>
             <Typography className={s.signupItem} as={'div'} variant={'body2'}>
-              Don't have an account
+              Don't have an account?
             </Typography>
             <Typography as={'a'} className={s.signupLink} variant={'link1'}>
               Sign up
