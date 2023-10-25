@@ -4,6 +4,7 @@ import { clsx } from 'clsx'
 import s from './TextField.module.scss'
 import { Typography } from '@/components/ui/typography'
 import Eye from '@/assets/icons/eye/Eye.tsx'
+import EyeCrossed from '@/assets/icons/eye/EyeCrossed.tsx'
 
 export type TextFieldProps = {
   containerProps?: ComponentProps<'div'>
@@ -43,7 +44,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     }
 
     const classNames = {
-      error: clsx(s.error),
+      error: clsx(s.errorText),
       field: clsx(s.field, !!errorMessage && s.error, search && s.hasLeadingIcon, className),
       fieldContainer: clsx(s.fieldContainer),
       label: clsx(s.label, labelProps?.className),
@@ -74,7 +75,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               onClick={() => setShowPassword(prev => !prev)}
               type={'button'}
             >
-              {showPassword && <Eye />}
+              {showPassword ? <Eye /> : <EyeCrossed />}
             </button>
           )}
         </div>

@@ -46,9 +46,14 @@
   }
 }
 
+.errorText {
+  position: absolute;
+  color: var(--color-danger-300) !important;
+}
+
 .label {
   margin-bottom: 1px;
-  color: var(--color-dark-100);
+  color: var(--color-dark-100) !important;
 }
 
 .leadingIcon {
