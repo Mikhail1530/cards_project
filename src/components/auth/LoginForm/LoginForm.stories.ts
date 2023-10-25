@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { LoginForm } from './LoginForm'
+import { LoginForm } from './'
 
 const meta = {
   title: 'Auth/LoginForm',
@@ -10,4 +10,4 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {}
+export const Login: Story = {}

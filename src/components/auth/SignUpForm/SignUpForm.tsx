@@ -3,32 +3,41 @@ import { Button } from '@/components/ui/Button'
 import { TextField } from '@/components/ui/TextField/TextField.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import ControlledCheckbox from '@/components/controlled/ControlledCheckbox/ControlledCheckbox.tsx'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '@/components/ui/typography'
-import s from './LoginForm.module.scss'
+import s from './SignUpForm.module.scss'
 
 type FormValues = z.infer<typeof loginSchema>
 
-const loginSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
-  password: z.string().min(3, 'Too short password').max(25),
-  rememberMe: z.boolean().optional(),
-})
+const loginSchema = z
+  .object({
+    email: z.string().email({ message: 'Invalid email address' }),
+    password: z.string().min(3, 'Too short password').max(25),
+    confirmPassword: z.string().min(3, 'Too short password').max(25),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'The passwords did not match',
+        path: ['confirmPassword'],
+      })
+    }
+  })
 
-type LoginProps = {
+type SignUpProps = {
   onSubmit: (data: FormValues) => void
 }
 
-export const LoginForm = ({ onSubmit }: LoginProps) => {
+export const SignUpForm = ({ onSubmit }: SignUpProps) => {
   const {
-    control,
+    // control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '', rememberMe: false },
+    defaultValues: { email: '', password: '', confirmPassword: '' },
   })
 
   return (
@@ -36,7 +45,7 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
       <Card>
         <div className={s.signInContainer}>
           <Typography as={'div'} className={s.caption} variant={'h1'}>
-            Sign in
+            Sign Up
           </Typography>
           <div className={s.form}>
             <TextField
@@ -48,28 +57,22 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
               {...register('password')}
               errorMessage={errors.password?.message}
               label={'Password'}
-              type={'password'}
             />
-            <ControlledCheckbox
-              className={s.checkbox}
-              {...register('rememberMe')}
-              label={'Remember me'}
-              control={control}
-              name={'rememberMe'}
+            <TextField
+              {...register('confirmPassword')}
+              errorMessage={errors.confirmPassword?.message}
+              label={'Confirm password'}
             />
-            <Typography className={s.recoverPasswordLink} as={'a'} variant={'body2'}>
-              Forgot Password?
-            </Typography>
           </div>
           <div className={s.signupContainer}>
             <Button className={s.button} type="submit" variant={'primary'}>
-              Sign In
+              Sign Up
             </Button>
             <Typography className={s.signupItem} as={'div'} variant={'body2'}>
               Don't have an account?
             </Typography>
             <Typography as={'a'} className={s.signupLink} variant={'link1'}>
-              Sign up
+              Sign in
             </Typography>
             {/*//FIXME: element should be clickable link */}
           </div>

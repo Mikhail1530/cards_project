@@ -20,14 +20,22 @@ export type CheckboxProps = {
 const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps>(
   (props: CheckboxProps, ref) => {
     const { label, className, disabled, ...rest } = props
-    const checkBoxClassName = clsx(s.button, s.className, disabled && s.disabled)
-    const checkboxLabelClassName = clsx(s.Label, disabled && s.disabled)
+    const classNames = {
+      checkBoxClassName: clsx(
+        s.button,
+        s.className,
+        disabled && s.disabled,
+        className && className
+      ),
+      checkboxLabelClassName: clsx(s.Label, disabled && s.disabled),
+      checkboxContainer: clsx(s.checkboxContainer, className && s.className),
+    }
 
     return (
-      <div className={s.checkboxContainer}>
+      <div className={classNames['checkboxContainer']}>
         <CheckboxRadix.Root
           ref={ref}
-          className={checkBoxClassName}
+          className={classNames['checkBoxClassName']}
           disabled={disabled}
           id="c1"
           {...rest}
@@ -36,7 +44,7 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
             <CheckIcon />
           </CheckboxRadix.Indicator>
         </CheckboxRadix.Root>
-        <label className={checkboxLabelClassName} htmlFor="c1">
+        <label className={classNames['checkboxLabelClassName']} htmlFor="c1">
           {label}
         </label>
       </div>
