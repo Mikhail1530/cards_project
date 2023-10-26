@@ -3,32 +3,29 @@ import { Button } from '@/components/ui/Button'
 import { TextField } from '@/components/ui/TextField/TextField.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import ControlledCheckbox from '@/components/controlled/ControlledCheckbox/ControlledCheckbox.tsx'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '@/components/ui/typography'
-import s from './LoginForm.module.scss'
+import s from './ForgotPasswordForm.module.scss'
 
 type FormValues = z.infer<typeof loginSchema>
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
-  password: z.string().min(3, 'Too short password').max(25),
-  rememberMe: z.boolean().optional(),
 })
 
-type LoginProps = {
+type ForgotPasswordFormProps = {
   onSubmit: (data: FormValues) => void
 }
 
-export const LoginForm = ({ onSubmit }: LoginProps) => {
+export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
   const {
-    control,
+    // control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '', rememberMe: false },
+    defaultValues: { email: '' },
   })
 
   return (
@@ -36,7 +33,7 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
       <Card>
         <div className={s.signInContainer}>
           <Typography as={'div'} className={s.caption} variant={'h1'}>
-            Sign in
+            Forgot your password?
           </Typography>
           <div className={s.form}>
             <TextField
@@ -44,33 +41,19 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
               errorMessage={errors.email?.message}
               label={'Email'}
             />
-            <TextField
-              {...register('password')}
-              errorMessage={errors.password?.message}
-              label={'Password'}
-              type={'password'}
-            />
-            <ControlledCheckbox
-              className={s.checkbox}
-              {...register('rememberMe')}
-              label={'Remember me'}
-              control={control}
-              // name={'rememberMe'} зачем в регистре же имя передаем
-            />
-
-            <Typography className={s.recoverPasswordLink} as={'a'} variant={'body2'}>
-              Forgot Password?
+            <Typography as={'div'} className={s.instructions} variant={'body2'}>
+              Enter your email address and we will send you further instructions
             </Typography>
           </div>
           <div className={s.signupContainer}>
             <Button className={s.button} type="submit" variant={'primary'}>
-              Sign In
+              Sign Up
             </Button>
             <Typography className={s.signupItem} as={'div'} variant={'body2'}>
-              Don't have an account?
+              Did you remember your password?
             </Typography>
             <Typography as={'a'} className={s.signupLink} variant={'link1'}>
-              Sign up
+              Try logging in
             </Typography>
             {/*//FIXME: element should be clickable link */}
           </div>
