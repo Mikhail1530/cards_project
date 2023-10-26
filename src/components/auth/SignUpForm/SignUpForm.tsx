@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form'
-import { Button } from '@/components/ui/Button'
 import { TextField } from '@/components/ui/TextField/TextField.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '@/components/ui/typography'
 import s from './SignUpForm.module.scss'
+import ControlledButton from '@/components/controlled/ControlledButton/ControlledButton.tsx'
+import { Button } from '@/components/ui/Button'
 
 type FormValues = z.infer<typeof loginSchema>
 
@@ -31,7 +32,6 @@ type SignUpProps = {
 
 export const SignUpForm = ({ onSubmit }: SignUpProps) => {
   const {
-    // control,
     register,
     handleSubmit,
     formState: { errors },
@@ -81,3 +81,4 @@ export const SignUpForm = ({ onSubmit }: SignUpProps) => {
     </form>
   )
 }
+type TextField = { age: string; type: string }

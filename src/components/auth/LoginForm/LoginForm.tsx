@@ -55,8 +55,9 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
               {...register('rememberMe')}
               label={'Remember me'}
               control={control}
-              name={'rememberMe'}
+              // name={'rememberMe'} зачем в регистре же имя передаем
             />
+
             <Typography className={s.recoverPasswordLink} as={'a'} variant={'body2'}>
               Forgot Password?
             </Typography>

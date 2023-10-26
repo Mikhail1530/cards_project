@@ -1,9 +1,3 @@
-.signupItem {
-  //color: var(--color-accent-500);
-  color: var(--color-light-100);
-}
-
-
 .signInContainer {
   width: 75%;
   margin: 25px;
@@ -14,18 +8,11 @@
     gap: 24px;
     margin-bottom: 60px;
 
-    .checkbox {}
   }
 
   .caption {
     color: var(--color-light-100);
     text-align: center;
-  }
-
-  .recoverPasswordLink {
-    display: flex;
-    flex-direction: row-reverse;
-    color: var(--color-light-900);
   }
 
   .button {
