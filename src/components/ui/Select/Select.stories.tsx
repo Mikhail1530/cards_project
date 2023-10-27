@@ -1,4 +1,4 @@
-import { SelectMenu } from '@/components/ui/select/Select'
+import { SelectMenu } from '@/components/ui/Select/Select'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
