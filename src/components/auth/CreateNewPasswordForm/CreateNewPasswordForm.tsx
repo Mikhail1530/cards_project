@@ -5,56 +5,52 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '../../ui/Typography'
-import s from './ForgotPasswordForm.module.scss'
+import s from './CreateNewPasswordForm.module.scss'
 
-type FormValues = z.infer<typeof forgotPasswordSchema>
+type FormValues = z.infer<typeof createNewPasswordSchema>
 
-const forgotPasswordSchema = z.object({
+const createNewPasswordSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(3, 'Too short password').max(25),
+  rememberMe: z.boolean().optional(),
 })
 
-type ForgotPasswordFormProps = {
+type LoginProps = {
   onSubmit: (data: FormValues) => void
 }
 
-export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
+export const CreateNewPasswordForm = ({ onSubmit }: LoginProps) => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
-    resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: { email: '' },
+    resolver: zodResolver(createNewPasswordSchema),
+    defaultValues: { email: '', password: '', rememberMe: false },
   })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/*TODO: since button is in form, then form automatically pass the ref to button and we don't have to specify that? */}
       <Card>
         <div className={s.signInContainer}>
           <Typography as={'div'} className={s.caption} variant={'h1'}>
-            Forgot your password?
+            Create new password
           </Typography>
           <div className={s.form}>
             <TextField
-              {...register('email')}
-              errorMessage={errors.email?.message}
-              label={'Email'}
+              {...register('password')}
+              errorMessage={errors.password?.message}
+              label={'Password'}
             />
-            <Typography as={'div'} className={s.instructions} variant={'body2'}>
-              Enter your email address and we will send you further instructions
+            <Typography className={s.instructions} as={'a'} variant={'body2'}>
+              Create new password and we will send you further instructions to email
             </Typography>
           </div>
           <div className={s.signupContainer}>
             <Button className={s.button} type="submit" variant={'primary'}>
-              Sign Up
+              Create New Password
             </Button>
-            <Typography className={s.signupItem} as={'div'} variant={'body2'}>
-              Did you remember your password?
-            </Typography>
-            <Typography as={'a'} className={s.signupLink} variant={'link1'}>
-              Try logging in
-            </Typography>
             {/*//FIXME: element should be clickable link */}
           </div>
         </div>

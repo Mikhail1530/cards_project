@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import ControlledCheckbox from '@/components/controlled/ControlledCheckbox/ControlledCheckbox.tsx'
 import { Card } from '@/components/ui/Card'
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '../../ui/Typography'
 import s from './LoginForm.module.scss'
 
 type FormValues = z.infer<typeof loginSchema>

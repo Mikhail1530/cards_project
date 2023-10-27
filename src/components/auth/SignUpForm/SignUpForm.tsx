@@ -3,14 +3,13 @@ import { TextField } from '@/components/ui/TextField/TextField.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '../../ui/Typography'
 import s from './SignUpForm.module.scss'
-import ControlledButton from '@/components/controlled/ControlledButton/ControlledButton.tsx'
 import { Button } from '@/components/ui/Button'
 
-type FormValues = z.infer<typeof loginSchema>
+type FormValues = z.infer<typeof signupSchema>
 
-const loginSchema = z
+const signupSchema = z
   .object({
     email: z.string().email({ message: 'Invalid email address' }),
     password: z.string().min(3, 'Too short password').max(25),
@@ -36,7 +35,7 @@ export const SignUpForm = ({ onSubmit }: SignUpProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signupSchema),
     defaultValues: { email: '', password: '', confirmPassword: '' },
   })
 
@@ -81,4 +80,3 @@ export const SignUpForm = ({ onSubmit }: SignUpProps) => {
     </form>
   )
 }
-type TextField = { age: string; type: string }
