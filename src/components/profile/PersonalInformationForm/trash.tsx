@@ -13,7 +13,7 @@ import { useState } from 'react'
 type FormValues = z.infer<typeof personalInformationSchema>
 
 const personalInformationSchema = z.object({
-  name: z.string().min(2, 'Too short nickname').max(25),
+  name: z.string().min(1, 'Too short nickname').max(25),
 })
 
 type PersonalInformationFormProps = {
@@ -27,10 +27,10 @@ type PersonalInformationFormProps = {
 }
 
 export const PersonalInformationForm = ({
-  avatar,
+  avatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwRTYbYaWZbc9r4KKdclIUiwO6JRrHgSpRQjB7RTA&s',
   onSubmit,
-  name,
-  email,
+  name = 'bob',
+  email = 'dummy@data.com',
   changeAvatar,
   saveChangedName,
   changeName,
@@ -71,62 +71,59 @@ export const PersonalInformationForm = ({
             <div className={s.avatarContainer}>
               <div className={s.avatar}>
                 <img src={avatar} alt={'avatar'}></img>
-                {isNameEditing ? (
-                  <TextField
-                    {...register('name')}
-                    errorMessage={errors.name?.message}
-                    label={'Nickname'}
-                  />
-                ) : (
+                {!isNameEditing ? (
                   <Button
                     onClick={handleAvatarChange}
                     className={s.avatarEditButton}
                     icon={<EditPencil />}
                     variant={'secondary'}
                   ></Button>
+                ) : (
+                  <TextField
+                    {...register('name')}
+                    errorMessage={errors.name?.message}
+                    label={'Nickname'}
+                  />
                 )}
               </div>
             </div>
-            <div className={s.nameWithEditButtonContainer}>
+            <div className={s.nameWithEditButton}>
               {isNameEditing ? (
                 ''
               ) : (
                 <>
-                  <div className={s.nameWithEditButton}>
-                    <Typography as={'div'} className={s.name} variant={'h1'}>
-                      {name}
-                    </Typography>
-                    <Button
-                      onClick={handleEditName}
-                      className={s.editNameButton}
-                      icon={<EditPencil />}
-                      variant={'secondary'}
-                    ></Button>
-                  </div>
-                  <div>
-                    <Typography as={'div'} className={s.email} variant={'body2'}>
-                      {email}
-                    </Typography>
-                  </div>
+                  <Typography as={'div'} className={s.name} variant={'h1'}>
+                    {name}
+                  </Typography>
+                  <Button
+                    onClick={handleEditName}
+                    className={s.editNameButton}
+                    icon={<EditPencil />}
+                    variant={'secondary'}
+                  ></Button>
+                  <Typography as={'div'} className={s.email} variant={'body2'}>
+                    {email}
+                  </Typography>
                 </>
               )}
             </div>
           </div>
-
-          {isNameEditing ? (
-            <Button
-              onClick={handleSaveChangedName}
-              className={s.but}
-              type="submit"
-              variant={'primary'}
-            >
-              Save changes
-            </Button>
-          ) : (
-            <Button icon={<Logout />} className={s.button_save_logout} variant={'secondary'}>
-              Logout
-            </Button>
-          )}
+          <div>
+            {isNameEditing ? (
+              <Button
+                onClick={handleSaveChangedName}
+                className={s.but}
+                type="submit"
+                variant={'primary'}
+              >
+                Save changes
+              </Button>
+            ) : (
+              <Button icon={<Logout />} className={s.button_save_logout} variant={'secondary'}>
+                Logout
+              </Button>
+            )}
+          </div>
         </div>
       </Card>
     </form>
