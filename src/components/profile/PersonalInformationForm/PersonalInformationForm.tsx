@@ -55,6 +55,7 @@ export const PersonalInformationForm = ({
   const handleAvatarChange = () => {
     changeAvatar()
   }
+
   const handleEditName = () => {
     setIsNameEditing(!isNameEditing)
     changeName()
@@ -69,66 +70,83 @@ export const PersonalInformationForm = ({
           </Typography>
           <div className={s.form}>
             <div className={s.avatarContainer}>
-              <div className={s.avatar}>
-                <img src={avatar} alt={'avatar'}></img>
-                {isNameEditing ? (
-                  <TextField
-                    {...register('name')}
-                    errorMessage={errors.name?.message}
-                    label={'Nickname'}
-                  />
-                ) : (
-                  <Button
-                    onClick={handleAvatarChange}
-                    className={s.avatarEditButton}
-                    icon={<EditPencil />}
-                    variant={'secondary'}
-                  ></Button>
-                )}
-              </div>
+              <Avatar
+                isNameEditing={isNameEditing}
+                avatar={avatar}
+                handleAvatarChange={handleAvatarChange}
+                register={register}
+                errors={errors}
+              />
             </div>
-            <div className={s.nameWithEditButtonContainer}>
-              {isNameEditing ? (
-                ''
-              ) : (
-                <>
-                  <div className={s.nameWithEditButton}>
-                    <Typography as={'div'} className={s.name} variant={'h1'}>
-                      {name}
-                    </Typography>
-                    <Button
-                      onClick={handleEditName}
-                      className={s.editNameButton}
-                      icon={<EditPencil />}
-                      variant={'secondary'}
-                    ></Button>
-                  </div>
-                  <div>
-                    <Typography as={'div'} className={s.email} variant={'body2'}>
-                      {email}
-                    </Typography>
-                  </div>
-                </>
-              )}
-            </div>
+            <NameSection
+              isNameEditing={isNameEditing}
+              name={name}
+              handleEditName={handleEditName}
+              email={email}
+              register={register}
+              errors={errors}
+            />
           </div>
-
-          {isNameEditing ? (
-            <Button
-              onClick={handleSaveChangedName}
-              className={s.but}
-              type="submit"
-              variant={'primary'}
-            >
-              Save changes
-            </Button>
-          ) : (
-            <Button icon={<Logout />} className={s.button_save_logout} variant={'secondary'}>
-              Logout
-            </Button>
-          )}
+          <div>
+            {isNameEditing ? (
+              <Button
+                onClick={handleSaveChangedName}
+                className={s.but}
+                type="submit"
+                variant={'primary'}
+              >
+                Save changes
+              </Button>
+            ) : (
+              <Button icon={<Logout />} className={s.button_save_logout} variant={'secondary'}>
+                Logout
+              </Button>
+            )}
+          </div>
         </div>
       </Card>
     </form>
   )
 }
+
+const Avatar = ({ isNameEditing, avatar, handleAvatarChange, register, errors }: any) => (
+  <div className={s.avatar}>
+    <img src={avatar} alt={'avatar'}></img>
+    {isNameEditing ? (
+      <TextField {...register('name')} errorMessage={errors.name?.message} label={'Nickname'} />
+    ) : (
+      <Button
+        onClick={handleAvatarChange}
+        className={s.avatarEditButton}
+        icon={<EditPencil />}
+        variant={'secondary'}
+      ></Button>
+    )}
+  </div>
+)
+const NameSection = ({ isNameEditing, name, handleEditName, email }: any) => (
+  <div className={s.nameWithEditButtonContainer}>
+    {isNameEditing ? (
+      ''
+    ) : (
+      <>
+        <div className={s.nameWithEditButton}>
+          <Typography as={'div'} className={s.name} variant={'h1'}>
+            {name}
+          </Typography>
+          <Button
+            onClick={handleEditName}
+            className={s.editNameButton}
+            icon={<EditPencil />}
+            variant={'secondary'}
+          ></Button>
+        </div>
+        <div>
+          <Typography as={'div'} className={s.email} variant={'body2'}>
+            {email}
+          </Typography>
+        </div>
+      </>
+    )}
+  </div>
+)
