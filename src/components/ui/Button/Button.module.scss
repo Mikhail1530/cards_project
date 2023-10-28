@@ -21,9 +21,11 @@
   }
 
   .icon > svg {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
+    display: flex;
+    width: 18px;
+    height: 18px;
+
+    //margin-right: 8px;
   }
 }
 

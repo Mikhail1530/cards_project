@@ -15,11 +15,11 @@ const createNewPasswordSchema = z.object({
   rememberMe: z.boolean().optional(),
 })
 
-type LoginProps = {
+type CreateNewPasswordFormProps = {
   onSubmit: (data: FormValues) => void
 }
 
-export const CreateNewPasswordForm = ({ onSubmit }: LoginProps) => {
+export const CreateNewPasswordForm = ({ onSubmit }: CreateNewPasswordFormProps) => {
   const {
     control,
     register,
