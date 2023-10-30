@@ -1,24 +1,24 @@
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
-import { TextField } from '@/components/ui/TextField/TextField.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '../../ui/Typography'
 import s from './PersonalInformationForm.module.scss'
 import EditPencil from '@/assets/icons/editPencil/EditPencil.tsx'
-import Logout from '@/assets/icons/log-out/Logout.tsx'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { NameWithEditButton } from './nameWithEditButton'
+import { NameChanger } from './nameChanger'
 
 type FormValues = z.infer<typeof personalInformationSchema>
 
 const personalInformationSchema = z.object({
-  name: z.string().min(2, 'Too short nickname').max(25),
+  nickname: z.string().min(1, 'Too short nickname').max(25),
 })
 
 type PersonalInformationFormProps = {
-  onSubmit: (data: FormValues) => void
-  name: string
+  onSubmit: () => void
+  nickname: string
   email: string
   avatar: string
   changeAvatar: () => void
@@ -29,11 +29,9 @@ type PersonalInformationFormProps = {
 export const PersonalInformationForm = ({
   avatar,
   onSubmit,
-  name,
+  nickname,
   email,
   changeAvatar,
-  saveChangedName,
-  changeName,
 }: PersonalInformationFormProps) => {
   const {
     control,
@@ -42,27 +40,32 @@ export const PersonalInformationForm = ({
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(personalInformationSchema),
-    defaultValues: { name: '' },
+    defaultValues: { nickname: nickname },
   })
 
   const [isNameEditing, setIsNameEditing] = useState(false)
-
-  const handleSaveChangedName = () => {
-    setIsNameEditing(false)
-    saveChangedName()
-  }
+  const [nameChangerInputValue, setNameChangeInputValue] = useState(nickname)
 
   const handleAvatarChange = () => {
     changeAvatar()
   }
 
-  const handleEditName = () => {
+  const openNameEditing = () => {
     setIsNameEditing(!isNameEditing)
-    changeName()
+  }
+
+  const handleNameInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNameChangeInputValue(event.target.value)
+  }
+
+  const handleFormSubmit = (data: FormValues) => {
+    setIsNameEditing(false)
+    onSubmit()
+    console.log(data, 'personalInformation submit form data')
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Card>
         <div className={s.signInContainer}>
           <Typography as={'div'} className={s.caption} variant={'h1'}>
@@ -70,37 +73,32 @@ export const PersonalInformationForm = ({
           </Typography>
           <div className={s.form}>
             <div className={s.avatarContainer}>
-              <Avatar
-                isNameEditing={isNameEditing}
-                avatar={avatar}
-                handleAvatarChange={handleAvatarChange}
+              <div className={s.avatar}>
+                <img src={avatar} alt={'avatar'}></img>
+                {!isNameEditing && (
+                  <Button
+                    onClick={handleAvatarChange}
+                    className={s.avatarEditButton}
+                    icon={<EditPencil />}
+                    variant={'secondary'}
+                  ></Button>
+                )}
+              </div>
+            </div>
+            {!isNameEditing ? (
+              <NameWithEditButton
+                openNameEditing={openNameEditing}
+                email={email}
+                nickname={nickname}
+              />
+            ) : (
+              <NameChanger
+                control={control}
                 register={register}
                 errors={errors}
+                // handleInputChange={handleNameInputChange}
+                // value={nameChangerInputValue}
               />
-            </div>
-            <NameSection
-              isNameEditing={isNameEditing}
-              name={name}
-              handleEditName={handleEditName}
-              email={email}
-              register={register}
-              errors={errors}
-            />
-          </div>
-          <div>
-            {isNameEditing ? (
-              <Button
-                onClick={handleSaveChangedName}
-                className={s.but}
-                type="submit"
-                variant={'primary'}
-              >
-                Save changes
-              </Button>
-            ) : (
-              <Button icon={<Logout />} className={s.button_save_logout} variant={'secondary'}>
-                Logout
-              </Button>
             )}
           </div>
         </div>
@@ -108,45 +106,3 @@ export const PersonalInformationForm = ({
     </form>
   )
 }
-
-const Avatar = ({ isNameEditing, avatar, handleAvatarChange, register, errors }: any) => (
-  <div className={s.avatar}>
-    <img src={avatar} alt={'avatar'}></img>
-    {isNameEditing ? (
-      <TextField {...register('name')} errorMessage={errors.name?.message} label={'Nickname'} />
-    ) : (
-      <Button
-        onClick={handleAvatarChange}
-        className={s.avatarEditButton}
-        icon={<EditPencil />}
-        variant={'secondary'}
-      ></Button>
-    )}
-  </div>
-)
-const NameSection = ({ isNameEditing, name, handleEditName, email }: any) => (
-  <div className={s.nameWithEditButtonContainer}>
-    {isNameEditing ? (
-      ''
-    ) : (
-      <>
-        <div className={s.nameWithEditButton}>
-          <Typography as={'div'} className={s.name} variant={'h1'}>
-            {name}
-          </Typography>
-          <Button
-            onClick={handleEditName}
-            className={s.editNameButton}
-            icon={<EditPencil />}
-            variant={'secondary'}
-          ></Button>
-        </div>
-        <div>
-          <Typography as={'div'} className={s.email} variant={'body2'}>
-            {email}
-          </Typography>
-        </div>
-      </>
-    )}
-  </div>
-)
