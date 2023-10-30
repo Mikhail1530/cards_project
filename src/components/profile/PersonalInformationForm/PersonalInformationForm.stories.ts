@@ -14,7 +14,7 @@ export const PersonalInformationFormStories: Story = {
   args: {
     avatar:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwRTYbYaWZbc9r4KKdclIUiwO6JRrHgSpRQjB7RTA&s',
-    name: 'bob',
+    nickname: 'bob',
     email: 'dummy@data.com',
     changeAvatar: () => console.log('changeAvatar'),
     saveChangedName: () => console.log('saveChanges'),

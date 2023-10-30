@@ -90,6 +90,5 @@ function getFinalType(type: ComponentProps<'input'>['type'], showPassword: boole
   if (type === 'password' && showPassword) {
     return 'text'
   }
-
   return type
 }

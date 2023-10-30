@@ -17,7 +17,7 @@ const loginSchema = z.object({
 })
 
 type LoginProps = {
-  onSubmit: (data: FormValues) => void
+  onSubmit: () => void
 }
 
 export const LoginForm = ({ onSubmit }: LoginProps) => {
@@ -31,8 +31,13 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
     defaultValues: { email: '', password: '', rememberMe: false },
   })
 
+  const handleFormSubmit = (data: FormValues) => {
+    console.log(data)
+    onSubmit()
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Card>
         <div className={s.signInContainer}>
           <Typography as={'div'} className={s.caption} variant={'h1'}>
