@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/Button'
 import s from './nameChanger.module.scss'
 import { ControlledTextField } from '@/components/controlled/controlledTextField/controlledTextField.tsx'
 
-export const NameChanger = ({ control, register, errors, handleInputChange, value }: any) => {
+export const NameChanger = ({ control, register, errors }: any) => {
   return (
     <>
       <div className={s.nameChanger}>
@@ -10,10 +10,8 @@ export const NameChanger = ({ control, register, errors, handleInputChange, valu
           control={control}
           type={'text'}
           {...register('nickname')}
-          // value={value}
-          errorMessage={errors.name?.message}
+          errorMessage={errors.nickname?.message}
           label={'Nickname'}
-          // onChange={handleInputChange}
         />
       </div>
       <div className={s.saveChangeNameBtn}>

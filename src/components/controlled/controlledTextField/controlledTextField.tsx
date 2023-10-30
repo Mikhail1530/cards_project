@@ -11,7 +11,5 @@ export const ControlledTextField = ({ control, name, type, ...rest }: Controlled
     field: { value, onChange, ref },
   } = useController({ control: control, name: name })
 
-  console.log(value)
-
   return <TextField type={type} ref={ref} value={value} onValueChange={onChange} {...rest} />
 }

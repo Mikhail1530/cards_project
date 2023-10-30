@@ -6,14 +6,14 @@ import { Card } from '@/components/ui/Card'
 import { Typography } from '../../ui/Typography'
 import s from './PersonalInformationForm.module.scss'
 import EditPencil from '@/assets/icons/editPencil/EditPencil.tsx'
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { NameWithEditButton } from './nameWithEditButton'
 import { NameChanger } from './nameChanger'
 
 type FormValues = z.infer<typeof personalInformationSchema>
 
 const personalInformationSchema = z.object({
-  nickname: z.string().min(1, 'Too short nickname').max(25),
+  nickname: z.string().min(2, 'Too short nickname').max(25),
 })
 
 type PersonalInformationFormProps = {
@@ -44,7 +44,6 @@ export const PersonalInformationForm = ({
   })
 
   const [isNameEditing, setIsNameEditing] = useState(false)
-  const [nameChangerInputValue, setNameChangeInputValue] = useState(nickname)
 
   const handleAvatarChange = () => {
     changeAvatar()
@@ -52,10 +51,6 @@ export const PersonalInformationForm = ({
 
   const openNameEditing = () => {
     setIsNameEditing(!isNameEditing)
-  }
-
-  const handleNameInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameChangeInputValue(event.target.value)
   }
 
   const handleFormSubmit = (data: FormValues) => {
@@ -92,13 +87,7 @@ export const PersonalInformationForm = ({
                 nickname={nickname}
               />
             ) : (
-              <NameChanger
-                control={control}
-                register={register}
-                errors={errors}
-                // handleInputChange={handleNameInputChange}
-                // value={nameChangerInputValue}
-              />
+              <NameChanger control={control} register={register} errors={errors} />
             )}
           </div>
         </div>
