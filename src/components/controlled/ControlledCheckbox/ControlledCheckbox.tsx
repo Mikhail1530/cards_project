@@ -29,7 +29,7 @@ const ControlledCheckbox = <T extends FieldValues>({
       checked={value}
       onCheckedChange={onChange}
       ref={ref}
-      // onBlur={onBlur as () => void}
+      // onBlur={onBlur}
       {...rest}
       disabled={disabled}
     />
