@@ -28,7 +28,7 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '', rememberMe: false },
+    defaultValues: { email: '', password: '', rememberMe: undefined },
   })
 
   const handleFormSubmit = (data: FormValues) => {
@@ -60,8 +60,9 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
               {...register('rememberMe')}
               label={'Remember me'}
               control={control}
-              // name={'rememberMe'} зачем в регистре же имя передаем
+              name={'rememberMe'}
             />
+            {/*// зачем name, в регистре же имя передаем*/}
 
             <Typography className={s.recoverPasswordLink} as={'a'} variant={'body2'}>
               Forgot Password?
