@@ -1,4 +1,4 @@
-import { RadioGroup } from './radio.tsx'
+import { RadioGroup } from './radioGroupProps.tsx'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
@@ -16,8 +16,8 @@ export const Default: Story = {
   args: {
     disabled: false,
     options: [
-      { label: 'Default One', value: 'default-one' },
-      { label: 'Default Two', value: 'default-two' },
+      { label: 'Default One', value: 'text' },
+      { label: 'Default Two', value: 'text2' },
     ],
   },
 }

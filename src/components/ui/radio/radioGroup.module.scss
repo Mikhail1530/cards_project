@@ -13,6 +13,7 @@ button {
   display: flex;
   align-items: center;
 
+
   .RadioGroupItem {
     width: 17px;
     height: 17px;
@@ -37,6 +38,12 @@ button {
     [data-disabled] & {
       border: 2px solid var(--color-accent-900);
       box-shadow: 0 0 0 0;
+    }
+
+    &:active {
+      background-color: var(--color-accent-900);
+      border-radius: 50%;
+      box-shadow: 0 0 0 10px var(--color-accent-900);
     }
 
 
