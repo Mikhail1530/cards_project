@@ -37,7 +37,24 @@ button {
 
     [data-disabled] & {
       border: 2px solid var(--color-accent-900);
-      box-shadow: 0 0 0 0;
+      box-shadow: 0 0 0 0 red;
+
+      &:active {
+        background-color: var(--color-dark-700);
+        box-shadow: 0 0 0 0;
+      }
+
+      &:hover {
+        background-color: var(--color-dark-700);
+        box-shadow: 0 0 0 0;
+      }
+
+      &:focus {
+        background-color: var(--color-dark-700);
+        box-shadow: 0 0 0 0;
+      }
+
+
     }
 
     &:active {
@@ -71,11 +88,9 @@ button {
       border-radius: 50%;
     }
 
-    [data-disabled] & {
-      &::after {
-        background-color: var(--color-accent-900);
-      }
-    }
+    //[data-disabled] & {
+    //  &::after {}
+    //}
   }
 
   .Label {

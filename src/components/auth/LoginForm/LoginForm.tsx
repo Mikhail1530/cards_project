@@ -7,7 +7,6 @@ import ControlledCheckbox from '@/components/controlled/ControlledCheckbox/Contr
 import { Card } from '@/components/ui/Card'
 import { Typography } from '../../ui/Typography'
 import s from './LoginForm.module.scss'
-import { RadioGroup } from '@/components/ui/radio'
 
 type FormValues = z.infer<typeof loginSchema>
 
@@ -29,7 +28,7 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '', rememberMe: undefined },
+    defaultValues: { email: '', password: '', rememberMe: false },
   })
 
   const handleFormSubmit = (data: FormValues) => {
@@ -62,13 +61,6 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
               control={control}
               name={'rememberMe'}
             />
-            {/*// зачем name, в регистре же имя передаем*/}
-            <RadioGroup
-              options={[
-                { label: 'Default One', value: 'default-one' },
-                { label: 'Default Two', value: 'default-two' },
-              ]}
-            ></RadioGroup>
             <Typography className={s.recoverPasswordLink} as={'a'} variant={'body2'}>
               Forgot Password?
             </Typography>

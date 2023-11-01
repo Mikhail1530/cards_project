@@ -14,6 +14,7 @@ export type RadioGroupProps = {
 type Option = {
   label: string
   value: string
+  checked?: boolean
 }
 
 export const RadioGroup = forwardRef<ElementRef<typeof RadRadioGroup.Root>, RadioGroupProps>(
@@ -34,6 +35,7 @@ export const RadioGroup = forwardRef<ElementRef<typeof RadRadioGroup.Root>, Radi
                 value={option.value}
                 id={option.value}
                 disabled={disabled}
+                {...rest}
               >
                 <RadRadioGroup.Indicator className={s.RadioGroupIndicator} />
               </RadRadioGroup.Item>
