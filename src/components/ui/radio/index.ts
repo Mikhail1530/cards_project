@@ -1,1 +1,1 @@
-export { RadioGroup } from './radio.tsx'
+export { RadioGroup } from './radioGroupProps.tsx'
