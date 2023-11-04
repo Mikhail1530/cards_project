@@ -39,7 +39,7 @@ const THeader = forwardRef<HTMLTableCellElement, ComponentPropsWithoutRef<'th'>>
 const TCell = forwardRef<HTMLTableCellElement, ComponentPropsWithoutRef<'td'>>(
   ({ className, ...rest }, ref) => {
     const classNames = { td: clsx(className, s.td) }
-    return <th className={classNames.td} {...rest} ref={ref}></th>
+    return <td className={classNames.td} {...rest} ref={ref}></td>
   }
 )
 

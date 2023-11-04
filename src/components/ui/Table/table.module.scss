@@ -5,13 +5,31 @@
   border: 1px solid var(--color-dark-500);
 }
 
+.thead {
+  padding: 6px 24px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-m);
+
+  background-color: var(--color-dark-500);
+
+}
+
 .tr {
   border: 1px solid var(--color-dark-500);
 }
 
-.th {
-  border: 1px solid var(--color-dark-500);
+.td {
+  padding: 6px 24px;
+
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+
+  background-color: var(--color-dark-900);
+  border-bottom: 1px solid var(--color-dark-500);
 }
+
 
 //.headCell {
 //  padding: 6px 24px;
