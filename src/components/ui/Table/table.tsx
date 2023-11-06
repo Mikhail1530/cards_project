@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, forwardRef } from 'react'
 import { clsx } from 'clsx'
 import s from './table.module.scss'
 
-const Thead = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'thead'>>(
+export const THead = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'thead'>>(
   ({ className, ...rest }, ref) => {
     const classNames = {
       thead: clsx(className, s.thead),
@@ -11,7 +11,7 @@ const Thead = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'thea
   }
 )
 
-const TBody = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'tbody'>>(
+export const TBody = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'tbody'>>(
   ({ className, ...rest }, ref) => {
     const classNames = {
       thead: clsx(className, s.tbody),
@@ -20,7 +20,7 @@ const TBody = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'tbod
   }
 )
 
-const TRow = forwardRef<HTMLTableRowElement, ComponentPropsWithoutRef<'tr'>>(
+export const TRow = forwardRef<HTMLTableRowElement, ComponentPropsWithoutRef<'tr'>>(
   ({ className, ...rest }, ref) => {
     const classNames = {
       tr: clsx(className, s.tr),
@@ -29,14 +29,14 @@ const TRow = forwardRef<HTMLTableRowElement, ComponentPropsWithoutRef<'tr'>>(
   }
 )
 
-const THeader = forwardRef<HTMLTableCellElement, ComponentPropsWithoutRef<'th'>>(
+export const THeader = forwardRef<HTMLTableCellElement, ComponentPropsWithoutRef<'th'>>(
   ({ className, ...rest }, ref) => {
     const classNames = { th: clsx(className, s.th) }
     return <th className={classNames.th} {...rest} ref={ref}></th>
   }
 )
 
-const TCell = forwardRef<HTMLTableCellElement, ComponentPropsWithoutRef<'td'>>(
+export const TCell = forwardRef<HTMLTableCellElement, ComponentPropsWithoutRef<'td'>>(
   ({ className, ...rest }, ref) => {
     const classNames = { td: clsx(className, s.td) }
     return <td className={classNames.td} {...rest} ref={ref}></td>
@@ -64,34 +64,7 @@ const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
     //   </tbody>
     // </table>
 
-    return (
-      <table className={classNames['table']} {...rest} ref={ref}>
-        <Thead>
-          <TRow>
-            <THeader>Name1</THeader>
-            <THeader>Name2</THeader>
-            <THeader>Name3</THeader>
-          </TRow>
-        </Thead>
-        <TBody>
-          <TRow>
-            <TCell>1</TCell>
-            <TCell>2</TCell>
-            <TCell>3</TCell>
-          </TRow>
-          <TRow>
-            <TCell>1</TCell>
-            <TCell>2</TCell>
-            <TCell>3</TCell>
-          </TRow>
-          <TRow>
-            <TCell>1</TCell>
-            <TCell>2</TCell>
-            <TCell>3</TCell>
-          </TRow>
-        </TBody>
-      </table>
-    )
+    return <table className={classNames['table']} {...rest} ref={ref}></table>
   }
 )
 
