@@ -1,14 +1,13 @@
 import { useForm } from 'react-hook-form'
-import { Button } from '@/components/ui/Button'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '../../ui/Typography'
 import s from './PersonalInformationForm.module.scss'
-import EditPencil from '@/assets/icons/editPencil/EditPencil.tsx'
 import { useState } from 'react'
 import { NameWithEditButton } from './nameWithEditButton'
 import { NameChanger } from './nameChanger'
+import { AvatarWithEditButton } from './avatarWithEditButton/avatarWithEditButton'
 
 type FormValues = z.infer<typeof personalInformationSchema>
 
@@ -60,38 +59,18 @@ export const PersonalInformationForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <Card>
-        <div className={s.signInContainer}>
-          <Typography as={'div'} className={s.caption} variant={'h1'}>
-            Personal information
-          </Typography>
-          <div className={s.form}>
-            <div className={s.avatarContainer}>
-              <div className={s.avatar}>
-                <img src={avatar} alt={'avatar'}></img>
-                {!isNameEditing && (
-                  <Button
-                    onClick={handleAvatarChange}
-                    className={s.avatarEditButton}
-                    icon={<EditPencil />}
-                    variant={'secondary'}
-                  ></Button>
-                )}
-              </div>
-            </div>
-            {!isNameEditing ? (
-              <NameWithEditButton
-                openNameEditing={openNameEditing}
-                email={email}
-                nickname={nickname}
-              />
-            ) : (
-              <NameChanger control={control} register={register} errors={errors} />
-            )}
-          </div>
-        </div>
-      </Card>
-    </form>
+    <Card as={'form'} onSubmit={handleSubmit(handleFormSubmit)} className={s.form}>
+      <Typography as={'div'} className={s.caption} variant={'h1'}>
+        Personal information
+      </Typography>
+
+      <AvatarWithEditButton avatar={avatar} handleAvatarChange={handleAvatarChange} />
+
+      {!isNameEditing ? (
+        <NameWithEditButton openNameEditing={openNameEditing} email={email} nickname={nickname} />
+      ) : (
+        <NameChanger control={control} register={register} errors={errors} />
+      )}
+    </Card>
   )
 }

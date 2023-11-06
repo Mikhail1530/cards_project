@@ -1,19 +1,21 @@
-import { ComponentProps, ReactNode } from 'react'
+import { ComponentProps, ElementType, ReactNode } from 'react'
 import s from '@/components/ui/Card/Card.module.scss'
 
-type CardProps = {
+type CardProps<T extends ElementType> = {
+  as?: T
   icon?: ReactNode
   // title?: string
   className?: string
-} & ComponentProps<'div'>
+} & ComponentProps<T>
 
-export const Card = (props: CardProps) => {
-  const { className, icon, children, ...rest } = props
+export const Card = <T extends ElementType = 'div'>(props: CardProps<T>) => {
+  // <T extends ElementType = 'div'> this means that by default T is 'div' but can be any other Element.
+  const { as: Component, className, icon, children, ...rest } = props
 
   return (
-    <div className={`${s.card} ${className ?? ''}`} {...rest}>
+    <Component className={`${s.card} ${className ?? ''}`} {...rest}>
       {icon && <div className={s.icon}>{icon}</div>}
       {children}
-    </div>
+    </Component>
   )
 }
