@@ -10,7 +10,7 @@ type CardProps<T extends ElementType> = {
 
 export const Card = <T extends ElementType = 'div'>(props: CardProps<T>) => {
   // <T extends ElementType = 'div'> this means that by default T is 'div' but can be any other Element.
-  const { as: Component, className, icon, children, ...rest } = props
+  const { as: Component = 'div', className, icon, children, ...rest } = props
 
   return (
     <Component className={`${s.card} ${className ?? ''}`} {...rest}>

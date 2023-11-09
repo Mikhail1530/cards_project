@@ -5,16 +5,14 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
-import { Decks } from '@/pages/decks.tsx'
+import { DecksTable } from '@/pages/decks-table/decks-table'
+import SignInPage from '@/pages/sign-in-page/sign-in-page'
+import { useAuthMeQuery } from '@/services/auth/auth.service'
 
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <div>hello</div>,
-  },
-  {
-    path: '/decks',
-    element: <Decks />,
+    element: <DecksTable />,
   },
   {
     path: '/usersChart',
@@ -25,7 +23,7 @@ const privateRoutes: RouteObject[] = [
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <div>login</div>,
+    element: <SignInPage />,
   },
 ]
 
@@ -55,7 +53,11 @@ const router = createBrowserRouter([
 //that matched route will then be rendered at the location of the `<Outlet/>`
 //component.
 function PrivateRoutes() {
-  const isAuthenticated = true
-
+  const { isError, isLoading } = useAuthMeQuery() // before accessing any private resource we send autherization request (cookie) to server
+  if (isLoading) {
+    return null
+  }
+  console.log('here')
+  const isAuthenticated = !isError
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }

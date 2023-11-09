@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
-import { TextField } from '@/components/ui/TextField/TextField.tsx'
+import { TextField } from '@/components/ui/TextField/TextField'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import ControlledCheckbox from '@/components/controlled/ControlledCheckbox/ControlledCheckbox.tsx'
+import ControlledCheckbox from '@/components/controlled/ControlledCheckbox/ControlledCheckbox'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '../../ui/Typography'
 import s from './LoginForm.module.scss'
@@ -17,7 +17,7 @@ const loginSchema = z.object({
 })
 
 type LoginProps = {
-  onSubmit: () => void
+  onSubmit: (data: FormValues) => void
 }
 
 export const LoginForm = ({ onSubmit }: LoginProps) => {
@@ -33,7 +33,7 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
 
   const handleFormSubmit = (data: FormValues) => {
     console.log(data)
-    onSubmit()
+    onSubmit(data)
   }
 
   return (
