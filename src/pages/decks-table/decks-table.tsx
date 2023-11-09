@@ -3,13 +3,18 @@ import Table, { TBody, TCell, THead, THeader, TRow } from '@/components/ui/Table
 import { Typography } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/Button'
 
-export const Decks = () => {
+export const DecksTable = () => {
   // prettier-ignore
   const { data: decks, refetch, isError, error } = useGetDecksQuery({ currentPage: 1, itemsPerPage: 10 })
   const [createDeck, createDeckStatus] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
 
   if (isError) {
-    return <Typography variant={'h1'}> An error occured: {error.data.message}</Typography>
+    return (
+      <Typography variant={'h1'}>
+        An error occured: {error.data?.message}. Please{' '}
+        {<a href={'http://localhost:5173/login'}>login </a>}again
+      </Typography>
+    )
   }
 
   return (
