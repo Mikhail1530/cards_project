@@ -1,4 +1,4 @@
-import { RadioGroup } from './radioGroup.tsx'
+import { RadioGroup } from './radioGroup'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {

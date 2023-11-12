@@ -9,7 +9,6 @@ const DecksPage = () => {
 
   const {
     data: decks,
-    isError,
     isLoading,
     isFetching,
     error,
@@ -50,7 +49,7 @@ const DecksPage = () => {
         currentPage={currentPage}
         totalCount={decks.pagination.totalItems}
         totalPages={decks.pagination.totalPages}
-        onPageChange={handlePageChange}
+        handlePageChange={handlePageChange}
         pageSize={decks.pagination.itemsPerPage}
       />
     </>

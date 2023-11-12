@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import Table from '@/components/ui/Table/table.tsx'
+import Table from '@/components/ui/Table/table'
 
 const meta = {
   argTypes: {

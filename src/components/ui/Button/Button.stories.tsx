@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from './'
-import Logout from '@/assets/icons/log-out/Logout.tsx'
+import Logout from '@/assets/icons/log-out/Logout'
 
 const meta = {
   argTypes: {

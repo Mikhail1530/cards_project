@@ -3,8 +3,8 @@ import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, forwardRef, useS
 import { clsx } from 'clsx'
 import s from './TextField.module.scss'
 import { Typography } from '../Typography'
-import Eye from '@/assets/icons/eye/Eye.tsx'
-import EyeCrossed from '@/assets/icons/eye/EyeCrossed.tsx'
+import Eye from '@/assets/icons/eye/Eye'
+import EyeCrossed from '@/assets/icons/eye/EyeCrossed'
 
 export type TextFieldProps = {
   containerProps?: ComponentProps<'div'>
