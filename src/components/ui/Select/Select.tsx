@@ -1,19 +1,19 @@
 import { useState } from 'react'
 
-import { ArrowDownOutline } from '@/assets/icons/arrows/Arrow-down.tsx'
-import * as Select from '@radix-ui/react-select'
+import { ArrowDownOutline } from '@/assets/icons/arrows/Arrow-down'
+import * as RSelect from '@radix-ui/react-select'
 import { SelectProps } from '@radix-ui/react-select'
 
 import s from './Select.module.scss'
 
 export type SelectMenuProps = {
-  onChangeOption: (value: string) => void
+  onChangeOption: (value: number) => void
   options: string[]
   placeholder?: string
   title?: string
 } & SelectProps
 
-export const SelectMenu = ({
+export const Select = ({
   onChangeOption,
   options,
   placeholder = options[0],
@@ -23,43 +23,42 @@ export const SelectMenu = ({
   const [isOpened, setIsOpened] = useState<boolean>(false)
 
   const onChangeCallback = (value: string) => {
-    onChangeOption && onChangeOption(value)
+    onChangeOption && onChangeOption(Number(value))
   }
 
   const toggleIsOpened = () => {
     setIsOpened(!isOpened)
   }
-
   const mappedOptions = options.map((el, id) => (
-    <Select.Item className={s.item} key={id} value={el}>
-      <Select.ItemText>{el}</Select.ItemText>
-      <Select.ItemIndicator className={s.selected} />
-    </Select.Item>
+    <RSelect.Item className={s.item} key={id} value={el}>
+      <RSelect.ItemText>{el}</RSelect.ItemText>
+      <RSelect.ItemIndicator className={s.selected} />
+    </RSelect.Item>
   ))
 
   return (
     <div className={s.wrapper}>
       <div className={s.title}>{title}</div>
-      <Select.Root onOpenChange={toggleIsOpened} onValueChange={onChangeCallback} {...rest}>
-        <Select.Trigger className={s.trigger}>
-          <Select.Value placeholder={placeholder} />
-          <Select.Icon>
+      <RSelect.Root onOpenChange={toggleIsOpened} onValueChange={onChangeCallback} {...rest}>
+        <RSelect.Trigger className={s.trigger}>
+          <RSelect.Value placeholder={placeholder} />
+          <RSelect.Icon>
             <ArrowDownOutline className={isOpened ? s.iconRotated : s.icon} />
-          </Select.Icon>
-        </Select.Trigger>
+          </RSelect.Icon>
+        </RSelect.Trigger>
 
-        <Select.Portal>
-          <Select.Content
+        <RSelect.Portal>
+          <RSelect.Content
             align={'start'}
             className={s.selectContent}
             collisionPadding={0}
             position={'popper'}
             side={'top'}
           >
-            <Select.Viewport className={s.viewport}>{mappedOptions}</Select.Viewport>
-          </Select.Content>
-        </Select.Portal>
-      </Select.Root>
+            <RSelect.Viewport className={s.viewport}>{mappedOptions}</RSelect.Viewport>
+          </RSelect.Content>
+        </RSelect.Portal>
+      </RSelect.Root>
     </div>
   )
 }

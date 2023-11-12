@@ -6,13 +6,15 @@ import { Typography } from '@/components/ui/Typography'
 
 const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
+  console.log(itemsPerPage, 'itemsPErPage')
 
   const {
     data: decks,
     isLoading,
     isFetching,
     error,
-  } = useGetDecksQuery({ currentPage: currentPage, itemsPerPage: 10 })
+  } = useGetDecksQuery({ currentPage: currentPage, itemsPerPage: itemsPerPage })
 
   if (!decks) {
     return <div>No decks available</div>
@@ -37,11 +39,16 @@ const DecksPage = () => {
     }
   }
 
+  const handleSetItemsPerPage = (numOfItemsPerPage: number) => {
+    setItemsPerPage(numOfItemsPerPage)
+  }
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber)
   }
 
-  console.log('this is decks:', decks)
+  const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
+
   return (
     <>
       <DecksTable currentTableData={decks.items} />
@@ -50,7 +57,9 @@ const DecksPage = () => {
         totalCount={decks.pagination.totalItems}
         totalPages={decks.pagination.totalPages}
         handlePageChange={handlePageChange}
-        pageSize={decks.pagination.itemsPerPage}
+        handleSetItemsPerPage={handleSetItemsPerPage}
+        itemsPerPage={decks.pagination.itemsPerPage}
+        selectOptions={selectOptionsOfDecksToDisplay}
       />
     </>
   )

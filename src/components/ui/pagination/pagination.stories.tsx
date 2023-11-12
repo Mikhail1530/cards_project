@@ -26,8 +26,9 @@ export const DefaultPagination: Story = {
         handlePageChange={handlePageChange}
         totalPages={1}
         totalCount={100}
-        pageSize={10}
+        itemsPerPage={10}
         currentPage={currentPage}
+        handleSetItemsPerPage={() => {}}
       />
     )
   },
@@ -35,7 +36,7 @@ export const DefaultPagination: Story = {
     handlePageChange: () => {},
     totalPages: 1,
     totalCount: 100,
-    pageSize: 10,
+    itemsPerPage: 10,
     siblingCount: 2,
     currentPage: 1,
   },
