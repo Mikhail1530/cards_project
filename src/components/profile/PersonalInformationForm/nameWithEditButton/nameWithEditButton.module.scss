@@ -1,0 +1,37 @@
+.nameWithEditButtonContainer {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .nameWithEditButton {
+    display: flex;
+
+    .name {
+      color: var(--color-light-100);
+      text-align: center;
+    }
+
+    .editNameButton {
+      all: unset;
+      cursor: pointer;
+    }
+
+  }
+
+  .email {
+    align-self: center;
+    margin-bottom: 10px;
+    color: var(--color-dark-100);
+  }
+
+  .logout_btn {
+    width: 50%;
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+}

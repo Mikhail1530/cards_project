@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+    padding: 36px;
+
+
+  .caption {
+    margin-bottom: 27px;
+    color: var(--color-light-100);
+    text-align: center;
+  }
+
+}

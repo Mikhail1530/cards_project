@@ -1,8 +1,11 @@
-import { Card } from "@/components/ui/card";
-
+import { Router } from '@/router.tsx'
+import { Provider } from 'react-redux'
+import { store } from '@/services/store.ts'
 
 export function App() {
-  return <div>
-    <Card  className={"someNmae"} title={"cardtitle"}>Text</Card>
-  </div>
+  return (
+    <Provider store={store}>
+      <Router></Router>
+    </Provider>
+  )
 }
