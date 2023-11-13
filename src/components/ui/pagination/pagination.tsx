@@ -51,7 +51,6 @@ export const Pagination = (props: PaginatorPropsType) => {
   const onPrevious = () => {
     handlePageChange(currentPage - 1)
   }
-
   let lastPage = paginationRange[paginationRange.length - 1]
 
   return (
@@ -94,7 +93,11 @@ export const Pagination = (props: PaginatorPropsType) => {
           <div className={classNames['arrowRight']} />
         </li>
         <li>
-          <Select onChangeOption={handleSetItemsPerPage} options={selectOptions} />
+          <Select
+            onChangeOption={handleSetItemsPerPage}
+            options={selectOptions}
+            itemsPerPage={itemsPerPage}
+          />
         </li>
       </ul>
     </>

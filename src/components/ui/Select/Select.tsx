@@ -11,6 +11,7 @@ export type SelectMenuProps = {
   options: string[]
   placeholder?: string
   title?: string
+  itemsPerPage: number
 } & SelectProps
 
 export const Select = ({
@@ -18,6 +19,7 @@ export const Select = ({
   options,
   placeholder = options[0],
   title,
+  itemsPerPage,
   ...rest
 }: SelectMenuProps) => {
   const [isOpened, setIsOpened] = useState<boolean>(false)
@@ -29,6 +31,7 @@ export const Select = ({
   const toggleIsOpened = () => {
     setIsOpened(!isOpened)
   }
+
   const mappedOptions = options.map((el, id) => (
     <RSelect.Item className={s.item} key={id} value={el}>
       <RSelect.ItemText>{el}</RSelect.ItemText>
@@ -41,7 +44,7 @@ export const Select = ({
       <div className={s.title}>{title}</div>
       <RSelect.Root onOpenChange={toggleIsOpened} onValueChange={onChangeCallback} {...rest}>
         <RSelect.Trigger className={s.trigger}>
-          <RSelect.Value placeholder={placeholder} />
+          <RSelect.Value placeholder={itemsPerPage} />
           <RSelect.Icon>
             <ArrowDownOutline className={isOpened ? s.iconRotated : s.icon} />
           </RSelect.Icon>

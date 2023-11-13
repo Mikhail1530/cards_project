@@ -13,7 +13,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const SelectStory: Story = {
+export const SelectMenu: Story = {
   args: {
     options: ['hello', 'goodbye', 'how are you?'],
     title: 'Select-box',
