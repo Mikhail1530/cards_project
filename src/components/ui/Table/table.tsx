@@ -49,21 +49,6 @@ const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
       table: clsx(className, s.table),
     }
 
-    // <table>
-    //   <thead>
-    //     <tr>
-    //       <th>Header cell 1</th>
-    //       <th>Header cell 2</th>
-    //     </tr>
-    //   </thead>
-    //   <tbody>
-    //     <tr>
-    //       <td>Data cell 1</td>
-    //       <td>Data cell 2</td>
-    //     </tr>
-    //   </tbody>
-    // </table>
-
     return <table className={classNames['table']} {...rest} ref={ref}></table>
   }
 )
