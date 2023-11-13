@@ -3,7 +3,7 @@ import Table, { TBody, TCell, THead, THeader, TRow } from '@/components/ui/Table
 import { Button } from '@/components/ui/Button'
 
 export const DecksTable = ({ currentTableData }: any) => {
-  const [createDeck, createDeckStatus] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
+  const [createDeck] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
 
   return (
     <>
