@@ -3,8 +3,8 @@ import {
   GetDeckByIdArgs,
   GetDecksArgs,
   GetDecksResponse,
-} from '@/services/decks/decks.types.ts'
-import { baseApi } from '@/services/base-api.ts'
+} from '@/services/decks/decks.types'
+import { baseApi } from '@/services/base-api'
 
 const decksService = baseApi.injectEndpoints({
   endpoints: builder => {

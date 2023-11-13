@@ -5,14 +5,15 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
-import { DecksTable } from '@/pages/decks-table/decks-table'
+import { DecksTable } from '@/components/decks-table/decks-table'
 import SignInPage from '@/pages/sign-in-page/sign-in-page'
 import { useAuthMeQuery } from '@/services/auth/auth.service'
+import DecksPage from '@/pages/decks-page/decks-page'
 
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <DecksTable />,
+    element: <DecksPage />,
   },
   {
     path: '/usersChart',

@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/Card'
 import { Typography } from '../../ui/Typography'
 import s from './LoginForm.module.scss'
 
-type FormValues = z.infer<typeof loginSchema>
+export type FormValues = z.infer<typeof loginSchema>
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import Checkbox from "@/components/ui/Сheckbox/Checkbox.tsx";
+import Checkbox from '@/components/ui/Сheckbox/Checkbox'
 
 const meta = {
   argTypes: {
@@ -15,29 +15,29 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    label: "Default",
-    className: "buttonClassName"
+    label: 'Default',
+    className: 'buttonClassName',
   },
 }
 
 export const Checked: Story = {
   args: {
-    label: "Checked",
+    label: 'Checked',
     checked: true,
   },
 }
 
 export const Unchecked: Story = {
   args: {
-    label: "Unchecked",
+    label: 'Unchecked',
     checked: false,
   },
 }
 
 export const Disabled: Story = {
   args: {
-    label: "Disabled",
+    label: 'Disabled',
     checked: true,
-    disabled: true
+    disabled: true,
   },
 }
