@@ -1,5 +1,5 @@
 import { useCreateDeckMutation } from '@/services/decks/decks.service'
-import Table, { TBody, TCell, THead, THeader, TRow } from '@/components/ui/Table/table'
+import { Table, TBody, TCell, THead, THeader, TRow } from '@/components/ui/Table/table'
 import { Button } from '@/components/ui/Button'
 import s from './decks-table.module.scss'
 import { Link } from 'react-router-dom'

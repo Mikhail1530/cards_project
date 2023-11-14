@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
-import { TextField } from '@/components/ui/TextField/TextField.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '@/components/ui/Typography'
 import s from './CreateNewPasswordForm.module.scss'
+import { ControlledTextField } from '@/components/ui'
 
 type FormValues = z.infer<typeof createNewPasswordSchema>
 
@@ -22,7 +22,6 @@ type CreateNewPasswordFormProps = {
 export const CreateNewPasswordForm = ({ onSubmit }: CreateNewPasswordFormProps) => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -38,10 +37,12 @@ export const CreateNewPasswordForm = ({ onSubmit }: CreateNewPasswordFormProps) 
             Create new password
           </Typography>
           <div className={s.form}>
-            <TextField
-              {...register('password')}
+            <ControlledTextField
+              control={control}
               errorMessage={errors.password?.message}
               label={'Password'}
+              type={'password'}
+              name={'password'}
             />
             <Typography className={s.instructions} as={'a'} variant={'body2'}>
               Create new password and we will send you further instructions to email

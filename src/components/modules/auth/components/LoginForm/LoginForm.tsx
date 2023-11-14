@@ -1,12 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
-import { TextField } from '@/components/ui/TextField/TextField'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '@/components/ui/Typography'
 import s from './LoginForm.module.scss'
-import { ControlledCheckbox } from '@/components/ui'
+import { ControlledCheckbox, ControlledTextField } from '@/components/ui'
 
 export type FormValues = z.infer<typeof loginSchema>
 
@@ -23,7 +22,7 @@ type LoginProps = {
 export const LoginForm = ({ onSubmit }: LoginProps) => {
   const {
     control,
-    register, // {/* Register contains ref. With useControl we replace register object.*/
+    //register,  {/* Register contains ref. With useControl we replace register object.*/
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -44,16 +43,18 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
             Sign in
           </Typography>
           <div className={s.form}>
-            <TextField
-              {...register('email')}
+            <ControlledTextField
+              control={control}
               errorMessage={errors.email?.message}
               label={'Email'}
+              name={'email'}
             />
-            <TextField
-              {...register('password')}
+            <ControlledTextField
+              control={control}
               errorMessage={errors.password?.message}
               label={'Password'}
               type={'password'}
+              name={'password'}
             />
             <ControlledCheckbox
               className={s.checkbox}

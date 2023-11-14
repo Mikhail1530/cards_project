@@ -47,6 +47,8 @@
     background-color: var(--color-accent-700);
   }
 
+  // Active should be under the hover and focus.
+
   &:disabled {
     background-color: var(--color-accent-900);
   }

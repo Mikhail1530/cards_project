@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
-import { TextField } from '@/components/ui/TextField/TextField.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '@/components/ui/Typography'
 import s from './ForgotPasswordForm.module.scss'
+import { ControlledTextField } from '@/components/ui'
 
 type FormValues = z.infer<typeof forgotPasswordSchema>
 
@@ -19,7 +19,7 @@ type ForgotPasswordFormProps = {
 
 export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -36,10 +36,11 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
             Forgot your password?
           </Typography>
           <div className={s.form}>
-            <TextField
-              {...register('email')}
+            <ControlledTextField
+              control={control}
               errorMessage={errors.email?.message}
               label={'Email'}
+              name={'email'}
             />
             <Typography as={'div'} className={s.instructions} variant={'body2'}>
               Enter your email address and we will send you further instructions

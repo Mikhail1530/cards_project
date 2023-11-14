@@ -2,14 +2,14 @@ import { Card, CardProps } from '@/components/ui/Card'
 import { Button, ControlledCheckbox, ControlledTextField, Typography } from '@/components/ui'
 import s from './PackTemplate.module.scss'
 import { Close } from '@/assets'
-import { useController, UseControllerProps, useForm } from 'react-hook-form'
+import { UseControllerProps, useForm } from 'react-hook-form'
 import { ElementType } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 type PackTemplate<T extends ElementType> = {
   header: string
-  name: string
+  packName: string
 } & UseControllerProps &
   Omit<CardProps<T>, 'value' | 'onChange' | 'ref'>
 
@@ -28,11 +28,11 @@ export const PackTemplate = <T extends ElementType>({ header, packName }: PackTe
     // formState: { errors },
   } = useForm<BodyValues>({
     resolver: zodResolver(packTemplateSchema),
-    defaultValues: { privatePack: false, packName: packName },
+    defaultValues: { packName: packName, privatePack: false },
   })
 
   const handleFormSubmit = (data: BodyValues) => {
-    console.log(data)
+    console.log(data, 'is data in PackTemplate handleSubmit')
   }
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -42,7 +42,7 @@ export const PackTemplate = <T extends ElementType>({ header, packName }: PackTe
           <Close />
         </div>
         <div className={s.body}>
-          <ControlledTextField control={control} name={'packName'}></ControlledTextField>
+          <ControlledTextField control={control} {...register} name={'packName'} />
           <ControlledCheckbox control={control} name={'privatePack'} />
         </div>
         <div className={s.footerBtns}>
