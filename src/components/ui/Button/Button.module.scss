@@ -100,7 +100,7 @@
 
 .link {
   color: var(--color-accent-500);
-  background-color: var(--color-tertiary-500);
+  background-color: transparent;
   border: 0;
 
   &:hover {
@@ -119,4 +119,8 @@
   &:disabled {
     color: var(--color-accent-900);
   }
+}
+
+.icon {
+  padding: 0
 }

@@ -10,7 +10,7 @@ import { clsx } from 'clsx'
 
 import s from './Button.module.scss'
 
-export type ButtonVariants = 'link' | 'primary' | 'secondary' | 'tertiary'
+export type ButtonVariants = 'link' | 'primary' | 'secondary' | 'tertiary' | 'icon'
 
 type PolymorphicRef<T extends ElementType> = ComponentPropsWithRef<T>['ref']
 
@@ -36,11 +36,14 @@ export const Button = forwardRef(
       ...rest
     } = props
 
-    const bClassName = clsx(s.button, s[variant], className, fullWidth && s.fullWidth)
+    const classNames = {
+      component: clsx(s.button, s[variant], className, fullWidth && s.fullWidth),
+      icon: clsx(s.icon, s[variant]),
+    }
 
     return (
-      <Component className={bClassName} ref={ref} {...rest}>
-        {icon && <span className={s.icon}>{icon}</span>}
+      <Component className={classNames.component} ref={ref} {...rest}>
+        {icon && <span className={classNames.icon}>{icon}</span>}
         {children}
       </Component>
     )

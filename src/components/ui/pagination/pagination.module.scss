@@ -20,11 +20,6 @@
 
     border-radius: 4px;
 
-    &.dots:hover {
-      cursor: default;
-      background-color: transparent;
-    }
-
     &:hover {
       cursor: pointer;
       background-color: var(--color-dark-500);
@@ -74,5 +69,20 @@
         background-color: transparent;
       }
     }
+  }
+
+  .dots {
+    display: flex;
+    align-self: center;
+  }
+
+  .dots:hover {
+    cursor: default;
+    background-color: transparent;
+  }
+
+  .numOfPages {
+    display: flex;
+    align-items: center;
   }
 }

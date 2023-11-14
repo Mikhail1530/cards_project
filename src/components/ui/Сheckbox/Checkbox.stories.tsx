@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import Checkbox from '@/components/ui/Сheckbox/Checkbox'
+import { Checkbox } from '@/components/ui/Сheckbox/Checkbox'
 
 const meta = {
   argTypes: {

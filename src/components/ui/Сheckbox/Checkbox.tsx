@@ -17,7 +17,7 @@ export type CheckboxProps = {
 
 //to extract default props from radix: ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
-const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps>(
+export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps>(
   (props: CheckboxProps, ref) => {
     const { label, className, disabled, ...rest } = props
     const classNames = {
@@ -51,5 +51,3 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
     )
   }
 )
-
-export default Checkbox

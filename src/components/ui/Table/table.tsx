@@ -43,7 +43,7 @@ export const TCell = forwardRef<HTMLTableCellElement, ComponentPropsWithoutRef<'
   }
 )
 
-const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
+export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
   ({ className, ...rest }, ref) => {
     const classNames = {
       table: clsx(className, s.table),
@@ -52,8 +52,6 @@ const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
     return <table className={classNames['table']} {...rest} ref={ref}></table>
   }
 )
-
-export default Table
 
 // The forwardRef function allows you to expose
 // the ref prop so that parent components can pass

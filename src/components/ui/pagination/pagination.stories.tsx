@@ -29,6 +29,7 @@ export const DefaultPagination: Story = {
         itemsPerPage={10}
         currentPage={currentPage}
         handleSetItemsPerPage={() => {}}
+        selectOptions={['10', '20', '30', '40', '50']}
       />
     )
   },
@@ -39,5 +40,6 @@ export const DefaultPagination: Story = {
     itemsPerPage: 10,
     siblingCount: 2,
     currentPage: 1,
+    selectOptions: ['10', '20', '30', '40', '50'],
   },
 }

@@ -5,7 +5,6 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
-import { DecksTable } from '@/components/decks-table/decks-table'
 import SignInPage from '@/pages/sign-in-page/sign-in-page'
 import { useAuthMeQuery } from '@/services/auth/auth.service'
 import DecksPage from '@/pages/decks-page/decks-page'
@@ -18,6 +17,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/usersChart',
     element: <div>hello</div>,
+  },
+  {
+    path: `/decks/:id/learn`,
+    element: <div>in deck</div>,
   },
 ]
 
@@ -58,7 +61,6 @@ function PrivateRoutes() {
   if (isLoading) {
     return null
   }
-  console.log('here')
   const isAuthenticated = !isError
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }

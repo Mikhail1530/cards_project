@@ -2,6 +2,7 @@ import { DOTS, usePagination } from './usePagination'
 import s from './pagination.module.scss'
 import { clsx } from 'clsx'
 import { Select } from '@/components/ui/Select'
+import { Typography } from '@/components/ui/Typography'
 
 export type PaginatorPropsType = {
   handlePageChange: (pageNumber: number) => void
@@ -67,7 +68,7 @@ export const Pagination = (props: PaginatorPropsType) => {
           // If the pageItem is a DOT, render the DOTS unicode character
           if (pageNumber === DOTS) {
             return (
-              <li key={idx} className={s.paginationItemDots}>
+              <li key={idx} className={s.dots}>
                 &#8230;
               </li>
             )
@@ -93,11 +94,15 @@ export const Pagination = (props: PaginatorPropsType) => {
           <div className={classNames['arrowRight']} />
         </li>
         <li>
-          <Select
-            onChangeOption={handleSetItemsPerPage}
-            options={selectOptions}
-            itemsPerPage={itemsPerPage}
-          />
+          <div className={s.numOfPages}>
+            <Typography>Show</Typography>
+            <Select
+              onChangeOption={handleSetItemsPerPage}
+              options={selectOptions}
+              itemsPerPage={itemsPerPage}
+            />
+            <Typography>per page</Typography>
+          </div>
         </li>
       </ul>
     </>

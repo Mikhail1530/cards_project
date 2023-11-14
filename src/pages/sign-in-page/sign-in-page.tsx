@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/auth/LoginForm'
+import { LoginForm } from '@/components/modules/auth'
 import s from './sign-in-page.module.scss'
 import { useLoginMutation } from '@/services/auth/auth.service'
 import { LoginArgs } from '@/services/auth/auth.types'

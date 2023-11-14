@@ -1,7 +1,7 @@
 import { ComponentProps, ElementType, ReactNode } from 'react'
 import s from '@/components/ui/Card/Card.module.scss'
 
-type CardProps<T extends ElementType> = {
+export type CardProps<T extends ElementType> = {
   as?: T
   icon?: ReactNode
   // title?: string
