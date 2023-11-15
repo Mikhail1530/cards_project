@@ -5,9 +5,9 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
-import SignInPage from '@/pages/sign-in-page/sign-in-page'
-import { useAuthMeQuery } from '@/services/auth/auth.service'
-import DecksPage from '@/pages/decks-page/decks-page'
+import { useAuthMeQuery } from '@/view/services/auth/auth.service'
+import { DecksPage, SignInPage } from '@/view/pages'
+import { DeckPage } from '@/view/pages/deck-page/DeckPage'
 
 const privateRoutes: RouteObject[] = [
   {
@@ -20,7 +20,7 @@ const privateRoutes: RouteObject[] = [
   },
   {
     path: `/decks/:id/learn`,
-    element: <div>in deck</div>,
+    element: <DeckPage />,
   },
 ]
 

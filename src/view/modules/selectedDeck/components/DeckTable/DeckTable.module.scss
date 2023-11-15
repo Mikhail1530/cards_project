@@ -1,0 +1,12 @@
+.iconsContainer {
+  display: flex;
+  width: 75px;
+
+  tr td:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border: none;
+  }
+
+}
