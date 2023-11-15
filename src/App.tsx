@@ -1,6 +1,6 @@
-import { Router } from '@/router.tsx'
+import { Router } from '@/router'
 import { Provider } from 'react-redux'
-import { store } from '@/services/store.ts'
+import { store } from '@/view/services/store'
 
 export function App() {
   return (
