@@ -3,6 +3,8 @@ import { Button } from '@/view/ui/Button'
 import s from './DeckTable.module.scss'
 import { Link } from 'react-router-dom'
 import { Bin, EditPencil, PlayInCircle } from '@/view/assets/icons'
+import { AddDeck } from '@/view/modules'
+import { Dialog } from '@/view/ui'
 
 export const DeckTable = ({ currentTableData }: any) => {
   return (
@@ -32,6 +34,9 @@ export const DeckTable = ({ currentTableData }: any) => {
                   <Button as={Link} to={`/decks/`} variant={'icon'}>
                     <EditPencil />
                   </Button>
+                  <Dialog>
+                    <AddDeck />
+                  </Dialog>
                   <Button as={Link} to={`/decks/`} variant={'icon'}>
                     <Bin />
                   </Button>

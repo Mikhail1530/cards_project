@@ -16,7 +16,7 @@ import { z } from 'zod'
 
 export type DeckOperationsWindowProps = {
   header: string
-  deckName: string
+  deckName: string | undefined
   onSubmit: (data: BodyValues) => void
   acceptBtnText: string
   inputLabel?: string

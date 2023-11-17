@@ -7,7 +7,7 @@ const meta = {
   argTypes: {
     title: { control: { type: 'text' } },
     variant: {
-      control: { type: 'radio' },
+      control: { type: 'Radio' },
       options: ['primary', 'secondary', 'tertiary', 'link'],
     },
   },
