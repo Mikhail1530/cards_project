@@ -2,7 +2,9 @@ import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table
 import { Button } from '@/view/ui/Button'
 import s from './decks-table.module.scss'
 import { Link } from 'react-router-dom'
-import { Bin, EditPencil, PlayInCircle } from '@/view/assets/icons'
+import { Bin, Close, EditPencil, PlayInCircle } from '@/view/assets/icons'
+import { Dialog } from '@/view/ui'
+import { AddDeck } from '@/view/modules'
 
 export const DecksTable = ({ currentTableData }: any) => {
   return (
@@ -29,9 +31,23 @@ export const DecksTable = ({ currentTableData }: any) => {
                   <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
                     <PlayInCircle />
                   </Button>
-                  <Button as={Link} to={`/decks/`} variant={'icon'}>
+                  <Button
+                    onClick={() => console.log(deck.id)}
+                    as={Link}
+                    // to={`/decks/`}
+                    variant={'icon'}
+                  >
                     <EditPencil />
                   </Button>
+                  <Dialog
+                    acceptBtnText={'sometext'}
+                    handleFormSubmit={() => {}}
+                    title={''}
+                    icon={<Close />}
+                    triggerBtnText={'sas'}
+                  >
+                    <AddDeck deckName={''} onSubmit={() => {}} />
+                  </Dialog>
                   <Button as={Link} to={`/decks/`} variant={'icon'}>
                     <Bin />
                   </Button>

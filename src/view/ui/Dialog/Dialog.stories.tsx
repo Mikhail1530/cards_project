@@ -15,6 +15,8 @@ type Story = StoryObj<typeof meta>
 
 export const Dialog: Story = {
   args: {
-    title: 'Add new card',
+    title: 'Add heading',
+    acceptBtnText: 'Accept text',
+    children: <div>The body of Dialog </div>,
   },
 }

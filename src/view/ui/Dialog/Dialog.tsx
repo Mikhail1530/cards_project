@@ -1,77 +1,96 @@
 import * as RDialog from '@radix-ui/react-dialog'
-import { Cross2Icon } from '@radix-ui/react-icons'
-import './Dialog.scss'
+import s from './Dialog.module.scss'
 import { Button, Typography } from '@/view/ui'
 import { Close } from '@/view/assets'
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, HTMLAttributes, ReactNode, useState } from 'react'
 
-// export const Dialog = ({ children }: any) => (
-//   <RDialog.Root>
-//     <RDialog.Trigger asChild>
-//       <Button fullWidth={true}>Edit deck</Button>
-//     </RDialog.Trigger>
-//     <RDialog.Portal>
-//       <RDialog.Overlay className="DialogOverlay" />
-//       <RDialog.Content className="DialogContent">
-//         <RDialog.Title className="DialogTitle">
-//           <Typography as={'h2'} variant={'h2'}>
-//             Edit profile
-//           </Typography>
-//         </RDialog.Title>
-//         <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
-//           <RDialog.Close asChild>
-//             <button className="Button green">Save changes</button>
-//           </RDialog.Close>
-//         </div>
-//         <RDialog.Close asChild>
-//           <button className="IconButton" aria-label="Close">
-//             <Close />
-//           </button>
-//         </RDialog.Close>
-//       </RDialog.Content>
-//     </RDialog.Portal>
-//   </RDialog.Root>
-// )
-
-export const Dialog = ({ title }: any) => (
-  <RDialog.Root>
-    <DialogTrigger>
-      <Button>Dialog trigger</Button>
-    </DialogTrigger>
-    <DialogContent title={title} onOpenChange={() => {}} open>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button fullWidth={false} variant={'secondary'}>
-          Close
+type DialogProps = {
+  handleFormSubmit: () => void
+  title: string
+  icon?: ReactNode
+  acceptBtnText: string
+  children: ReactNode
+  triggerBtnText: string
+} & ComponentPropsWithoutRef<typeof RDialog.Dialog> &
+  HTMLAttributes<HTMLDivElement>
+/**
+ * This dialog component is used to create your own module window. Includes Opening Trigger as button,
+ * two buttons and [`DialogContent`](#dialogcontent)  component as body part
+ * * How to use the `Dialog` component:
+ *
+ * <Dialog title="Example Dialog" acceptBtnText="OK">
+ *
+ *  This is the content of the dialog.
+ *
+ * </DialogContent>
+ */
+export const Dialog = ({
+  onOpenChange,
+  triggerBtnText,
+  icon,
+  children,
+  ...props
+}: DialogProps): ReactNode => {
+  const [open, setOpen] = useState(false)
+  return (
+    <RDialog.Root open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button fullWidth={false} variant={icon && 'icon'}>
+          {icon ? icon : triggerBtnText}
         </Button>
-        <Button fullWidth={false}>Add new pack</Button>
-      </div>
-    </DialogContent>
-  </RDialog.Root>
-)
+      </DialogTrigger>
+      <DialogContent setOpen={setOpen} {...props}>
+        {children}
+      </DialogContent>
+    </RDialog.Root>
+  )
+}
 
 export type DialogContentProps = {
   children: ReactNode
-  onOpenChange: (open: boolean) => void
-  open: boolean
+  // onOpenChange: (open: boolean) => void
+  // open: boolean
+  handleFormSubmit: () => void
+  acceptBtnText: string
   title?: string
+  setOpen: (open: boolean) => void
 } & Omit<ComponentPropsWithoutRef<typeof RDialog.Dialog>, 'onOpenChange' | 'open'>
-
-const DialogContent = forwardRef(
-  ({ children, title, ...props }: DialogContentProps, forwardedRef) => (
+/**
+ *  @component
+ *  `DialogContent` component used as a building block for the Dialog module window.
+ *  By default, is set to have two buttons to close / save. Crossed button in the corner and optional Title.
+ *  Whole additional logic passed trough children via Dialog component.
+ *  @param {string} [title] - Optional title for the dialog header you pass through Dialog.
+ *  @param {ReactNode} children - The content of the Dialog you pass through Dialog.
+ *  @example
+ */
+const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
+  (
+    { title, handleFormSubmit, acceptBtnText, setOpen, children, ...props }: DialogContentProps,
+    forwardedRef
+  ) => (
     <RDialog.Portal>
-      <RDialog.Overlay className="DialogOverlay" />
-      <RDialog.Content {...props} ref={forwardedRef} className="DialogContent">
-        <div className={'header'}>
-          <RDialog.Title className="DialogTitle">
-            <Typography as={'h2'} variant={'h2'}>
-              {title}
-            </Typography>
+      <RDialog.Overlay className={s.dialogOverlay} />
+      <RDialog.Content {...props} ref={forwardedRef} className={s.dialogContent}>
+        <div className={s.header}>
+          <RDialog.Title className={s.dialogTitle}>
+            <Typography variant={'h2'}>{title}</Typography>
             <RDialog.Close aria-label="Close">
               <Close />
             </RDialog.Close>
           </RDialog.Title>
         </div>
-        <div className={'body'}>{children}</div>
+        <div className={s.body}>{children}</div>
+        <div className={s.footer}>
+          <div className={s.dialogFooter}>
+            <Button onClick={() => setOpen(!open)} fullWidth={false} variant={'secondary'}>
+              Close
+            </Button>
+            <Button onClick={handleFormSubmit} fullWidth={false}>
+              {acceptBtnText}
+            </Button>
+          </div>
+        </div>
       </RDialog.Content>
     </RDialog.Portal>
   )

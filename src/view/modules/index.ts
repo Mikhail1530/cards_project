@@ -1,2 +1,2 @@
-export { AddDeck } from '@/view/modules/pack/add-deck/AddDeck'
-export { Deck } from './selectedDeck/components/Deck/Deck'
+export { AddDeck } from '@/view/modules/deck/add-deck/AddDeck'
+export { SelectedDeck } from '@/view/modules/selectedDeck/components/SelectedDeck/SelectedDeck'

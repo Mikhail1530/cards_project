@@ -48,9 +48,6 @@
 
   &:active {
     background-color: var(--color-accent-700);
-
-    //border: 2px solid var(--color-info-700);
-    //outline: 2px solid var(--color-info-700);
   }
 
   // Active should be under the hover and focus.
@@ -61,24 +58,23 @@
 }
 
 .secondary {
-  background-color: var(--color-dark-500);
+  background-color: var(--color-dark-300);
   border-radius: 4px;
 
   &:hover {
-    background-color: var(--color-dark-300);
+    background-color: var(--color-dark-100);
   }
 
   &:focus {
-    background-color: var(--color-dark-500);
-    border: 2px solid var(--color-info-700);
+    background-color: var(--color-dark-300);
   }
 
   &:active {
-    background-color: var(--color-dark-700);
+    background-color: var(--color-dark-500);
   }
 
   &:disabled {
-    background-color: var(--color-dark-900);
+    background-color: var(--color-dark-300);
   }
 }
 
@@ -93,7 +89,7 @@
   }
 
   &:focus {
-    border: 2px solid var(--color-info-700);
+    //border: 2px solid var(--color-info-700);
   }
 
   &:active {

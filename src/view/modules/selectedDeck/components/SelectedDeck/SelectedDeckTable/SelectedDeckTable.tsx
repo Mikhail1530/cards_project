@@ -1,12 +1,10 @@
 import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table'
 import { Button } from '@/view/ui/Button'
-import s from './DeckTable.module.scss'
+import s from './SelectedDeckTable.module.scss'
 import { Link } from 'react-router-dom'
-import { Bin, EditPencil, PlayInCircle } from '@/view/assets/icons'
-import { AddDeck } from '@/view/modules'
-import { Dialog } from '@/view/ui'
+import { EditPencil, PlayInCircle } from '@/view/assets/icons'
 
-export const DeckTable = ({ currentTableData }: any) => {
+export const SelectedDeckTable = ({ currentTableData }: any) => {
   return (
     <Table>
       <THead>
@@ -33,12 +31,6 @@ export const DeckTable = ({ currentTableData }: any) => {
                   </Button>
                   <Button as={Link} to={`/decks/`} variant={'icon'}>
                     <EditPencil />
-                  </Button>
-                  <Dialog>
-                    <AddDeck />
-                  </Dialog>
-                  <Button as={Link} to={`/decks/`} variant={'icon'}>
-                    <Bin />
                   </Button>
                   {/*{deck.author.id === currentUserId && (*/}
                   {/*  <>*/}
