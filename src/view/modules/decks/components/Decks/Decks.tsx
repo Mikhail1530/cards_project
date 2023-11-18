@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import { DecksTable } from '@/view/modules/decks/components/decks-table/decks-table'
 import { Pagination } from '@/view/components/pagination/pagination'
-import { useGetDecksQuery } from '@/view/services/decks/decks.service'
+import { useCreateDeckMutation, useGetDecksQuery } from '@/view/services/decks/decks.service'
 import { Typography } from '@/view/ui/Typography'
-import { Button } from '@/view/ui'
 import { AddDeck } from '@/view/modules'
 
 export const Decks = () => {
-  const [modalVisible, setModalVisible] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
 
+  const [createDeck] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
   const {
     data: decks,
     isLoading,
@@ -41,11 +40,6 @@ export const Decks = () => {
     }
   }
 
-  const handleModalWindowVisibility = () => {
-    console.log('handleModal')
-    setModalVisible(!modalVisible)
-  }
-
   const handleSetItemsPerPage = (numOfItemsPerPage: number) => {
     setItemsPerPage(numOfItemsPerPage)
   }
@@ -56,12 +50,11 @@ export const Decks = () => {
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
+  // const selectedDeckToEdit = decks.items.find(deck => deck.id === id)
+
   return (
     <>
-      <Button fullWidth={false} onClick={handleModalWindowVisibility}>
-        create new deck
-      </Button>
-      {modalVisible ? <AddDeck deckName={''} /> : null}
+      <AddDeck deckName={'addDeck'} onSubmit={createDeck} />
       <DecksTable currentTableData={decks.items} />
       <Pagination
         currentPage={currentPage}

@@ -1,0 +1,48 @@
+.dialogOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: hsl(207deg 85% 3% / 80%);
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 90vw;
+  max-width: 450px;
+  max-height: 85vh;
+  padding: 25px;
+
+  background-color: var(--color-dark-500);
+  border-radius: 6px;
+  box-shadow: hsl(206deg 22% 7% / 35%) 0 10px 38px -10px, hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
+
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dialogContent:focus {
+  outline: none;
+}
+
+.dialogTitle {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0;
+
+  font-size: 17px;
+  font-weight: 500;
+  color: red;
+}
+
+.dialogFooter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.body {
+  margin: 0 0 20px;
+}

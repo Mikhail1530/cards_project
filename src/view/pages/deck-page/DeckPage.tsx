@@ -1,5 +1,5 @@
-import { Deck } from '@/view/modules'
+import { SelectedDeck } from '@/view/modules'
 
 export const DeckPage = () => {
-  return <Deck />
+  return <SelectedDeck />
 }

@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/view/services/decks/decks.service'
 import { Pagination, Typography } from '@/view/ui'
 import { useMatch } from 'react-router-dom'
-import { DeckTable } from '@/view/modules/selectedDeck/components/DeckTable/DeckTable'
+import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
 
-export const Deck = () => {
+export const SelectedDeck = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const match = useMatch('/decks/:id/learn')
@@ -20,7 +20,7 @@ export const Deck = () => {
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
   })
-  console.log(match, 'match in Deck')
+  console.log(match, 'match in SelectedDeck')
 
   if (!cards) {
     return <div>No decks available</div>
@@ -56,7 +56,11 @@ export const Deck = () => {
   //clp00g3zp1kr2vo2qrgalz2n7
   return (
     <>
-      {cards.items.length < 1 ? <div>No cards</div> : <DeckTable currentTableData={cards?.items} />}
+      {cards.items.length < 1 ? (
+        <div>No cards</div>
+      ) : (
+        <SelectedDeckTable currentTableData={cards?.items} />
+      )}
       <Pagination
         currentPage={currentPage}
         totalCount={cards.pagination.totalItems}
