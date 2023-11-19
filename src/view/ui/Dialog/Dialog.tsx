@@ -11,6 +11,8 @@ type DialogProps = {
   acceptBtnText: string
   children: ReactNode
   triggerBtnText: string
+  open: boolean
+  onClose: () => void
 } & ComponentPropsWithoutRef<typeof RDialog.Dialog> &
   HTMLAttributes<HTMLDivElement>
 /**
@@ -25,21 +27,23 @@ type DialogProps = {
  * </DialogContent>
  */
 export const Dialog = ({
+  open,
   onOpenChange,
   triggerBtnText,
   icon,
+  onClose,
   children,
   ...props
 }: DialogProps): ReactNode => {
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   return (
-    <RDialog.Root open={open} onOpenChange={setOpen}>
+    <RDialog.Root open={open} onOpenChange={onClose}>
       <DialogTrigger asChild>
         <Button fullWidth={false} variant={icon && 'icon'}>
           {icon ? icon : triggerBtnText}
         </Button>
       </DialogTrigger>
-      <DialogContent setOpen={setOpen} {...props}>
+      <DialogContent setOpen={onClose} {...props}>
         {children}
       </DialogContent>
     </RDialog.Root>
@@ -48,11 +52,10 @@ export const Dialog = ({
 
 export type DialogContentProps = {
   children: ReactNode
-  // onOpenChange: (open: boolean) => void
-  // open: boolean
   handleFormSubmit: () => void
   acceptBtnText: string
   title?: string
+  // onOpenChange: (open: boolean) => void
   setOpen: (open: boolean) => void
 } & Omit<ComponentPropsWithoutRef<typeof RDialog.Dialog>, 'onOpenChange' | 'open'>
 /**
@@ -60,6 +63,7 @@ export type DialogContentProps = {
  *  `DialogContent` component used as a building block for the Dialog module window.
  *  By default, is set to have two buttons to close / save. Crossed button in the corner and optional Title.
  *  Whole additional logic passed trough children via Dialog component.
+ *  If currentDeck in [`Decks`](#dialogcontent) is not empty open show modal. Onclose set data to null
  *  @param {string} [title] - Optional title for the dialog header you pass through Dialog.
  *  @param {ReactNode} children - The content of the Dialog you pass through Dialog.
  *  @example

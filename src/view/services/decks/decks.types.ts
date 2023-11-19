@@ -49,6 +49,38 @@ export type GetDeckByIdResponse = {
   updated: string
   cardsCount: number
 }
+export type UpdateDeckResponseType = {
+  id: string
+  userId: string
+  name: string
+  isPrivate: boolean
+  shots: number
+  cover?: any
+  rating: number
+  isDeleted?: any
+  isBlocked?: any
+  created: string
+  updated: string
+  cardsCount: number
+  author: { id: string; name: string }
+}
+
+export type DeleteDeckResponseType = {
+  id: string
+  userId: string
+  name: string
+  isPrivate: boolean
+  shots: number
+  cover: string
+  rating: number
+  created: string
+  updated: string
+  cardsCount: number
+}
+
+export type DeleteDeckArgs = {
+  id: string | undefined
+}
 
 export type GetCardsByDeckIdArgs = {
   id: string | undefined
@@ -63,6 +95,13 @@ export type GetDeckByIdArgs = {
 export type CreateDeckArgs = {
   name: string
   cover?: string
+  isPrivate?: boolean
+}
+
+export type UpdateDeckArgs = {
+  id: string
+  // cover?: string
+  name?: string
   isPrivate?: boolean
 }
 
