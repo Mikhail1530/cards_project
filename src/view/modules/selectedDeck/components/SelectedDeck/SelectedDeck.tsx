@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/view/services/decks/decks.service'
-import { Pagination, Typography } from '@/view/ui'
+import {
+  useCreateDeckMutation,
+  useGetCardsInDeckQuery,
+  useGetDeckByIdQuery,
+} from '@/view/services/decks/decks.service'
+import { Button, Card, Pagination, Typography } from '@/view/ui'
 import { useMatch } from 'react-router-dom'
 import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
+import { AddDeck } from '@/view/modules'
 
 export const SelectedDeck = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -20,11 +25,18 @@ export const SelectedDeck = () => {
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
   })
-  console.log(match, 'match in SelectedDeck')
 
-  if (!cards) {
-    return <div>No decks available</div>
+  const showNoCards = () => {
+    return (
+      <Card style={{ width: 420, height: 420 }}>
+        <div>
+          <Typography>No decks available</Typography>
+          <Button onSubmit={() => {}}>Add new card unfinished</Button>
+        </div>
+      </Card>
+    )
   }
+
   if (isLoading || isFetching) {
     return <div>loading...</div>
   }
@@ -51,13 +63,15 @@ export const SelectedDeck = () => {
   }
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
-  console.log(selectedDeck, ' in selected deck')
 
-  //clp00g3zp1kr2vo2qrgalz2n7
+  if (!cards) {
+    return null // FIXME ask how to handle this properly
+  }
+
   return (
     <>
       {cards.items.length < 1 ? (
-        <div>No cards</div>
+        showNoCards()
       ) : (
         <SelectedDeckTable currentTableData={cards?.items} />
       )}

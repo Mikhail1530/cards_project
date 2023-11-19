@@ -2,11 +2,19 @@ import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table
 import { Button } from '@/view/ui/Button'
 import s from './decks-table.module.scss'
 import { Link } from 'react-router-dom'
-import { Bin, Close, EditPencil, PlayInCircle } from '@/view/assets/icons'
-import { Dialog } from '@/view/ui'
-import { AddDeck } from '@/view/modules'
+import { Bin, EditPencil, PlayInCircle } from '@/view/assets/icons'
+import { GetDecksResponseItems } from '@/view/services/decks/decks.types'
+import {
+  CurrentDeckOptions,
+  SetCurrentDeckUseStateType,
+} from '@/view/modules/selectedDeck/types/types.'
 
-export const DecksTable = ({ currentTableData }: any) => {
+type DecksTable = {
+  currentTableData: GetDecksResponseItems[]
+  setCurrentDeck: (obj: SetCurrentDeckUseStateType) => void
+}
+
+export const DecksTable = ({ currentTableData, setCurrentDeck }: DecksTable) => {
   return (
     <Table>
       <THead>
@@ -20,6 +28,9 @@ export const DecksTable = ({ currentTableData }: any) => {
       </THead>
       <TBody>
         {currentTableData.map((deck: any) => {
+          const onClick = (key: CurrentDeckOptions) => {
+            setCurrentDeck({ key, val: deck })
+          }
           return (
             <TRow key={deck.id}>
               <TCell>{deck?.name}</TCell>
@@ -31,36 +42,12 @@ export const DecksTable = ({ currentTableData }: any) => {
                   <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
                     <PlayInCircle />
                   </Button>
-                  <Button
-                    onClick={() => console.log(deck.id)}
-                    as={Link}
-                    // to={`/decks/`}
-                    variant={'icon'}
-                  >
+                  <Button onClick={() => onClick('edit')} variant={'icon'}>
                     <EditPencil />
                   </Button>
-                  <Dialog
-                    acceptBtnText={'sometext'}
-                    handleFormSubmit={() => {}}
-                    title={''}
-                    icon={<Close />}
-                    triggerBtnText={'sas'}
-                  >
-                    <AddDeck deckName={''} onSubmit={() => {}} />
-                  </Dialog>
-                  <Button as={Link} to={`/decks/`} variant={'icon'}>
+                  <Button onClick={() => onClick('delete')} variant={'icon'}>
                     <Bin />
                   </Button>
-                  {/*{deck.author.id === currentUserId && (*/}
-                  {/*  <>*/}
-                  {/*    <Button onClick={handleEditClick(deck.id)} variant={'icon'}>*/}
-                  {/*      <Edit2Outline />*/}
-                  {/*    </Button>*/}
-                  {/*    <Button onClick={handleDeleteClick(deck.id)} variant={'icon'}>*/}
-                  {/*      <TrashOutline />*/}
-                  {/*    </Button>*/}
-                  {/*  </>*/}
-                  {/*)}*/}
                 </div>
               </TCell>
             </TRow>

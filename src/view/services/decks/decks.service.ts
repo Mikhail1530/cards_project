@@ -1,11 +1,15 @@
 import {
   CreateDeckArgs,
+  DeleteDeckArgs,
+  DeleteDeckResponseType,
   GetCardsByDeckIdArgs,
   GetDeckByIdArgs,
   GetDeckByIdResponse,
   GetDecksArgs,
   GetDecksResponse,
   RetrieveCardInDeckResponseType,
+  UpdateDeckArgs,
+  UpdateDeckResponseType,
 } from '@/view/services/decks/decks.types'
 import { baseApi } from '@/view/services/base-api'
 
@@ -47,6 +51,26 @@ const decksService = baseApi.injectEndpoints({
         },
         invalidatesTags: ['Decks'],
       }),
+      updateDeck: builder.mutation<UpdateDeckResponseType, UpdateDeckArgs>({
+        query: ({ id, name, isPrivate }) => {
+          return {
+            url: `v1/decks/${id}`,
+            method: 'PATCH',
+            body: { name, isPrivate },
+          }
+        },
+        invalidatesTags: ['Decks'],
+      }),
+      deleteDeck: builder.mutation<DeleteDeckResponseType, DeleteDeckArgs>({
+        query: ({ id }) => {
+          debugger
+          return {
+            url: `v1/decks/${id}`,
+            method: 'DELETE',
+          }
+        },
+        invalidatesTags: ['Decks'],
+      }),
     }
   },
 })
@@ -54,6 +78,8 @@ const decksService = baseApi.injectEndpoints({
 export const {
   useGetDecksQuery,
   useGetDeckByIdQuery,
-  useCreateDeckMutation,
   useGetCardsInDeckQuery,
+  useCreateDeckMutation,
+  useUpdateDeckMutation,
+  useDeleteDeckMutation,
 } = decksService // hooks that createApi function returns
