@@ -11,8 +11,8 @@ type DialogProps = {
   acceptBtnText: string
   children: ReactNode
   triggerBtnText: string
-  open: boolean
-  onClose: () => void
+  open?: boolean
+  onClose?: () => void
 } & ComponentPropsWithoutRef<typeof RDialog.Dialog> &
   HTMLAttributes<HTMLDivElement>
 /**

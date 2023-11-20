@@ -7,7 +7,7 @@ import { GetDecksResponseItems } from '@/view/services/decks/decks.types'
 import {
   CurrentDeckOptions,
   SetCurrentDeckUseStateType,
-} from '@/view/modules/selectedDeck/types/types.'
+} from '@/view/modules/deck/components/selectedDeck/types/types.'
 
 type DecksTable = {
   currentTableData: GetDecksResponseItems[]

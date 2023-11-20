@@ -9,10 +9,9 @@ import {
 } from '@/view/services/decks/decks.service'
 import { Typography } from '@/view/ui/Typography'
 import { AddDeck } from '@/view/modules'
-import { GetDecksResponseItems } from '@/view/services/decks/decks.types'
-import { EditDeck } from '@/view/modules/deck/edit-deck/EditDeck'
-import { SetCurrentDeckUseStateType } from '@/view/modules/selectedDeck/types/types.'
-import { DeleteDeck } from '@/view/modules/deck/delete-deck/DeleteDeck.'
+import { EditDeck } from '@/view/modules/decks/components/forms/edit-deck-form/EditDeckForm'
+import { SetCurrentDeckUseStateType } from '@/view/modules/deck/components/selectedDeck/types/types.'
+import { DeleteDeck } from '@/view/modules/decks/components/forms/delete-deck-form/DeleteDeckForm'
 
 /** Show modals when currentDeck is selected (not empty)*/
 
@@ -21,9 +20,8 @@ export const Decks = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentDeck, setCurrentDeck] = useState<SetCurrentDeckUseStateType>()
 
-  const [handleDeckEdit] = useUpdateDeckMutation({ id: currentDeck?.val.id })
-  const [deleteDeck, response] = useDeleteDeckMutation({ id: currentDeck?.val.id })
-  console.log(response, 'response after edit')
+  const [handleDeckEdit] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation() // in post,delete,patch we do not provide args since we retrieve a function which accepts all the params
   const [createDeck] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
   const {
     data: decks,
@@ -65,11 +63,6 @@ export const Decks = () => {
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
-  // const selectedDeckToEdit = decks.items.find(deck => deck.id === id)
-
-  // const handleEdit = () => {}
-  //handleEdit={} handleDelete={}
-  console.log(currentDeck, 'currentDEck')
   return (
     <>
       <AddDeck deckName={'addDeck'} onSubmit={createDeck} inputLabel={'Deck name'} />

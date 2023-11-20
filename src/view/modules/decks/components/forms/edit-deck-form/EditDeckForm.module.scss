@@ -1,0 +1,27 @@
+
+.dialog {
+}
+
+.body {
+  .bodyItem {
+    position: relative; // FIXME: Problem with error messages position
+    margin-bottom: 24px;
+  }
+}
+
+
+.footerBtns {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 24px 36px;
+}
+
+hr {
+  width: 100%;
+  margin:  12px 0 24px -25px;
+  padding: 0;
+
+  border: none;
+  border-top: 1px solid var(--color-dark-300); // makes border hr tinier than regular border 1px
+
+}
