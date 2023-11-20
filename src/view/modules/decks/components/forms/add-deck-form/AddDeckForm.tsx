@@ -2,63 +2,54 @@ import { ControlledCheckbox, ControlledTextField, Dialog } from '@/view/ui'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import s from './EditDeck.module.scss'
+import s from './AddDeckForm.module.scss'
 import { ReactNode } from 'react'
 
-export type EditDeckProps = {
+export type AddDeckProps = {
   deckName: string | undefined
-  onSubmit: (data: EditDeckFormValues) => void
+  onSubmit: (data: AddDeckFormValues) => void
   inputLabel?: string
   checkboxLabel?: string
   icon?: ReactNode
-  open: boolean
-  onClose: () => void
-  id: string
 }
 
-type EditDeckFormValues = z.infer<typeof editDeck>
+type AddDeckFormValues = z.infer<typeof addDeckForm>
 
-const editDeck = z.object({
+const addDeckForm = z.object({
   name: z.string().min(3, 'Too short deck name').max(25),
   isPrivate: z.boolean().optional(),
-  id: z.string(),
 })
 
-export const EditDeck = ({
-  open,
-  id,
+export const AddDeck = ({
   icon,
   deckName,
   onSubmit,
-  onClose,
-  inputLabel = 'Edit',
+  inputLabel = 'SelectedDeck name',
   checkboxLabel = 'Private deck',
-}: EditDeckProps) => {
+}: AddDeckProps) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<EditDeckFormValues>({
-    resolver: zodResolver(editDeck),
-    defaultValues: { name: deckName, isPrivate: false, id: id },
+  } = useForm<AddDeckFormValues>({
+    resolver: zodResolver(addDeckForm),
+    defaultValues: { name: deckName, isPrivate: false },
   })
 
-  const handleFormSubmit = handleSubmit((data: EditDeckFormValues) => {
+  const handleFormSubmit = handleSubmit((data: AddDeckFormValues) => {
     onSubmit(data)
-    onClose()
-    console.log(data, 'is data in EditDeck handleSubmit')
+
+    console.log(data, 'is data in DeckOperationsWindow handleSubmit')
   })
 
   return (
     <Dialog
       className={s.dialog}
-      title={'Edit Deck'}
-      acceptBtnText={'Save changes'}
+      title={'Add New Deck'}
+      acceptBtnText={'Add deck'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Edit deck'}
-      open={open}
+      triggerBtnText={'Add new deck'}
       icon={icon}
-      onClose={onClose}
     >
       <div className={s.invisible} />
       <hr /> {/*FIXME: ask support*/}

@@ -1,41 +1,43 @@
 import { useState } from 'react'
-import {
-  useCreateDeckMutation,
-  useGetCardsInDeckQuery,
-  useGetDeckByIdQuery,
-} from '@/view/services/decks/decks.service'
-import { Button, Card, Pagination, Typography } from '@/view/ui'
-import { useMatch } from 'react-router-dom'
-import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
-import { AddDeck } from '@/view/modules'
+import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/view/services/decks/decks.service'
+import { Pagination, Typography } from '@/view/ui'
+import { useMatch, useNavigate } from 'react-router-dom'
+import { SelectedDeckTable } from '@/view/modules/deck/components/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
+import { showNoCards } from '@/view/modules/deck/helpers/showNoCards/showNoCards'
+import { useCreateCardMutation } from '@/view/services/cards/cards.service'
+
+type AddNewCardFormDataType = {
+  id: string
+  questionImg?: string
+  question: string
+  answer: string
+}
 
 export const SelectedDeck = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
+  const navigate = useNavigate()
   const match = useMatch('/decks/:id/learn')
+  console.log(match?.params.id)
+  // const {
+  //   data: selectedDeck,
+  //   isLoading,
+  //   isFetching,
+  //   error,
+  // } = useGetDeckByIdQuery({ id: match?.params.id })
+  // console.log(selectedDeck, 'selectedDeck')
   const {
-    data: selectedDeck,
+    data: cards,
     isLoading,
     isFetching,
     error,
-  } = useGetDeckByIdQuery({ id: match?.params.id })
-  // const { data: decks } = useGetDecksQuery({ currentPage: currentPage, itemsPerPage: itemsPerPage })
-  const { data: cards } = useGetCardsInDeckQuery({
+  } = useGetCardsInDeckQuery({
     id: match?.params.id,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
   })
-
-  const showNoCards = () => {
-    return (
-      <Card style={{ width: 420, height: 420 }}>
-        <div>
-          <Typography>No decks available</Typography>
-          <Button onSubmit={() => {}}>Add new card unfinished</Button>
-        </div>
-      </Card>
-    )
-  }
+  const [createNewCard, response] = useCreateCardMutation()
+  console.log(response, 'createnewCard response')
 
   if (isLoading || isFetching) {
     return <div>loading...</div>
@@ -67,11 +69,11 @@ export const SelectedDeck = () => {
   if (!cards) {
     return null // FIXME ask how to handle this properly
   }
-
+  //selectedDeck?.name
   return (
     <>
       {cards.items.length < 1 ? (
-        showNoCards()
+        showNoCards(navigate, createNewCard, 'hardcodedSelectedDEckName', match?.params.id)
       ) : (
         <SelectedDeckTable currentTableData={cards?.items} />
       )}
@@ -85,5 +87,6 @@ export const SelectedDeck = () => {
         selectOptions={selectOptionsOfDecksToDisplay}
       />
     </>
+    //AddCardForm
   )
 }

@@ -1,5 +1,5 @@
 type ArrowDownOutlineProps = {
-  className: string
+  className?: string
 }
 
 export const ArrowDownOutline = ({ className, ...rest }: ArrowDownOutlineProps) => (

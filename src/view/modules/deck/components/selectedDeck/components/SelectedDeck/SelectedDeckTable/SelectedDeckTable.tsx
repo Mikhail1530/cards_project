@@ -32,16 +32,6 @@ export const SelectedDeckTable = ({ currentTableData }: any) => {
                   <Button as={Link} to={`/decks/`} variant={'icon'}>
                     <EditPencil />
                   </Button>
-                  {/*{deck.author.id === currentUserId && (*/}
-                  {/*  <>*/}
-                  {/*    <Button onClick={handleEditClick(deck.id)} variant={'icon'}>*/}
-                  {/*      <Edit2Outline />*/}
-                  {/*    </Button>*/}
-                  {/*    <Button onClick={handleDeleteClick(deck.id)} variant={'icon'}>*/}
-                  {/*      <TrashOutline />*/}
-                  {/*    </Button>*/}
-                  {/*  </>*/}
-                  {/*)}*/}
                 </div>
               </TCell>
             </TRow>
