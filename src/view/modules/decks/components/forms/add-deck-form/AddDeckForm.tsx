@@ -16,7 +16,7 @@ export type AddDeckProps = {
 type AddDeckFormValues = z.infer<typeof addDeckForm>
 
 const addDeckForm = z.object({
-  name: z.string().min(3, 'Too short deck name').max(25),
+  name: z.string().min(3, 'Too short selectedDeck name').max(25),
   isPrivate: z.boolean().optional(),
 })
 
@@ -25,7 +25,7 @@ export const AddDeck = ({
   deckName,
   onSubmit,
   inputLabel = 'SelectedDeck name',
-  checkboxLabel = 'Private deck',
+  checkboxLabel = 'Private selectedDeck',
 }: AddDeckProps) => {
   const {
     control,
@@ -46,13 +46,12 @@ export const AddDeck = ({
     <Dialog
       className={s.dialog}
       title={'Add New Deck'}
-      acceptBtnText={'Add deck'}
+      acceptBtnText={'Add selectedDeck'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Add new deck'}
+      triggerBtnText={'Add new selectedDeck'}
       icon={icon}
     >
       <div className={s.invisible} />
-      <hr /> {/*FIXME: ask support*/}
       <form>
         <div className={s.body}>
           <ControlledTextField

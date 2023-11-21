@@ -51,8 +51,6 @@ export const AddCardForm = ({ icon, onSubmit, id }: AddCardFormProps) => {
       triggerBtnText={'Add new card'}
       icon={icon}
     >
-      <div className={s.invisible} />
-      <hr /> {/*FIXME: ask support*/}
       <form>
         <div className={s.body}>
           <ControlledTextField

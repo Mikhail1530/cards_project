@@ -40,13 +40,12 @@ export const DeleteDeck = ({ open, id, icon, deckName, onSubmit, onClose }: Edit
       title={'Delete Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Delete deck'}
+      triggerBtnText={'Delete selectedDeck'}
       open={open}
       icon={icon}
       onClose={onClose}
     >
       <div className={s.invisible} />
-      <hr /> {/*FIXME: ask support*/}
       <form>
         <div className={s.body}>
           <Typography>

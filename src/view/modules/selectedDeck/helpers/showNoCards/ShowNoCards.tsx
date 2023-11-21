@@ -1,6 +1,6 @@
 import { Button, Typography } from '@/view/ui'
 import s from './ShowNoCards.module.scss'
-import { AddCardForm } from '@/view/modules/deck/components/forms/add-card-form/AddCardForm'
+import { AddCardForm } from '@/view/modules/selectedDeck/components/forms/add-card-form/AddCardForm'
 import { ArrowBack } from '@/view/assets/icons/arrow-back/ArrowBack'
 import { NavigateFunction } from 'react-router-dom'
 

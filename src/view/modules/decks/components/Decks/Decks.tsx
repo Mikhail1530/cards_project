@@ -10,10 +10,10 @@ import {
 import { Typography } from '@/view/ui/Typography'
 import { AddDeck } from '@/view/modules'
 import { EditDeck } from '@/view/modules/decks/components/forms/edit-deck-form/EditDeckForm'
-import { SetCurrentDeckUseStateType } from '@/view/modules/deck/components/selectedDeck/types/types.'
+import { SetCurrentDeckUseStateType } from '@/view/modules/selectedDeck/components/selectedDeck/types/types.'
 import { DeleteDeck } from '@/view/modules/decks/components/forms/delete-deck-form/DeleteDeckForm'
 
-/** Show modals when currentDeck is selected (not empty)*/
+/** Shows modals when currentDeck is selected (not empty)*/
 
 export const Decks = () => {
   const [currentPage, setCurrentPage] = useState(1)

@@ -19,7 +19,7 @@ export type EditDeckProps = {
 type EditDeckFormValues = z.infer<typeof editDeckForm>
 
 const editDeckForm = z.object({
-  name: z.string().min(3, 'Too short deck name').max(25),
+  name: z.string().min(3, 'Too short selectedDeck name').max(25),
   isPrivate: z.boolean().optional(),
   id: z.string(),
 })
@@ -32,7 +32,7 @@ export const EditDeck = ({
   onSubmit,
   onClose,
   inputLabel = 'Edit',
-  checkboxLabel = 'Private deck',
+  checkboxLabel = 'Private selectedDeck',
 }: EditDeckProps) => {
   const {
     control,
@@ -55,13 +55,12 @@ export const EditDeck = ({
       title={'Edit Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Edit deck'}
+      triggerBtnText={'Edit selectedDeck'}
       open={open}
       icon={icon}
       onClose={onClose}
     >
       <div className={s.invisible} />
-      <hr /> {/*FIXME: ask support*/}
       <form>
         <div className={s.body}>
           <ControlledTextField

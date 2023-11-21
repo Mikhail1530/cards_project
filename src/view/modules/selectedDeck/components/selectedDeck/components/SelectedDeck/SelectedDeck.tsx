@@ -2,20 +2,20 @@ import { useState } from 'react'
 import { useGetCardsInDeckQuery } from '@/view/services/decks/decks.service'
 import { Button, Pagination, Card, Typography } from '@/view/ui'
 import { useMatch, useNavigate } from 'react-router-dom'
-import { SelectedDeckTable } from '@/view/modules/deck/components/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
-import { ShowNoCards } from '@/view/modules/deck/helpers/showNoCards/ShowNoCards'
-import { useCreateCardMutation } from '@/view/services/cards/cards.service'
-import { AddCardForm } from '@/view/modules/deck/components/forms/add-card-form/AddCardForm'
+import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
+import { ShowNoCards } from '@/view/modules/selectedDeck/helpers/showNoCards/ShowNoCards'
+import { useCreateCardMutation, useUpdateCardMutation } from '@/view/services/cards/cards.service'
+import { AddCardForm } from '@/view/modules/selectedDeck/components/forms/add-card-form/AddCardForm'
 import s from './SelectedDeck.module.scss'
 import { ArrowBack } from '@/view/assets/icons/arrow-back/ArrowBack'
 import { CardType } from '@/view/services/decks/decks.types'
-import { EditCardForm } from '@/view/modules/deck/components/forms/edit-card-form/EditCardForm'
+import { EditCardForm } from '@/view/modules/selectedDeck/components/forms/edit-card-form/EditCardForm'
 
 export type SelectedCardStatusOptions = 'edit' | 'delete'
 export type CardModalType = {
   key: SelectedCardStatusOptions
   value: CardType
-}
+} | null
 
 export const SelectedDeck = () => {
   const [card, setCard] = useState<CardModalType>()
@@ -35,6 +35,7 @@ export const SelectedDeck = () => {
     itemsPerPage: itemsPerPage,
   })
   const [createNewCard] = useCreateCardMutation()
+  const [updateCard] = useUpdateCardMutation()
 
   if (isLoading || isFetching) {
     return <div>loading...</div>
@@ -86,7 +87,14 @@ export const SelectedDeck = () => {
           <SelectedDeckTable selectedDeckTableData={cards?.items} setCard={setCard} />
         </>
       )}
-      {card?.key === 'edit' && <EditCardForm id={card.value.id} onSubmit={() => {}} />}
+      {card?.key === 'edit' && (
+        <EditCardForm
+          id={card.value.id}
+          open={!!card}
+          onSubmit={updateCard}
+          onClose={() => setCard(null)}
+        />
+      )}
       {card?.key === 'delete' && <div>DELETE CARD</div>}
 
       <Pagination
