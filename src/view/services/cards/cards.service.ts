@@ -4,7 +4,10 @@ import { CreateCardResponseType } from '@/view/services/cards/cards.types'
 const cardsService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      createCard: builder.mutation<CreateCardResponseType, { formData: FormData; id: string }>({
+      createCard: builder.mutation<
+        CreateCardResponseType,
+        { formData: FormData; id: string | undefined }
+      >({
         query: ({ formData, id }) => {
           debugger
           return {

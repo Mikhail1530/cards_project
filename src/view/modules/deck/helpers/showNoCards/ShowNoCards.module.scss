@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-self: flex-start;
+
+  margin-bottom: 69px;
+
+  .backBtn {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+
+  .bodyTypography {
+    color: var(--color-dark-100);
+  }
+
+  .bodyBtn {
+    display: flex;
+    align-self: center;
+  }
+}

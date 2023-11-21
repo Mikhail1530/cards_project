@@ -16,10 +16,10 @@ export type GetDecksArgs = {
 
 export type RetrieveCardInDeckResponseType = {
   pagination: Pagination
-  items: Card[]
+  items: CardType[]
 }
 
-export type Card = {
+export type CardType = {
   id: string
   question: string
   answer: string

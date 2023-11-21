@@ -2,10 +2,10 @@ import { ControlledTextField, Dialog } from '@/view/ui'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import s from './AddCardForm.module.scss'
+import s from './EditCardForm.module.scss'
 import { ReactNode } from 'react'
 
-export type AddCardFormProps = {
+export type EditCardFormProps = {
   onSubmit: (data: { formData: FormData; id: string | undefined }) => void
   inputLabel?: string
   checkboxLabel?: string
@@ -13,26 +13,26 @@ export type AddCardFormProps = {
   id: string | undefined
 }
 
-type AddDeckFormValues = z.infer<typeof addCardForm>
+type EditDeckFormValues = z.infer<typeof editCardForm>
 
-const addCardForm = z.object({
+const editCardForm = z.object({
   id: z.string(),
   questionImg: z.string().optional(),
   question: z.string().min(3, 'Too short question').max(25),
   answer: z.string().min(3, 'Too short answer').max(100),
 })
 
-export const AddCardForm = ({ icon, onSubmit, id }: AddCardFormProps) => {
+export const EditCardForm = ({ icon, onSubmit, id }: EditCardFormProps) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<AddDeckFormValues>({
-    resolver: zodResolver(addCardForm),
+  } = useForm<EditDeckFormValues>({
+    resolver: zodResolver(editCardForm),
     defaultValues: { id: id, questionImg: '', question: '', answer: '' },
   })
 
-  const handleFormSubmit = handleSubmit((data: AddDeckFormValues) => {
+  const handleFormSubmit = handleSubmit((data: EditDeckFormValues) => {
     const formData = new FormData()
     // formData.append('questionImg', JSON.stringify(data.questionImg))
     formData.append('question', data.question)
@@ -45,10 +45,10 @@ export const AddCardForm = ({ icon, onSubmit, id }: AddCardFormProps) => {
   return (
     <Dialog
       className={s.dialog}
-      title={'Add New CardType'}
-      acceptBtnText={'Add card'}
+      title={'Edit Card'}
+      acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Add new card'}
+      triggerBtnText={'Save changes'}
       icon={icon}
     >
       <div className={s.invisible} />

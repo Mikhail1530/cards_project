@@ -7,7 +7,7 @@ const meta = {
   },
   component: Card,
   tags: ['autodocs'],
-  title: 'UI/Card',
+  title: 'UI/CardType',
 } satisfies Meta<typeof Card>
 
 export default meta
@@ -15,6 +15,6 @@ type Story = StoryObj<typeof meta>
 
 export const card: Story = {
   args: {
-    children: 'Simple Card',
+    children: 'Simple CardType',
   },
 }

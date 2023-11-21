@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Bin, EditPencil, PlayInCircle } from '@/view/assets/icons'
 import { GetDecksResponseItems } from '@/view/services/decks/decks.types'
 import {
-  CurrentDeckOptions,
+  SelectedDeckStatusOptions,
   SetCurrentDeckUseStateType,
 } from '@/view/modules/deck/components/selectedDeck/types/types.'
 
@@ -28,7 +28,7 @@ export const DecksTable = ({ currentTableData, setCurrentDeck }: DecksTable) => 
       </THead>
       <TBody>
         {currentTableData.map((deck: any) => {
-          const onClick = (key: CurrentDeckOptions) => {
+          const onClick = (key: SelectedDeckStatusOptions) => {
             setCurrentDeck({ key, val: deck })
           }
           return (

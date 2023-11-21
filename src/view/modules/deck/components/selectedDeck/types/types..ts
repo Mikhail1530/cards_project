@@ -1,7 +1,7 @@
-import { GetDecksResponseItems } from '@/view/services/decks/decks.types'
+import { GetDecksResponseItems as DeckType } from '@/view/services/decks/decks.types'
 
-export type CurrentDeckOptions = 'edit' | 'delete'
+export type SelectedDeckStatusOptions = 'edit' | 'delete'
 export type SetCurrentDeckUseStateType = {
-  key: CurrentDeckOptions
-  val: GetDecksResponseItems
+  key: SelectedDeckStatusOptions
+  val: DeckType
 } | null
