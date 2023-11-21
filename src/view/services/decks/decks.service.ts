@@ -33,13 +33,14 @@ const decksService = baseApi.injectEndpoints({
         // This line means when you call the `useGetDecksQuery` hook in your component,
         // it's going to make an HTTP GET request to the endpoint
         // `'https://api.flashcards.andrii.es/v1/decks'`.
-        providesTags: ['Decks'],
+        providesTags: ['Decks', 'Cards'],
       }),
       getDeckById: builder.query<GetDeckByIdResponse, GetDeckByIdArgs>({
         query: ({ id }) => `v1/decks/${id}`, // = {url: `v1/decks/${id}`}
       }),
       getCardsInDeck: builder.query<RetrieveCardInDeckResponseType, GetCardsByDeckIdArgs>({
         query: ({ id }) => `v1/decks/${id}/cards`,
+        providesTags: ['Cards'],
       }),
       createDeck: builder.mutation<void, CreateDeckArgs>({
         query: args => {

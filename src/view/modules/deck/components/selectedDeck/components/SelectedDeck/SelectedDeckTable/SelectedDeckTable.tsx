@@ -1,10 +1,16 @@
 import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table'
 import { Button } from '@/view/ui/Button'
 import s from './SelectedDeckTable.module.scss'
-import { Link } from 'react-router-dom'
-import { EditPencil, PlayInCircle } from '@/view/assets/icons'
+import { Bin, EditPencil } from '@/view/assets/icons'
+import { CardType } from '@/view/services/decks/decks.types'
+import { CardModalType, SelectedCardStatusOptions } from '../SelectedDeck'
 
-export const SelectedDeckTable = ({ currentTableData }: any) => {
+type SelectedDeckTableType = {
+  selectedDeckTableData: CardType[]
+  setCard: (obj: CardModalType) => void
+}
+
+export const SelectedDeckTable = ({ selectedDeckTableData, setCard }: SelectedDeckTableType) => {
   return (
     <Table>
       <THead>
@@ -17,20 +23,23 @@ export const SelectedDeckTable = ({ currentTableData }: any) => {
         </TRow>
       </THead>
       <TBody>
-        {currentTableData.map((deck: any) => {
+        {selectedDeckTableData.map((card: CardType) => {
+          const onClick = (key: SelectedCardStatusOptions) => {
+            setCard({ key, value: card })
+          }
           return (
-            <TRow key={deck.id}>
-              <TCell>{deck?.question}</TCell>
-              <TCell>{deck?.answer}</TCell>
-              <TCell>{new Date(deck?.updated).toLocaleDateString()}</TCell>
-              <TCell>{deck?.grade}</TCell>
+            <TRow key={card.id}>
+              <TCell>{card?.question}</TCell>
+              <TCell>{card?.answer}</TCell>
+              <TCell>{new Date(card?.updated).toLocaleDateString()}</TCell>
+              <TCell>{card?.grade}</TCell>
               <TCell>
                 <div className={s.iconsContainer}>
-                  <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
-                    <PlayInCircle />
-                  </Button>
-                  <Button as={Link} to={`/decks/`} variant={'icon'}>
+                  <Button onClick={() => onClick('edit')} variant={'icon'}>
                     <EditPencil />
+                  </Button>
+                  <Button onClick={() => onClick('delete')} variant={'icon'}>
+                    <Bin />
                   </Button>
                 </div>
               </TCell>
