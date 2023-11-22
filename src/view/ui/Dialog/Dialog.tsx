@@ -2,7 +2,7 @@ import * as RDialog from '@radix-ui/react-dialog'
 import s from './Dialog.module.scss'
 import { Button, Typography } from '@/view/ui'
 import { Close } from '@/view/assets'
-import { ComponentPropsWithoutRef, forwardRef, HTMLAttributes, ReactNode, useState } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
 
 type DialogProps = {
   handleFormSubmit: () => void
@@ -35,7 +35,6 @@ export const Dialog = ({
   children,
   ...props
 }: DialogProps): ReactNode => {
-  // const [open, setOpen] = useState(false)
   return (
     <RDialog.Root open={open} onOpenChange={onClose}>
       <DialogTrigger asChild>
@@ -56,7 +55,7 @@ export type DialogContentProps = {
   acceptBtnText: string
   title?: string
   // onOpenChange: (open: boolean) => void
-  setOpen: (open: boolean) => void
+  setOpen?: () => void
 } & Omit<ComponentPropsWithoutRef<typeof RDialog.Dialog>, 'onOpenChange' | 'open'>
 /**
  *  @component
@@ -87,7 +86,7 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
         <div className={s.body}>{children}</div>
         <div className={s.footer}>
           <div className={s.dialogFooter}>
-            <Button onClick={() => setOpen(!open)} fullWidth={false} variant={'secondary'}>
+            <Button onClick={setOpen} fullWidth={false} variant={'secondary'}>
               Close
             </Button>
             <Button onClick={handleFormSubmit} fullWidth={false}>

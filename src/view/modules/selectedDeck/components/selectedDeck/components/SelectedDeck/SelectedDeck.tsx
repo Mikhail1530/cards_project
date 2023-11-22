@@ -4,12 +4,17 @@ import { Button, Pagination, Card, Typography } from '@/view/ui'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
 import { ShowNoCards } from '@/view/modules/selectedDeck/helpers/showNoCards/ShowNoCards'
-import { useCreateCardMutation, useUpdateCardMutation } from '@/view/services/cards/cards.service'
+import {
+  useCreateCardMutation,
+  useDeleteCardMutation,
+  useUpdateCardMutation,
+} from '@/view/services/cards/cards.service'
 import { AddCardForm } from '@/view/modules/selectedDeck/components/forms/add-card-form/AddCardForm'
 import s from './SelectedDeck.module.scss'
 import { ArrowBack } from '@/view/assets/icons/arrow-back/ArrowBack'
 import { CardType } from '@/view/services/decks/decks.types'
 import { EditCardForm } from '@/view/modules/selectedDeck/components/forms/edit-card-form/EditCardForm'
+import { DeleteCardForm } from '@/view/modules/selectedDeck/components/forms/delete-card-form/DeleteCardForm'
 
 export type SelectedCardStatusOptions = 'edit' | 'delete'
 export type CardModalType = {
@@ -36,6 +41,7 @@ export const SelectedDeck = () => {
   })
   const [createNewCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
+  const [deleteCard] = useDeleteCardMutation()
 
   if (isLoading || isFetching) {
     return <div>loading...</div>
@@ -87,15 +93,22 @@ export const SelectedDeck = () => {
           <SelectedDeckTable selectedDeckTableData={cards?.items} setCard={setCard} />
         </>
       )}
-      {card?.key === 'edit' && (
+      {card?.key === 'edit' ? (
         <EditCardForm
           id={card.value.id}
           open={!!card}
           onSubmit={updateCard}
           onClose={() => setCard(null)}
         />
-      )}
-      {card?.key === 'delete' && <div>DELETE CARD</div>}
+      ) : card?.key === 'delete' ? (
+        <DeleteCardForm
+          cardQuestion={card.value.question}
+          id={card.value.id}
+          onClose={() => setCard(null)}
+          onSubmit={deleteCard}
+          open
+        />
+      ) : null}
 
       <Pagination
         currentPage={currentPage}
