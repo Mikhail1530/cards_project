@@ -13,6 +13,7 @@ export type TextFieldProps = {
   labelProps?: ComponentProps<'label'>
   onValueChange?: (value: string) => void
   search?: boolean
+  pictureObj?: any
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(

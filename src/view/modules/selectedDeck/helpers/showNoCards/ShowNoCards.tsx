@@ -5,12 +5,13 @@ import { ArrowBack } from '@/view/assets/icons/arrow-back/ArrowBack'
 import { NavigateFunction } from 'react-router-dom'
 
 type ShowNoCardsType = {
+  deckName?: string
   id: string | undefined
   navigate: NavigateFunction
   createNewCard: (data: { formData: FormData; id: string | undefined }) => void
 }
 
-export const ShowNoCards = ({ id, navigate, createNewCard }: ShowNoCardsType) => {
+export const ShowNoCards = ({ id, navigate, createNewCard, deckName }: ShowNoCardsType) => {
   return (
     <>
       <div className={s.header}>
@@ -18,7 +19,7 @@ export const ShowNoCards = ({ id, navigate, createNewCard }: ShowNoCardsType) =>
           <ArrowBack />
           <Typography>Back to Decks List</Typography>
         </Button>
-        <Typography variant={'large'}>{'hardcodedSelectedDEckName'}</Typography>
+        <Typography variant={'large'}>{deckName}</Typography>
       </div>
       <div className={s.body}>
         <Typography variant={'body1'} className={s.bodyTypography}>
