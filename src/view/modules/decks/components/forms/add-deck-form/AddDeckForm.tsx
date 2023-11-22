@@ -6,11 +6,10 @@ import s from './AddDeckForm.module.scss'
 import { ReactNode } from 'react'
 
 export type AddDeckProps = {
-  deckName: string | undefined
   onSubmit: (data: AddDeckFormValues) => void
-  inputLabel?: string
-  checkboxLabel?: string
   icon?: ReactNode
+  // open: boolean
+  // onClose: () => void
 }
 
 type AddDeckFormValues = z.infer<typeof addDeckForm>
@@ -20,25 +19,19 @@ const addDeckForm = z.object({
   isPrivate: z.boolean().optional(),
 })
 
-export const AddDeck = ({
-  icon,
-  deckName,
-  onSubmit,
-  inputLabel = 'SelectedDeck name',
-  checkboxLabel = 'Private selectedDeck',
-}: AddDeckProps) => {
+export const AddDeck = ({ icon, onSubmit }: AddDeckProps) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<AddDeckFormValues>({
     resolver: zodResolver(addDeckForm),
-    defaultValues: { name: deckName, isPrivate: false },
+    defaultValues: { name: '', isPrivate: false },
   })
 
   const handleFormSubmit = handleSubmit((data: AddDeckFormValues) => {
     onSubmit(data)
-
+    // onClose()
     console.log(data, 'is data in DeckOperationsWindow handleSubmit')
   })
 
@@ -46,22 +39,23 @@ export const AddDeck = ({
     <Dialog
       className={s.dialog}
       title={'Add New Deck'}
-      acceptBtnText={'Add selectedDeck'}
+      acceptBtnText={'Add deck'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Add new selectedDeck'}
+      triggerBtnText={'Add new deck'}
       icon={icon}
+      // open={open}
+      // onClose={onClose}
     >
-      <div className={s.invisible} />
       <form>
         <div className={s.body}>
           <ControlledTextField
             className={s.bodyItem}
             control={control}
             name={'name'}
-            label={inputLabel}
+            label={'Deck name'}
             errorMessage={errors.name?.message}
           />
-          <ControlledCheckbox control={control} name={'isPrivate'} label={checkboxLabel} />
+          <ControlledCheckbox control={control} name={'isPrivate'} label={'Private deck'} />
         </div>
       </form>
     </Dialog>

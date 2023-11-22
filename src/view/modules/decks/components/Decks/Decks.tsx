@@ -65,7 +65,12 @@ export const Decks = () => {
 
   return (
     <>
-      <AddDeck deckName={'addDeck'} onSubmit={createDeck} inputLabel={'Deck name'} />
+      <AddDeck
+        onSubmit={createDeck}
+        // open={addDeckOpenStatus}
+        //FIXME wouldnt work since when we add new deck nothing is selected yet
+        // onClose={() => setCurrentDeck(null)}
+      />
       <DecksTable setCurrentDeck={setCurrentDeck} currentTableData={decks.items} />
       <Pagination
         currentPage={currentPage}
@@ -89,7 +94,7 @@ export const Decks = () => {
           id={currentDeck?.val.id}
           open={!!currentDeck}
           onClose={() => setCurrentDeck(null)}
-          deckName={'deleteDeck'}
+          deckName={currentDeck.val.name}
           onSubmit={deleteDeck}
         />
       ) : null}

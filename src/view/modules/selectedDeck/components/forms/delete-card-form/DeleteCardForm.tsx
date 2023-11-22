@@ -2,12 +2,12 @@ import { Dialog, Typography } from '@/view/ui'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import s from './DeleteDeckForm.module.scss'
+import s from './DeleteCardForm.module.scss'
 import { ReactNode } from 'react'
 
-export type DeleteDeckProps = {
-  deckName: string
-  onSubmit: (data: DeleteDeckFormValues) => void
+export type DeleteCardFormProps = {
+  cardQuestion: string | undefined
+  onSubmit: (data: DeleteCardFormValues) => void
   inputLabel?: string
   checkboxLabel?: string
   icon?: ReactNode
@@ -16,19 +16,26 @@ export type DeleteDeckProps = {
   id: string
 }
 
-type DeleteDeckFormValues = z.infer<typeof deleteDeckForm>
+type DeleteCardFormValues = z.infer<typeof deleteCardForm>
 
-const deleteDeckForm = z.object({
+const deleteCardForm = z.object({
   id: z.string(),
 })
 
-export const DeleteDeck = ({ open, id, icon, deckName, onSubmit, onClose }: DeleteDeckProps) => {
-  const { handleSubmit } = useForm<DeleteDeckFormValues>({
-    resolver: zodResolver(deleteDeckForm),
+export const DeleteCardForm = ({
+  open,
+  id,
+  icon,
+  cardQuestion,
+  onSubmit,
+  onClose,
+}: DeleteCardFormProps) => {
+  const { handleSubmit } = useForm<DeleteCardFormValues>({
+    resolver: zodResolver(deleteCardForm),
     defaultValues: { id: id },
   })
 
-  const handleFormSubmit = handleSubmit((data: DeleteDeckFormValues) => {
+  const handleFormSubmit = handleSubmit((data: DeleteCardFormValues) => {
     onSubmit(data)
     onClose()
     console.log(data, 'is data in DeleteDeck handleSubmit')
@@ -49,7 +56,7 @@ export const DeleteDeck = ({ open, id, icon, deckName, onSubmit, onClose }: Dele
       <form>
         <div className={s.body}>
           <Typography>
-            Do you really want to remove {deckName}? <br />
+            Do you really want to remove "{cardQuestion}" question card? <br />
             All cards will be deleted.
           </Typography>
         </div>

@@ -39,6 +39,10 @@ export type UpdateCardArgs = {
   answerVideo?: string
 }
 
+export type DeleteCardArgs = {
+  id: string
+}
+
 // export type CreateCardArgs = {
 //   id: string
 //   question: string
