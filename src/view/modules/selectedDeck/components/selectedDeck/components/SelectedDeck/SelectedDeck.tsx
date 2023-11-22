@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useGetCardsInDeckQuery } from '@/view/services/decks/decks.service'
+import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/view/services/decks/decks.service'
 import { Button, Pagination, Card, Typography } from '@/view/ui'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
@@ -40,6 +40,8 @@ export const SelectedDeck = () => {
     itemsPerPage: itemsPerPage,
   })
   const [createNewCard] = useCreateCardMutation()
+  const deck = useGetDeckByIdQuery({ id: match?.params.id })
+  console.log(deck)
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
 
@@ -77,7 +79,12 @@ export const SelectedDeck = () => {
   return (
     <Card className={s.card}>
       {cards.items.length < 1 ? (
-        <ShowNoCards id={match?.params.id} createNewCard={createNewCard} navigate={navigate} />
+        <ShowNoCards
+          id={match?.params.id}
+          createNewCard={createNewCard}
+          deckName={deck.data?.name}
+          navigate={navigate}
+        />
       ) : (
         <>
           <div className={s.header}>
@@ -86,7 +93,7 @@ export const SelectedDeck = () => {
               <Typography>Back to Decks List</Typography>
             </Button>
             <div className={s.deckNameWithBtn}>
-              <Typography variant={'large'}>{'hardcodedSelectedDEckName'}</Typography>
+              <Typography variant={'large'}>{deck.data?.name}</Typography>
               <AddCardForm id={match?.params.id} onSubmit={createNewCard} />
             </div>
           </div>

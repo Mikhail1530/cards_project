@@ -1,5 +1,4 @@
 import {
-  CreateDeckArgs,
   DeleteDeckArgs,
   DeleteDeckResponseType,
   GetCardsByDeckIdArgs,
@@ -36,18 +35,22 @@ const decksService = baseApi.injectEndpoints({
         providesTags: ['Decks', 'Cards'],
       }),
       getDeckById: builder.query<GetDeckByIdResponse, GetDeckByIdArgs>({
-        query: ({ id }) => `v1/decks/${id}`, // = {url: `v1/decks/${id}`}
+        query: ({ id }) => {
+          debugger
+          return `v1/decks/${id}`
+        }, // = {url: `v1/decks/${id}`}
       }),
       getCardsInDeck: builder.query<RetrieveCardInDeckResponseType, GetCardsByDeckIdArgs>({
         query: ({ id }) => `v1/decks/${id}/cards`,
         providesTags: ['Cards'],
       }),
-      createDeck: builder.mutation<void, CreateDeckArgs>({
+      createDeck: builder.mutation<void, { formData: FormData }>({
         query: args => {
           return {
             url: 'v1/decks',
             method: 'POST',
             body: args,
+            formData: true,
           }
         },
         invalidatesTags: ['Decks'],
