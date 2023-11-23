@@ -14,6 +14,8 @@ export type DeleteDeckProps = {
   open: boolean
   onClose: () => void
   id: string
+  onOpenChange: (open: boolean) => void
+  // onClick: () => void
 }
 
 type DeleteDeckFormValues = z.infer<typeof deleteDeckForm>
@@ -22,7 +24,15 @@ const deleteDeckForm = z.object({
   id: z.string(),
 })
 
-export const DeleteDeck = ({ open, id, icon, deckName, onSubmit, onClose }: DeleteDeckProps) => {
+export const DeleteDeck = ({
+  open,
+  id,
+  icon,
+  deckName,
+  onSubmit,
+  onClose,
+  onOpenChange, // onClick,
+}: DeleteDeckProps) => {
   const { handleSubmit } = useForm<DeleteDeckFormValues>({
     resolver: zodResolver(deleteDeckForm),
     defaultValues: { id: id },
@@ -41,9 +51,11 @@ export const DeleteDeck = ({ open, id, icon, deckName, onSubmit, onClose }: Dele
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
       triggerBtnText={'Delete selectedDeck'}
-      open={open}
       icon={icon}
+      open={open}
       onClose={onClose}
+      onOpenChange={onOpenChange}
+      // onClick={onClick}
     >
       <div className={s.invisible} />
       <form>

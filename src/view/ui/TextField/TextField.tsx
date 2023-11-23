@@ -11,7 +11,10 @@ export type TextFieldProps = {
   errorMessage?: string
   label?: string
   labelProps?: ComponentProps<'label'>
-  onValueChange?: (value: string) => void
+  onValueChange?: (
+    value?: string | undefined,
+    e?: ChangeEvent<HTMLInputElement> | undefined
+  ) => void
   search?: boolean
   pictureObj?: any
 } & ComponentPropsWithoutRef<'input'>
@@ -41,7 +44,12 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
       onChange?.(e)
+      // if (e.target.files && e.target.files[0]) {
+      //   console.log('hello ')
+      //   onValueChange?.(e.target.files[0])
+      // } else {
       onValueChange?.(e.target.value)
+      // }
     }
 
     const classNames = {
