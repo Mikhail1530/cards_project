@@ -3,7 +3,8 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './AddDeckForm.module.scss'
-import { ReactNode } from 'react'
+import { ChangeEvent, ReactNode } from 'react'
+import { ControlledFileUploader } from '@/view/components/shared-controlled/controlledTextField/controlledTextField'
 
 export type AddDeckProps = {
   onSubmit: (data: FormData) => void
@@ -44,26 +45,29 @@ export const AddDeck = ({ icon, onSubmit }: AddDeckProps) => {
   const {
     control,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<AddDeckFormValues>({
     resolver: zodResolver(addDeckForm),
-    defaultValues: { cover: null, name: '', isPrivate: false },
+    defaultValues: { cover: '', name: '', isPrivate: false },
   })
 
   const handleFormSubmit = handleSubmit((data: AddDeckFormValues) => {
+    console.log(data)
     const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => formData.append(key, value))
     onSubmit(formData)
     // onClose()
+    console.log(data, 'this is whole formADaata')
     console.log(formData.get('cover'), 'is data in DeckOperationsWindow handleSubmit')
   })
 
-  // const onCgange = (val: any) => {
-  //   console.log(val, 'val')
-  //   const formData = new FormData()
-  //   formData.append('cover', val.target.files[0])
-  //   console.log(formData.get('c'))
-  // }
+  const onCgange = (val: any) => {
+    console.log(val, 'val')
+    const formData = new FormData()
+    formData.append('cover', val.target.files[0])
+  }
+
   return (
     <Dialog
       className={s.dialog}
@@ -76,15 +80,14 @@ export const AddDeck = ({ icon, onSubmit }: AddDeckProps) => {
       // onClose={onClose}
     >
       <form>
-        {/*<input type={'file'} {...register('cover')} onChange={onCgange} />*/}
+        <input type={'file'} {...register('cover')} onChange={onCgange} />
         <div className={s.body}>
-          <ControlledTextField
+          <ControlledFileUploader
             className={s.bodyItem}
             type={'file'}
             control={control}
             name={'cover'}
             label={'Cover'}
-            accept={'image/jpeg' || 'image/jpg' || 'image/png' || 'image/webp'}
             // errorMessage={errors.cover?.message}
           />
           <ControlledTextField
