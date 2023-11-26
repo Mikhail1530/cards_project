@@ -36,7 +36,6 @@ export const Dialog = ({
   onClick,
   ...props
 }: DialogProps): ReactNode => {
-  console.log(onClick)
   return (
     <RDialog.Root open={open} onOpenChange={onClose}>
       <DialogTrigger asChild>

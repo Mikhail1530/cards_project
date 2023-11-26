@@ -4,8 +4,7 @@ import s from './decks-table.module.scss'
 import { Link } from 'react-router-dom'
 import { PlayInCircle } from '@/view/assets/icons'
 import { GetDecksResponseItem as DeckType } from '@/view/services/decks/decks.types'
-import { DeleteDeckManager } from '@/view/modules/decks/components/forms-managers/AddDeckManager/DeleteDeckManager'
-import { EditDeckManager } from '@/view/modules/decks/components/forms-managers/EditDeckManager/EditDeckManager'
+import { DeckFormsManager } from '@/view/modules/decks/components/deck-forms-manager/DeckFormsManager'
 
 type DecksTable = {
   currentTableData: DeckType[]
@@ -39,8 +38,8 @@ export const DecksTable = ({ currentTableData }: DecksTable) => {
                   <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
                     <PlayInCircle />
                   </Button>
-                  <EditDeckManager deck={deck} />
-                  <DeleteDeckManager deck={deck} />
+                  <DeckFormsManager type={'EDIT'} deck={deck} />
+                  <DeckFormsManager type={'DELETE'} deck={deck} />
                 </div>
               </TCell>
             </TRow>

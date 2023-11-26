@@ -14,6 +14,7 @@ export type EditDeckProps = {
   open: boolean
   onClose: () => void
   id: string
+  isPrivate: boolean
 }
 
 type EditDeckFormValues = z.infer<typeof editDeckForm>
@@ -24,7 +25,7 @@ const editDeckForm = z.object({
   id: z.string(),
 })
 
-export const EditDeck = ({
+export const EditDeckForm = ({
   open,
   id,
   icon,
@@ -33,20 +34,22 @@ export const EditDeck = ({
   onClose,
   inputLabel = 'Edit',
   checkboxLabel = 'Private _selectedDeck',
+  isPrivate,
 }: EditDeckProps) => {
+  console.log(isPrivate, 'isprivate')
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<EditDeckFormValues>({
     resolver: zodResolver(editDeckForm),
-    defaultValues: { name: deckName, isPrivate: false, id: id },
+    defaultValues: { name: deckName, isPrivate: isPrivate, id: id },
   })
 
   const handleFormSubmit = handleSubmit((data: EditDeckFormValues) => {
     onSubmit(data)
     onClose()
-    console.log(data, 'is data in EditDeck handleSubmit')
+    console.log(data, 'is data in EditDeckForm handleSubmit')
   })
 
   return (

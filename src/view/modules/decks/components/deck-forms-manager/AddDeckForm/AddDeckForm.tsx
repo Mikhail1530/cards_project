@@ -9,8 +9,8 @@ import { ControlledFileUploader } from '@/view/components/shared-controlled/cont
 export type AddDeckProps = {
   onSubmit: (data: FormData) => void
   icon?: ReactNode
-  // open: boolean
-  // onClose: () => void
+  open: boolean
+  onClose: () => void
 }
 
 type AddDeckFormValues = z.infer<typeof addDeckForm>
@@ -41,11 +41,10 @@ const addDeckForm = z.object({
   isPrivate: z.boolean().optional(),
 })
 
-export const AddDeck = ({ icon, onSubmit }: AddDeckProps) => {
+export const AddDeckForm = ({ icon, onSubmit, open, onClose }: AddDeckProps) => {
   const {
     control,
     handleSubmit,
-    register,
     formState: { errors },
   } = useForm<AddDeckFormValues>({
     resolver: zodResolver(addDeckForm),
@@ -53,20 +52,13 @@ export const AddDeck = ({ icon, onSubmit }: AddDeckProps) => {
   })
 
   const handleFormSubmit = handleSubmit((data: AddDeckFormValues) => {
-    console.log(data)
     const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => formData.append(key, value))
     onSubmit(formData)
-    // onClose()
+    onClose()
     console.log(data, 'this is whole formADaata')
     console.log(formData.get('cover'), 'is data in DeckOperationsWindow handleSubmit')
   })
-
-  const onCgange = (val: any) => {
-    console.log(val, 'val')
-    const formData = new FormData()
-    formData.append('cover', val.target.files[0])
-  }
 
   return (
     <Dialog
@@ -76,11 +68,10 @@ export const AddDeck = ({ icon, onSubmit }: AddDeckProps) => {
       handleFormSubmit={handleFormSubmit}
       triggerBtnText={'Add new deck'}
       icon={icon}
-      // open={open}
-      // onClose={onClose}
+      open={open}
+      onClose={onClose}
     >
       <form>
-        <input type={'file'} {...register('cover')} onChange={onCgange} />
         <div className={s.body}>
           <ControlledFileUploader
             className={s.bodyItem}

@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { AddDeck } from '../../../../index'
+import { AddDeckForm } from '../../../../index'
 
 const meta = {
   argTypes: {},
-  component: AddDeck,
+  component: AddDeckForm,
   tags: ['autodocs'],
-  title: 'Components/AddDeck',
-} satisfies Meta<typeof AddDeck>
+  title: 'Components/AddDeckForm',
+} satisfies Meta<typeof AddDeckForm>
 
 export default meta
 

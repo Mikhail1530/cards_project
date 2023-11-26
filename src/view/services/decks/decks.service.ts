@@ -44,7 +44,7 @@ const decksService = baseApi.injectEndpoints({
         query: ({ id }) => `v1/decks/${id}/cards`,
         providesTags: ['Cards'],
       }),
-      createDeck: builder.mutation<void, { formData: FormData }>({
+      createDeck: builder.mutation<void, FormData>({
         query: args => {
           return {
             url: 'v1/decks',

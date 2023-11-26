@@ -1,24 +1,14 @@
 import { useState } from 'react'
-import { DecksTable } from '@/view/modules/decks/components/decks-table/decks-table'
+import { DecksTable } from '@/view/modules/decks/components/DecksTable/decks-table'
 import { Pagination } from '@/view/components/pagination/pagination'
-import {
-  useCreateDeckMutation,
-  useDeleteDeckMutation,
-  useGetDecksQuery,
-  useUpdateDeckMutation,
-} from '@/view/services/decks/decks.service'
+import { useGetDecksQuery } from '@/view/services/decks/decks.service'
 import { Typography } from '@/view/ui/Typography'
-import { EditDeck } from '@/view/modules/decks/components/forms/edit-deck-form/EditDeckForm'
-import { SetCurrentDeckUseStateType } from '@/view/modules/selectedDeck/components/SelectedDeck/types/types.'
-import { DeleteDeckForm } from '@/view/modules/decks/components/forms/delete-deck-form/DeleteDeckForm'
-import { AddDeck } from '@/view/modules'
-
-/** Shows modals when currentDeck is selected (not empty)*/
+import { DeckFormsManager } from '@/view/modules/decks/components/deck-forms-manager/DeckFormsManager'
+import s from './decks.module.scss'
 
 export const Decks = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [createDeck] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
   const {
     data: decks,
     isLoading,
@@ -60,13 +50,8 @@ export const Decks = () => {
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
   return (
-    <>
-      <AddDeck
-        onSubmit={createDeck}
-        // open={addDeckOpenStatus}
-        //FIXME wouldnt work since when we add new deck nothing is selected yet
-        // onClose={() => setCurrentDeck(null)}
-      />
+    <div className={s.decks}>
+      <DeckFormsManager type={'ADD'} />
       <DecksTable currentTableData={decks.items} />
       <Pagination
         currentPage={currentPage}
@@ -77,6 +62,6 @@ export const Decks = () => {
         itemsPerPage={decks.pagination.itemsPerPage}
         selectOptions={selectOptionsOfDecksToDisplay}
       />
-    </>
+    </div>
   )
 }
