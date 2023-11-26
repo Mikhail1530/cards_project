@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/view/services/decks/decks.service'
 import { Button, Pagination, Card, Typography } from '@/view/ui'
 import { useMatch, useNavigate } from 'react-router-dom'
-import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
+import { SelectedDeckTable } from '@/view/modules/selectedDeck/components/SelectedDeck/SelectedDeckTable/SelectedDeckTable'
 import { ShowNoCards } from '@/view/modules/selectedDeck/helpers/showNoCards/ShowNoCards'
 import {
   useCreateCardMutation,

@@ -6,6 +6,7 @@ import { Card } from '@/view/ui/Card'
 import { Typography } from '@/view/ui/Typography'
 import s from './CreateNewPasswordForm.module.scss'
 import { ControlledTextField } from '../../../../ui'
+import { Bin } from '@/view/assets'
 
 type FormValues = z.infer<typeof createNewPasswordSchema>
 
@@ -50,8 +51,9 @@ export const CreateNewPasswordForm = ({ onSubmit }: CreateNewPasswordFormProps) 
           </div>
           <div className={s.signupContainer}>
             <Button className={s.button} type="submit" variant={'primary'}>
-              Create New Password
+              Create New Password›
             </Button>
+            <Button icon={<Bin />} />
             {/*//FIXME: element should be clickable link */}
           </div>
         </div>

@@ -38,7 +38,7 @@ export const Dialog = ({
 }: DialogProps): ReactNode => {
   console.log(onClick)
   return (
-    <RDialog.Root open={open} onOpenChange={onOpenChange}>
+    <RDialog.Root open={open} onOpenChange={onClose}>
       <DialogTrigger asChild>
         <Button onClick={onClick} fullWidth={false} variant={icon && 'icon'}>
           {icon ? icon : triggerBtnText}

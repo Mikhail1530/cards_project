@@ -2,24 +2,16 @@ import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table
 import { Button } from '@/view/ui/Button'
 import s from './decks-table.module.scss'
 import { Link } from 'react-router-dom'
-import { Bin, EditPencil, PlayInCircle } from '@/view/assets/icons'
-import { GetDecksResponseItems } from '@/view/services/decks/decks.types'
-import {
-  SelectedDeckStatusOptions,
-  SetCurrentDeckUseStateType,
-} from '@/view/modules/selectedDeck/components/selectedDeck/types/types.'
-import { AddDeck } from '@/view/modules'
-import { DeleteDeck } from '@/view/modules/decks/components/forms/delete-deck-form/DeleteDeckForm'
-import { useDeleteDeckMutation } from '@/view/services/decks/decks.service'
-import { useState } from 'react'
+import { PlayInCircle } from '@/view/assets/icons'
+import { GetDecksResponseItem as DeckType } from '@/view/services/decks/decks.types'
+import { DeleteDeckManager } from '@/view/modules/decks/components/forms-managers/AddDeckManager/DeleteDeckManager'
+import { EditDeckManager } from '@/view/modules/decks/components/forms-managers/EditDeckManager/EditDeckManager'
 
 type DecksTable = {
-  currentTableData: GetDecksResponseItems[]
-  setCurrentDeck: (obj: SetCurrentDeckUseStateType) => void
-  callback: () => void
+  currentTableData: DeckType[]
 }
 
-export const DecksTable = ({ currentTableData, setCurrentDeck, callback }: DecksTable) => {
+export const DecksTable = ({ currentTableData }: DecksTable) => {
   return (
     <Table>
       <THead>
@@ -32,10 +24,7 @@ export const DecksTable = ({ currentTableData, setCurrentDeck, callback }: Decks
         </TRow>
       </THead>
       <TBody>
-        {currentTableData.map((deck: any) => {
-          const onClick = (key: SelectedDeckStatusOptions) => {
-            setCurrentDeck({ key, val: deck })
-          }
+        {currentTableData.map((deck: DeckType) => {
           return (
             <TRow key={deck.id}>
               <TCell>
@@ -47,22 +36,11 @@ export const DecksTable = ({ currentTableData, setCurrentDeck, callback }: Decks
               <TCell>{deck?.author?.name}</TCell>
               <TCell>
                 <div className={s.iconsContainer}>
-                  <AddDeck
-                    onSubmit={callback}
-                    // open={addDeckOpenStatus}
-                    //FIXME wouldnt work since when we add new deck nothing is selected yet
-                    // onClose={() => setCurrentDeck(null)}
-                  />
                   <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
                     <PlayInCircle />
                   </Button>
-                  <Button onClick={() => onClick('edit')} variant={'icon'}>
-                    <EditPencil />
-                  </Button>
-                  {/*<Button onClick={() => onClick('delete')} variant={'icon'}>*/}
-                  {/*  <Bin />*/}
-                  {/*</Button>*/}
-                  <MDelete deck={deck} />
+                  <EditDeckManager deck={deck} />
+                  <DeleteDeckManager deck={deck} />
                 </div>
               </TCell>
             </TRow>
@@ -73,27 +51,14 @@ export const DecksTable = ({ currentTableData, setCurrentDeck, callback }: Decks
   )
 }
 
-const MDelete = (props: any) => {
-  const { deck } = props
-  const [deleteDeck] = useDeleteDeckMutation()
-  const [open, setOpen] = useState(false)
-  return (
-    <>
-      {/*<Button onClick={() => setOpen(true)} variant={'icon'}>*/}
-      {/*  <Bin />*/}
-      {/*</Button>*/}
-      <DeleteDeck
-        icon={<Bin />}
-        id={deck.id}
-        open={open}
-        //onClick={() => setOpen(true)}
-        onOpenChange={() => {
-          setOpen(!open)
-        }}
-        onClose={() => setOpen(!open)}
-        deckName={deck.name}
-        onSubmit={deleteDeck}
-      />
-    </>
-  )
-}
+// type DeckManagerPropsType = {
+//   rtkQueryHook: (data: unknown) => void
+//   formComponent: ReactNode
+//   deck: DeckType
+//   icon: ReactNode
+// }
+// export const DeckManager = ({ formComponent }: DeckManagerPropsType) => {
+//   const [open, setOpen] = useState(false)
+//
+//   return { formComponent }
+// }

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './AddDeckForm.module.scss'
-import { ChangeEvent, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { ControlledFileUploader } from '@/view/components/shared-controlled/controlledTextField/controlledTextField'
 
 export type AddDeckProps = {
@@ -37,7 +37,7 @@ const addDeckForm = z.object({
   //   }
   // }),
   cover: z.any(),
-  name: z.string().min(3, 'Too short selectedDeck name').max(25),
+  name: z.string().min(3, 'Too short _selectedDeck name').max(25),
   isPrivate: z.boolean().optional(),
 })
 

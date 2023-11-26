@@ -8,20 +8,16 @@ import {
   useUpdateDeckMutation,
 } from '@/view/services/decks/decks.service'
 import { Typography } from '@/view/ui/Typography'
-import { AddDeck } from '@/view/modules'
 import { EditDeck } from '@/view/modules/decks/components/forms/edit-deck-form/EditDeckForm'
-import { SetCurrentDeckUseStateType } from '@/view/modules/selectedDeck/components/selectedDeck/types/types.'
-import { DeleteDeck } from '@/view/modules/decks/components/forms/delete-deck-form/DeleteDeckForm'
+import { SetCurrentDeckUseStateType } from '@/view/modules/selectedDeck/components/SelectedDeck/types/types.'
+import { DeleteDeckForm } from '@/view/modules/decks/components/forms/delete-deck-form/DeleteDeckForm'
+import { AddDeck } from '@/view/modules'
 
 /** Shows modals when currentDeck is selected (not empty)*/
 
 export const Decks = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [currentDeck, setCurrentDeck] = useState<SetCurrentDeckUseStateType>()
-
-  const [handleDeckEdit] = useUpdateDeckMutation()
-  const [deleteDeck] = useDeleteDeckMutation() // in post,delete,patch we do not provide args since we retrieve a function which accepts all the params
   const [createDeck] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
   const {
     data: decks,
@@ -65,17 +61,13 @@ export const Decks = () => {
 
   return (
     <>
-      {/*<AddDeck*/}
-      {/*  onSubmit={createDeck}*/}
-      {/*  // open={addDeckOpenStatus}*/}
-      {/*  //FIXME wouldnt work since when we add new deck nothing is selected yet*/}
-      {/*  // onClose={() => setCurrentDeck(null)}*/}
-      {/*/>*/}
-      <DecksTable
-        callback={createDeck}
-        setCurrentDeck={setCurrentDeck}
-        currentTableData={decks.items}
+      <AddDeck
+        onSubmit={createDeck}
+        // open={addDeckOpenStatus}
+        //FIXME wouldnt work since when we add new deck nothing is selected yet
+        // onClose={() => setCurrentDeck(null)}
       />
+      <DecksTable currentTableData={decks.items} />
       <Pagination
         currentPage={currentPage}
         totalCount={decks.pagination.totalItems}
@@ -85,23 +77,6 @@ export const Decks = () => {
         itemsPerPage={decks.pagination.itemsPerPage}
         selectOptions={selectOptionsOfDecksToDisplay}
       />
-      {currentDeck?.key === 'edit' ? (
-        <EditDeck
-          id={currentDeck?.val.id}
-          open={!!currentDeck}
-          onClose={() => setCurrentDeck(null)}
-          deckName={'editDeck'}
-          onSubmit={handleDeckEdit}
-        />
-      ) : currentDeck?.key === 'delete' ? (
-        <DeleteDeck
-          id={currentDeck?.val.id}
-          open={!!currentDeck}
-          onClose={() => setCurrentDeck(null)}
-          deckName={currentDeck.val.name}
-          onSubmit={deleteDeck}
-        />
-      ) : null}
     </>
   )
 }

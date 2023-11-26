@@ -19,8 +19,8 @@ type EditDeckFormValues = z.infer<typeof editCardForm>
 
 const editCardForm = z.object({
   id: z.string(),
-  answer: z.string().min(3, 'Too short selectedDeck name').max(25),
-  question: z.string().min(3, 'Too short selectedDeck name').max(25),
+  answer: z.string().min(3, 'Too short _selectedDeck name').max(25),
+  question: z.string().min(3, 'Too short _selectedDeck name').max(25),
   questionImg: z.string().optional(),
 })
 

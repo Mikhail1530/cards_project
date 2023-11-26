@@ -22,7 +22,7 @@ export type DeckOperationsWindowProps = {
 type BodyValues = z.infer<typeof deckOperationsWindowSchema>
 
 const deckOperationsWindowSchema = z.object({
-  name: z.string().min(3, 'Too short selectedDeck name').max(25),
+  name: z.string().min(3, 'Too short _selectedDeck name').max(25),
   isPrivate: z.boolean().optional(),
 })
 
@@ -30,7 +30,7 @@ export const DeckOperationsWindow = ({
   deckName,
   onSubmit,
   inputLabel = 'SelectedDeck name',
-  checkboxLabel = 'Private selectedDeck',
+  checkboxLabel = 'Private _selectedDeck',
 }: DeckOperationsWindowProps) => {
   const {
     control,

@@ -38,7 +38,7 @@ export const DeleteCardForm = ({
   const handleFormSubmit = handleSubmit((data: DeleteCardFormValues) => {
     onSubmit(data)
     onClose()
-    console.log(data, 'is data in DeleteDeck handleSubmit')
+    console.log(data, 'is data in DeleteDeckForm handleSubmit')
   })
 
   return (
@@ -47,7 +47,7 @@ export const DeleteCardForm = ({
       title={'Delete Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Delete selectedDeck'}
+      triggerBtnText={'Delete _selectedDeck'}
       open={open}
       icon={icon}
       onClose={onClose}

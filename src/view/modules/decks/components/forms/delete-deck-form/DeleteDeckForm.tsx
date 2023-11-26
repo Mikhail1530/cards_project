@@ -14,7 +14,6 @@ export type DeleteDeckProps = {
   open: boolean
   onClose: () => void
   id: string
-  onOpenChange: (open: boolean) => void
   // onClick: () => void
 }
 
@@ -24,14 +23,13 @@ const deleteDeckForm = z.object({
   id: z.string(),
 })
 
-export const DeleteDeck = ({
+export const DeleteDeckForm = ({
   open,
   id,
   icon,
   deckName,
   onSubmit,
   onClose,
-  onOpenChange, // onClick,
 }: DeleteDeckProps) => {
   const { handleSubmit } = useForm<DeleteDeckFormValues>({
     resolver: zodResolver(deleteDeckForm),
@@ -41,7 +39,7 @@ export const DeleteDeck = ({
   const handleFormSubmit = handleSubmit((data: DeleteDeckFormValues) => {
     onSubmit(data)
     onClose()
-    console.log(data, 'is data in DeleteDeck handleSubmit')
+    console.log(data, 'is data in DeleteDeckForm handleSubmit')
   })
 
   return (
@@ -50,12 +48,10 @@ export const DeleteDeck = ({
       title={'Delete Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Delete selectedDeck'}
+      triggerBtnText={'Delete _selectedDeck'}
       icon={icon}
       open={open}
       onClose={onClose}
-      onOpenChange={onOpenChange}
-      // onClick={onClick}
     >
       <div className={s.invisible} />
       <form>
