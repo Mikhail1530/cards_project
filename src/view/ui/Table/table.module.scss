@@ -21,6 +21,10 @@
 
 }
 
+.tbody {
+  word-break: break-word;
+}
+
 .tr {
   border: 1px solid var(--color-dark-500);
 }

@@ -2,7 +2,7 @@ import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, forwardRef, useS
 
 import { clsx } from 'clsx'
 import s from './TextField.module.scss'
-import { Typography } from '../Typography'
+import { Typography } from '@/view/ui'
 import Eye from '@/view/assets/icons/eye/Eye'
 import EyeCrossed from '@/view/assets/icons/eye/EyeCrossed'
 
@@ -39,22 +39,25 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const [showPassword, setShowPassword] = useState(false)
 
     const isShowPasswordButtonShown = type === 'password'
+    const isFileType = type === 'file'
 
     const finalType = getFinalType(type, showPassword)
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-      onChange?.(e)
-      // if (e.target.files && e.target.files[0]) {
-      //   console.log('hello ')
-      //   onValueChange?.(e.target.files[0])
-      // } else {
+      // onChange?.(e)
       onValueChange?.(e.target.value)
       // }
     }
 
     const classNames = {
       error: clsx(s.errorText),
-      field: clsx(s.field, !!errorMessage && s.error, search && s.hasLeadingIcon, className),
+      field: clsx(
+        s.field,
+        !!errorMessage && s.error,
+        search && s.hasLeadingIcon,
+        isFileType && s.fileType,
+        className
+      ),
       fieldContainer: clsx(s.fieldContainer),
       label: clsx(s.label, labelProps?.className),
       leadingIcon: s.leadingIcon,
@@ -69,7 +72,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </Typography>
         )}
         <div className={classNames.fieldContainer}>
-          {/*{search && <Search className={classNames.leadingIcon} />}*/}
           <input
             className={classNames.field}
             onChange={handleChange}

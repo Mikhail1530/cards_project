@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 import { useAuthMeQuery } from '@/view/services/auth/auth.service'
 import { DecksPage, SignInPage } from '@/view/pages'
-import { DeckPage } from '@/view/pages/deck-page/DeckPage'
+import { DeckPage } from '@/view/pages/DeckPage/DeckPage'
 
 const privateRoutes: RouteObject[] = [
   {

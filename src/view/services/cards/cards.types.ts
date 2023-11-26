@@ -15,7 +15,7 @@ export type CreateCardResponseType = {
 }
 
 export type UpdateCardResponseType = {
-  id: string
+  cardId: string
   deckId: string
   userId: string
   question: string
@@ -31,7 +31,7 @@ export type UpdateCardResponseType = {
 }
 
 export type UpdateCardArgs = {
-  id: string
+  cardId: string
   questionImg?: string
   question: string
   answer: string
@@ -40,7 +40,7 @@ export type UpdateCardArgs = {
 }
 
 export type DeleteCardArgs = {
-  id: string
+  cardId: string
 }
 
 // export type CreateCardArgs = {

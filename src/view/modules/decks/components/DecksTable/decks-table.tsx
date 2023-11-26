@@ -4,7 +4,7 @@ import s from './decks-table.module.scss'
 import { Link } from 'react-router-dom'
 import { PlayInCircle } from '@/view/assets/icons'
 import { GetDecksResponseItem as DeckType } from '@/view/services/decks/decks.types'
-import { DeckFormsManager } from '@/view/modules/decks/components/deck-forms-manager/DeckFormsManager'
+import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManager/DeckFormsManager'
 
 type DecksTable = {
   currentTableData: DeckType[]
@@ -35,7 +35,12 @@ export const DecksTable = ({ currentTableData }: DecksTable) => {
               <TCell>{deck?.author?.name}</TCell>
               <TCell>
                 <div className={s.iconsContainer}>
-                  <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
+                  <Button
+                    fullWidth={false}
+                    as={Link}
+                    to={`/decks/${deck.id}/learn`}
+                    variant={'icon'}
+                  >
                     <PlayInCircle />
                   </Button>
                   <DeckFormsManager type={'EDIT'} deck={deck} />
@@ -49,15 +54,3 @@ export const DecksTable = ({ currentTableData }: DecksTable) => {
     </Table>
   )
 }
-
-// type DeckManagerPropsType = {
-//   rtkQueryHook: (data: unknown) => void
-//   formComponent: ReactNode
-//   deck: DeckType
-//   icon: ReactNode
-// }
-// export const DeckManager = ({ formComponent }: DeckManagerPropsType) => {
-//   const [open, setOpen] = useState(false)
-//
-//   return { formComponent }
-// }

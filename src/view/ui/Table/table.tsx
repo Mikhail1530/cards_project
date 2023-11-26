@@ -14,9 +14,9 @@ export const THead = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRe
 export const TBody = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'tbody'>>(
   ({ className, ...rest }, ref) => {
     const classNames = {
-      thead: clsx(className, s.tbody),
+      tbody: clsx(className, s.tbody),
     }
-    return <tbody className={classNames.thead} {...rest} ref={ref}></tbody>
+    return <tbody className={classNames.tbody} {...rest} ref={ref}></tbody>
   }
 )
 

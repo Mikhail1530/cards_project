@@ -9,6 +9,7 @@ import {
 import { clsx } from 'clsx'
 
 import s from './Button.module.scss'
+import { Link } from 'react-router-dom'
 
 export type ButtonVariants = 'link' | 'primary' | 'secondary' | 'tertiary' | 'icon'
 
@@ -36,8 +37,9 @@ export const Button = forwardRef(
       ...rest
     } = props
 
+    const isLink = Component === Link
     const classNames = {
-      component: clsx(s.button, s[variant], className, fullWidth && s.fullWidth),
+      component: clsx(s.button, s[variant], className, fullWidth && s.fullWidth, isLink && s.link),
       icon: clsx(s.icon, s[variant]),
     }
 

@@ -10,12 +10,11 @@ const cardsService = baseApi.injectEndpoints({
     return {
       createCard: builder.mutation<
         CreateCardResponseType,
-        { formData: FormData; id: string | undefined }
+        { deckId: string | undefined; formData: FormData }
       >({
-        query: ({ formData, id }) => {
-          debugger
+        query: ({ deckId, formData }) => {
           return {
-            url: `v1/decks/${id}/cards`,
+            url: `v1/decks/${deckId}/cards`,
             method: 'POST',
             body: formData ?? {},
           }
@@ -24,11 +23,11 @@ const cardsService = baseApi.injectEndpoints({
       }),
       updateCard: builder.mutation<
         UpdateCardResponseType,
-        { formData: FormData; id: string | undefined }
+        { cardId: string | undefined; formData: FormData }
       >({
-        query: ({ formData, id }) => {
+        query: ({ cardId, formData }) => {
           return {
-            url: `v1/cards/${id}`,
+            url: `v1/cards/${cardId}`,
             method: 'PATCH',
             body: formData ?? {},
           }
@@ -36,9 +35,9 @@ const cardsService = baseApi.injectEndpoints({
         invalidatesTags: ['Cards'],
       }),
       deleteCard: builder.mutation<void, DeleteCardArgs>({
-        query: ({ id }) => {
+        query: ({ cardId }) => {
           return {
-            url: `v1/cards/${id}`,
+            url: `v1/cards/${cardId}`,
             method: 'DELETE',
           }
         },

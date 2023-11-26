@@ -36,7 +36,6 @@ const decksService = baseApi.injectEndpoints({
       }),
       getDeckById: builder.query<GetDeckByIdResponse, GetDeckByIdArgs>({
         query: ({ id }) => {
-          debugger
           return `v1/decks/${id}`
         }, // = {url: `v1/decks/${id}`}
       }),
@@ -67,7 +66,6 @@ const decksService = baseApi.injectEndpoints({
       }),
       deleteDeck: builder.mutation<DeleteDeckResponseType, DeleteDeckArgs>({
         query: ({ id }) => {
-          debugger
           return {
             url: `v1/decks/${id}`,
             method: 'DELETE',

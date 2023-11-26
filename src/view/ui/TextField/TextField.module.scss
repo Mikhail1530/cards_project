@@ -44,6 +44,11 @@
   &.hasLeadingIcon {
     padding-left: 41px;
   }
+
+  &.fileType {
+    //display: none;
+    //opacity: 0;
+  }
 }
 
 .errorText {
@@ -98,5 +103,9 @@
 
   &:focus-visible {
     outline: var(--outline-focus);
+  }
+
+  .isFileType {
+    background-color: red;
   }
 }
