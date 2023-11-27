@@ -26,6 +26,7 @@ const cardsService = baseApi.injectEndpoints({
         { cardId: string | undefined; formData: FormData }
       >({
         query: ({ cardId, formData }) => {
+          console.log('123')
           return {
             url: `v1/cards/${cardId}`,
             method: 'PATCH',

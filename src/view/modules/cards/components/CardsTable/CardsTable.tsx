@@ -23,8 +23,26 @@ export const CardsTable = ({ selectedDeckTableData }: SelectedDeckTableType) => 
         {selectedDeckTableData.map((card: CardType) => {
           return (
             <TRow key={card.id}>
-              <TCell>{card?.question}</TCell>
-              <TCell>{card?.answer}</TCell>
+              <TCell>
+                {card?.questionImg ? (
+                  <>
+                    <img src={card?.questionImg} alt="questionImg" />
+                    {card?.question}
+                  </>
+                ) : (
+                  card?.question
+                )}
+              </TCell>
+              <TCell>
+                {card?.answerImg ? (
+                  <>
+                    <img src={card?.answerImg} alt="questionImg" />
+                    {card?.answer}
+                  </>
+                ) : (
+                  card?.answer
+                )}
+              </TCell>
               <TCell>{new Date(card?.updated).toLocaleDateString()}</TCell>
               <TCell>{card?.grade}</TCell>
               <TCell>

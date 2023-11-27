@@ -11,10 +11,10 @@ export type TextFieldProps = {
   errorMessage?: string
   label?: string
   labelProps?: ComponentProps<'label'>
-  onValueChange?: (
-    value?: string | undefined,
-    e?: ChangeEvent<HTMLInputElement> | undefined
-  ) => void
+  // onValueChange?: (
+  //   value?: string | undefined,
+  //   e?: ChangeEvent<HTMLInputElement> | undefined
+  // ) => void
   search?: boolean
   pictureObj?: any
 } & ComponentPropsWithoutRef<'input'>
@@ -28,7 +28,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       label,
       labelProps,
       onChange,
-      onValueChange,
+      // onValueChange,
       placeholder,
       search,
       type,
@@ -44,8 +44,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const finalType = getFinalType(type, showPassword)
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-      // onChange?.(e)
-      onValueChange?.(e.target.value)
+      onChange?.(e)
+      // onValueChange?.(e.target.value)
       // }
     }
 

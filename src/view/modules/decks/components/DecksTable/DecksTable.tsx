@@ -1,6 +1,6 @@
 import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table'
 import { Button } from '@/view/ui/Button'
-import s from './decks-table.module.scss'
+import s from './DecksTable.module.scss'
 import { Link } from 'react-router-dom'
 import { PlayInCircle } from '@/view/assets/icons'
 import { GetDecksResponseItem as DeckType } from '@/view/services/decks/decks.types'

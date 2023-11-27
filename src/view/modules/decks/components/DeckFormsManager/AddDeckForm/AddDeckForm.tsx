@@ -37,7 +37,7 @@ const addDeckForm = z.object({
   //   }
   // }),
   cover: z.any(),
-  name: z.string().min(3, 'Too short _selectedDeck name').max(25),
+  name: z.string().min(3, 'Too short deck name. It should be at least 3 symbols.').max(25),
   isPrivate: z.boolean().optional(),
 })
 
@@ -74,7 +74,6 @@ export const AddDeckForm = ({ icon, onSubmit, open, onClose }: AddDeckProps) => 
         <div className={s.body}>
           <ControlledFileUploader
             className={s.bodyItem}
-            type={'file'}
             control={control}
             name={'cover'}
             label={'Cover'}

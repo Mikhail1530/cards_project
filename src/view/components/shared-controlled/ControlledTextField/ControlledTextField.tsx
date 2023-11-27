@@ -19,7 +19,7 @@ export const ControlledTextField = <T extends FieldValues>({
     field: { value, onChange, ref },
   } = useController({ control: control, name: name })
 
-  return <TextField type={type} ref={ref} value={value} onValueChange={onChange} {...rest} />
+  return <TextField type={type} ref={ref} value={value} onChange={onChange} {...rest} />
 }
 
 export const ControlledFileUploader = <T extends FieldValues>({
@@ -35,10 +35,18 @@ export const ControlledFileUploader = <T extends FieldValues>({
   //change value from useController to Img File
   const handleOnChange = (e: ChangeEvent<HTMLInputElement> | undefined) => {
     if (!e || !e.target || !e.target.files) return
+    console.log(e?.target?.files, 'fileS!!!!')
     onChange(e?.target?.files[0])
   }
 
   return (
-    <TextField type={'file'} ref={ref} value={value.filename} onChange={handleOnChange} {...rest} />
+    <TextField
+      type={'file'}
+      ref={ref}
+      value={value.filename}
+      // value={value.filename || ''}
+      onChange={handleOnChange}
+      {...rest}
+    />
   )
 }

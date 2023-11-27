@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from 'react'
 
 import { ArrowDownOutline } from '@/view/assets/icons/arrows/Arrow-down'
 import * as RSelect from '@radix-ui/react-select'
@@ -12,11 +12,11 @@ export type SelectMenuProps = {
   title?: string
   itemsPerPage?: number
   value: string
-  setQuestionForm: (value) => void
+  setQuestionForm: (value: string) => void
 } & ComponentPropsWithoutRef<typeof RSelect.Root>
 //& SelectProps
 
-export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProps>(
+export const Select = React.forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProps>(
   (
     {
       onChangeOption,
@@ -51,7 +51,7 @@ export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProp
       <div className={s.wrapper}>
         <div className={s.title}>{title}</div>
         <RSelect.Root
-          ref={ref}
+          // ref={ref}
           onOpenChange={toggleIsOpened}
           onValueChange={onChangeCallback}
           {...rest}

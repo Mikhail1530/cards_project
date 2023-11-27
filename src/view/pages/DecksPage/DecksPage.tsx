@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DecksTable } from '@/view/modules/decks/components/DecksTable/decks-table'
+import { DecksTable } from '@/view/modules/decks/components/DecksTable/DecksTable'
 import { Pagination } from '@/view/components/pagination/pagination'
 import { useGetDecksQuery } from '@/view/services/decks/decks.service'
 import { Typography } from '@/view/ui/Typography'

@@ -43,10 +43,12 @@ export const CardFormsManager = ({ type, card, deckId }: CardFormsManagerPropsTy
         <EditCardForm
           question={card.question}
           answer={card?.answer}
+          cardId={card.id}
+          questionImg={card?.questionImg}
+          answerImg={card?.answerImg}
           open={open}
           onClose={() => setOpen(!open)}
           onSubmit={handleCardEdit}
-          cardId={card.id}
           icon={<EditPencil />}
         />
       )

@@ -1,17 +1,20 @@
-
-.dialog {
-}
-
 .body {
   .bodyItem {
     position: relative; // FIXME: Problem with error messages position
     margin-bottom: 24px;
   }
-}
 
+  .fileUploadersContainer {
+    img {
+      max-width: 400px;
+      max-height: 400px;
+    }
+  }
+}
 
 .footerBtns {
   display: flex;
   justify-content: space-between;
   margin: 12px 24px 36px;
 }
+

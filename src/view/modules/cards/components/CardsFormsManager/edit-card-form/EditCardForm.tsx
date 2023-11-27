@@ -15,6 +15,8 @@ export type EditCardFormProps = {
   cardId: string | undefined
   open: boolean
   onClose: () => void
+  questionImg?: string
+  answerImg?: string
   question: string
   answer: string
 }
@@ -26,7 +28,8 @@ const editCardForm = z.object({
   answer: z.string().min(3, 'Too short _selectedDeck name').max(100),
   question: z.string().min(3, 'Too short _selectedDeck name').max(100),
   questionForm: z.string().optional(),
-  questionImg: z.string().optional(),
+  questionImg: z.any().optional(),
+  answerImg: z.any().optional(),
 })
 
 export const EditCardForm = ({
@@ -36,6 +39,8 @@ export const EditCardForm = ({
   open,
   onClose,
   answer,
+  questionImg,
+  answerImg,
   question,
 }: EditCardFormProps) => {
   const [questionForm, setQuestionForm] = useState('')
@@ -50,24 +55,22 @@ export const EditCardForm = ({
       answer: answer,
       question: question,
       questionImg: '',
+      answerImg: '',
       questionForm: '',
     },
   })
+  console.log(errors)
 
   const handleFormSubmit = handleSubmit((data: EditDeckFormValues) => {
+    debugger
     const formData = new FormData()
     formData.append('question', data.question)
     formData.append('answer', data.answer)
     if (data.questionImg) formData.append('questionImg', data.questionImg)
+    if (data.answerImg) formData.append('answerImg', data.answerImg)
+
     onSubmit({ cardId, formData })
-    console.log(data, 'is data in DeckOperationsWindow handleSubmit')
   })
-
-  const selector = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
-  }
-
-  console.log(questionForm)
 
   return (
     <Dialog
@@ -80,14 +83,7 @@ export const EditCardForm = ({
       open={open}
       onClose={onClose}
     >
-      <div className={s.invisible} />
       <form>
-        {/*<select onChange={selector}>*/}
-        {/*  <option value="volvo">Volvo</option>*/}
-        {/*  <option value="saab">Saab</option>*/}
-        {/*  <option value="mercedes">Mercedes</option>*/}
-        {/*  <option value="audi">Audi</option>*/}
-        {/*</select>*/}
         <div className={s.body}>
           <ControlledSelect
             options={['text', 'image', 'video']}
@@ -96,10 +92,18 @@ export const EditCardForm = ({
             setQuestionForm={setQuestionForm}
           />
           {questionForm === 'image' ? (
-            <ControlledFileUploader control={control} name={'questionImg'} />
+            <div className={s.fileUploadersContainer}>
+              <img src={questionImg} alt={'questionImg'} />
+              <ControlledFileUploader
+                className={s.bodyItem}
+                control={control}
+                name={'questionImg'}
+              />
+              <img src={answerImg} alt={'answerImg'} />
+              <ControlledFileUploader className={s.bodyItem} control={control} name={'answerImg'} />
+            </div>
           ) : (
             <>
-              {' '}
               <ControlledTextField
                 className={s.bodyItem}
                 control={control}

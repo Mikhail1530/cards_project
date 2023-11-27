@@ -20,17 +20,5 @@ export const ControlledSelect = <T extends FieldValues>({
     field: { value, onChange, ref },
   } = useController({ control: control, name: name })
 
-  const handleOnChange = () => {
-    onChange()
-  }
-  console.log(value, 'value')
-
-  // const handleOnChange = (e: ChangeEvent<HTMLSelectElement> | undefined) => {
-  //   if (e && e.target.value === 'image') {
-  //     ;<input type={'file'} />
-  //   }
-  //   onChange(e?.target?.files[0])
-  // }
-  // console.log(value, 'value')
-  return <Select ref={ref} value={value} onChangeOption={handleOnChange} {...rest} />
+  return <Select ref={ref} value={value} onChangeOption={onChange} {...rest} />
 }
