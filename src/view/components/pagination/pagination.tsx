@@ -6,7 +6,7 @@ import { Typography } from '@/view/ui/Typography'
 
 export type PaginatorPropsType = {
   handlePageChange: (pageNumber: number) => void
-  handleSetItemsPerPage: (numItemsPerPage: number) => void
+  handleSetItemsPerPage: (numItemsPerPage: string | number) => void
   totalPages: number
   totalCount: number
   itemsPerPage: number
@@ -97,6 +97,7 @@ export const Pagination = (props: PaginatorPropsType) => {
           <div className={s.numOfPages}>
             <Typography>Show</Typography>
             <Select
+              className={s.triggerBtn}
               onChangeOption={handleSetItemsPerPage}
               options={selectOptions}
               itemsPerPage={itemsPerPage}

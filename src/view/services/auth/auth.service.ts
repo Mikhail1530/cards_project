@@ -1,4 +1,4 @@
-import { baseApi } from '@/view/services/base-api'
+import { baseApi } from '@/api/base-api'
 import { AuthMeResponseType, LoginArgs } from '@/view/services/auth/auth.types'
 
 export const authService = baseApi.injectEndpoints({

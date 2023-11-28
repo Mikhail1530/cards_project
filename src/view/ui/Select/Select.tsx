@@ -1,9 +1,10 @@
-import React, { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, ReactNode, useState } from 'react'
 
 import { ArrowDownOutline } from '@/view/assets/icons/arrows/Arrow-down'
 import * as RSelect from '@radix-ui/react-select'
 
 import s from './Select.module.scss'
+import { clsx } from 'clsx'
 
 export type SelectMenuProps = {
   onChangeOption: (value: string) => void
@@ -11,28 +12,29 @@ export type SelectMenuProps = {
   placeholder?: string
   title?: string
   itemsPerPage?: number
-  value: string
-  setQuestionForm: (value: string) => void
+  value?: string
+  icon?: ReactNode
+  setQuestionForm?: (value: string) => void
+  className?: string
 } & ComponentPropsWithoutRef<typeof RSelect.Root>
 //& SelectProps
 
 export const Select = React.forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProps>(
-  (
-    {
-      onChangeOption,
-      options,
-      placeholder = options[0],
-      title,
-      itemsPerPage,
-      setQuestionForm,
-      ...rest
-    }: SelectMenuProps,
-    ref
-  ) => {
+  ({
+    onChangeOption,
+    options,
+    placeholder = options[0],
+    title,
+    itemsPerPage,
+    setQuestionForm,
+    icon,
+    className,
+    ...rest
+  }: SelectMenuProps) => {
     const [isOpened, setIsOpened] = useState<boolean>(false)
 
     const onChangeCallback = (value: string) => {
-      setQuestionForm(value)
+      setQuestionForm?.(value)
       onChangeOption && onChangeOption(value)
     }
 
@@ -47,6 +49,10 @@ export const Select = React.forwardRef<ElementRef<typeof RSelect.Root>, SelectMe
       </RSelect.Item>
     ))
 
+    const classNames = {
+      trigger: clsx(s.trigger, className),
+    }
+
     return (
       <div className={s.wrapper}>
         <div className={s.title}>{title}</div>
@@ -56,10 +62,10 @@ export const Select = React.forwardRef<ElementRef<typeof RSelect.Root>, SelectMe
           onValueChange={onChangeCallback}
           {...rest}
         >
-          <RSelect.Trigger className={s.trigger}>
+          <RSelect.Trigger className={classNames['trigger']}>
             <RSelect.Value placeholder={itemsPerPage} />
             <RSelect.Icon>
-              <ArrowDownOutline className={isOpened ? s.iconRotated : s.icon} />
+              {icon || <ArrowDownOutline className={isOpened ? s.iconRotated : s.icon} />}
             </RSelect.Icon>
           </RSelect.Trigger>
 

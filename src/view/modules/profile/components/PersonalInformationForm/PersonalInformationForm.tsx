@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Card, Typography } from '../../../../ui'
+import { Card, Dialog, Typography } from '@/view/ui'
 import s from './PersonalInformationForm.module.scss'
 import { useState } from 'react'
 import { AvatarWithEditButton, NameWithEditButton, NameChanger } from '../index'
@@ -56,6 +56,17 @@ export const PersonalInformationForm = ({
   }
 
   return (
+    // <Dialog
+    //   className={s.dialog}
+    //   title={'Add New CardType'}
+    //   acceptBtnText={'Add card'}
+    //   handleFormSubmit={handleFormSubmit}
+    //   triggerBtnText={'Add new card'}
+    //   icon={icon}
+    //   open={open}
+    //   onClose={onClose}
+    // >
+    //   <form>
     <Card as={'form'} onSubmit={handleSubmit(handleFormSubmit)} className={s.form}>
       <Typography as={'div'} className={s.caption} variant={'h1'}>
         Personal information
@@ -69,5 +80,6 @@ export const PersonalInformationForm = ({
         <NameChanger control={control} register={register} errors={errors} />
       )}
     </Card>
+    // {/*  </form>*/}
   )
 }

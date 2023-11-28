@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './EditCardForm.module.scss'
-import { ChangeEvent, ReactNode, useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { ControlledSelect } from '@/view/components/shared-controlled/ControlledSelect/ControlledSelect'
 import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
 

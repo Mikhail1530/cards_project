@@ -10,7 +10,7 @@ import { CardFormsManager } from '@/view/modules/cards/components/CardsFormsMana
 
 export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [itemsPerPage, setItemsPerPage] = useState<number | string>(10)
   const navigate = useNavigate()
   const match = useMatch('/decks/:id/learn')
 
@@ -43,7 +43,7 @@ export const DeckPage = () => {
     }
   }
 
-  const handleSetItemsPerPage = (numOfItemsPerPage: number) => {
+  const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {
     setItemsPerPage(numOfItemsPerPage)
   }
 

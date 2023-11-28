@@ -1,8 +1,9 @@
 import { LoginForm } from '@/view/modules/auth'
-import s from './SignInPage.module.scss'
 import { useLoginMutation } from '@/view/services/auth/auth.service'
 import { LoginArgs } from '@/view/services/auth/auth.types'
 import { useNavigate } from 'react-router-dom'
+import { Header } from '@/view/modules'
+import { Page } from '@/view/ui'
 
 export const SignInPage = () => {
   const [login] = useLoginMutation()
@@ -18,8 +19,9 @@ export const SignInPage = () => {
   }
 
   return (
-    <div className={s.signInPage}>
+    <Page>
+      <Header />
       <LoginForm onSubmit={handleLogin} />
-    </div>
+    </Page>
   )
 }

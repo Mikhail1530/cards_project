@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 
-import { App } from '@/App'
+import { App } from '@/app/App'
 import { createRoot } from 'react-dom/client'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
@@ -8,6 +8,6 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     <App />
   </StrictMode>
 )
-import './styles/index.scss'
+import '@/app/styles/index.scss'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
