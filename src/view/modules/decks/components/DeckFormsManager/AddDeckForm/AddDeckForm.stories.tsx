@@ -12,8 +12,12 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const aAddPack: Story = {
+export const AddDeck: Story = {
   args: {
+    onSubmit: () => {},
+    open: true,
+    onClose: () => {},
+    icon: <span>icon</span>,
     // header: 'Add New Pack',
     // acceptBtnText: 'Add New Pack',
     // onSubmit: () => {},

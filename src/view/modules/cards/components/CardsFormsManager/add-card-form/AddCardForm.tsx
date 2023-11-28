@@ -3,7 +3,9 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './AddCardForm.module.scss'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
+import { ControlledSelect } from '@/view/components/shared-controlled/ControlledSelect/ControlledSelect'
+import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
 
 export type AddCardFormProps = {
   onSubmit: (data: { deckId: string; formData: FormData }) => void
@@ -14,37 +16,58 @@ export type AddCardFormProps = {
   deckId: string
   open: boolean
   onClose: () => void
+  questionImg?: string
+  answerImg?: string
 }
 
 type AddDeckFormValues = z.infer<typeof addCardForm>
 
 const addCardForm = z.object({
   deckId: z.string(),
-  questionImg: z.string().optional(),
+  questionImg: z.any().optional(),
+  answerImg: z.any().optional(),
   question: z.string().min(3, 'Too short question').max(100),
   answer: z.string().min(3, 'Too short answer').max(100),
+  questionForm: z.string().optional(),
 })
 
-export const AddCardForm = ({ icon, onSubmit, deckId, open, onClose }: AddCardFormProps) => {
+export const AddCardForm = ({
+  icon,
+  onSubmit,
+  deckId,
+  open,
+  onClose,
+  questionImg,
+  answerImg,
+}: AddCardFormProps) => {
+  const [questionForm, setQuestionForm] = useState('')
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<AddDeckFormValues>({
     resolver: zodResolver(addCardForm),
-    defaultValues: { deckId: deckId, questionImg: '', question: '', answer: '' },
+    defaultValues: {
+      deckId: deckId,
+      questionImg: '',
+      answerImg: '',
+      question: '',
+      answer: '',
+      questionForm: '',
+    },
   })
 
   const handleFormSubmit = handleSubmit((data: AddDeckFormValues) => {
     const formData = new FormData()
-    // formData.append('questionImg', JSON.stringify(data.questionImg))
     formData.append('question', data.question)
     formData.append('answer', data.answer)
+    if (data.questionImg) formData.append('questionImg', data.questionImg)
+    if (data.answerImg) formData.append('answerImg', data.answerImg)
     // Object.entries(data).forEach(([key, value]) => formData.append(key, JSON.stringify(value)))
     onSubmit({ formData, deckId })
     onClose()
-    console.log(data, 'is data in DeckOperationsWindow handleSubmit')
   })
+  console.log(errors)
 
   return (
     <Dialog
@@ -59,27 +82,55 @@ export const AddCardForm = ({ icon, onSubmit, deckId, open, onClose }: AddCardFo
     >
       <form>
         <div className={s.body}>
-          <ControlledTextField
-            className={s.bodyItem}
+          <ControlledSelect
+            options={['text', 'image', 'video']}
+            name={'questionForm'}
             control={control}
-            name={'questionImg'}
-            label={'Choose a question format'}
-            errorMessage={errors.questionImg?.message}
+            setQuestionForm={setQuestionForm}
           />
-          <ControlledTextField
-            className={s.bodyItem}
-            control={control}
-            name={'question'}
-            label={'Question'}
-            errorMessage={errors.question?.message}
-          />
-          <ControlledTextField
-            className={s.bodyItem}
-            control={control}
-            name={'answer'}
-            label={'Answer'}
-            errorMessage={errors.answer?.message}
-          />
+          {questionForm === 'image' ? (
+            <div className={s.fileUploadersContainer}>
+              {questionImg && <img src={questionImg} alt={'questionImg'} />}
+              <ControlledFileUploader
+                className={s.bodyItem}
+                control={control}
+                name={'questionImg'}
+              />
+              <ControlledTextField
+                className={s.bodyItem}
+                control={control}
+                name={'question'}
+                label={'Question'}
+                errorMessage={errors.question?.message}
+              />
+              {answerImg && <img src={answerImg} alt={'answerImg'} />}
+              <ControlledFileUploader className={s.bodyItem} control={control} name={'answerImg'} />
+              <ControlledTextField
+                className={s.bodyItem}
+                control={control}
+                name={'answer'}
+                label={'Answer'}
+                errorMessage={errors.answer?.message}
+              />
+            </div>
+          ) : (
+            <>
+              <ControlledTextField
+                className={s.bodyItem}
+                control={control}
+                name={'question'}
+                label={'Question'}
+                errorMessage={errors.question?.message}
+              />
+              <ControlledTextField
+                className={s.bodyItem}
+                control={control}
+                name={'answer'}
+                label={'Answer'}
+                errorMessage={errors.answer?.message}
+              />
+            </>
+          )}
         </div>
       </form>
     </Dialog>

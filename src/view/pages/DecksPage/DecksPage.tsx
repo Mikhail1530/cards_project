@@ -4,10 +4,12 @@ import { Pagination } from '@/view/components/pagination/pagination'
 import { useGetDecksQuery } from '@/view/services/decks/decks.service'
 import { Typography } from '@/view/ui/Typography'
 import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManager/DeckFormsManager'
+import { Page } from '@/view/ui'
+import { Header } from '@/view/modules'
 
 export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [itemsPerPage, setItemsPerPage] = useState<string | number>(10)
   const {
     data: decks,
     isLoading,
@@ -38,7 +40,7 @@ export const DecksPage = () => {
     }
   }
 
-  const handleSetItemsPerPage = (numOfItemsPerPage: number) => {
+  const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {
     setItemsPerPage(numOfItemsPerPage)
   }
 
@@ -50,17 +52,20 @@ export const DecksPage = () => {
 
   return (
     <>
-      <DeckFormsManager type={'ADD'} />
-      <DecksTable currentTableData={decks.items} />
-      <Pagination
-        currentPage={currentPage}
-        totalCount={decks.pagination.totalItems}
-        totalPages={decks.pagination.totalPages}
-        handlePageChange={handlePageChange}
-        handleSetItemsPerPage={handleSetItemsPerPage}
-        itemsPerPage={decks.pagination.itemsPerPage}
-        selectOptions={selectOptionsOfDecksToDisplay}
-      />
+      <Header />
+      <Page>
+        <DeckFormsManager type={'ADD'} />
+        <DecksTable currentTableData={decks.items} />
+        <Pagination
+          currentPage={currentPage}
+          totalCount={decks.pagination.totalItems}
+          totalPages={decks.pagination.totalPages}
+          handlePageChange={handlePageChange}
+          handleSetItemsPerPage={handleSetItemsPerPage}
+          itemsPerPage={decks.pagination.itemsPerPage}
+          selectOptions={selectOptionsOfDecksToDisplay}
+        />
+      </Page>
     </>
   )
 }

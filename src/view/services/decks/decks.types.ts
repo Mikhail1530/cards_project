@@ -8,7 +8,7 @@ export type GetDecksArgs = {
   minCardsCount?: number
   maxCardsCount?: number
   currentPage?: number
-  itemsPerPage?: number
+  itemsPerPage?: number | string
   name?: string
   authorId?: string
   orderBy?: string
@@ -85,7 +85,7 @@ export type DeleteDeckArgs = {
 export type GetCardsByDeckIdArgs = {
   id: string | undefined
   currentPage?: number
-  itemsPerPage?: number
+  itemsPerPage?: number | string
 }
 
 export type GetDeckByIdArgs = {

@@ -1,0 +1,60 @@
+.headerAvatarPopup{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  img {
+    position: relative;
+  }
+
+  .headerAvaraPopupCard {
+    position: absolute;
+    top: 60px;
+
+    flex-direction: column;
+    row-gap: 20px;
+
+    width: 233px;
+    padding:12px;
+
+    border-radius: 5px;
+
+    ::after {
+      content: "";
+
+      position: absolute;
+      top: -18px;
+      right: 26px;
+      transform: rotate(64deg) translateY(0) scaleY(1);
+
+      width: 18px;
+      height: 34px;
+
+      background-color: var(--color-dark-700);
+      border-top: #313131 solid 2px;
+      border-left: #313131 solid 2px;
+    }
+
+    .pictureAndProfileInfoContainer {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 45px;
+        clip-path: circle(45% at 50% 50%);
+      }
+
+      .text {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .btnsContainer{
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+      align-items: flex-start;
+    }
+  }
+}

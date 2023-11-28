@@ -15,27 +15,20 @@ export type AddDeckProps = {
 
 type AddDeckFormValues = z.infer<typeof addDeckForm>
 
-// const MAX_FILE_SIZE = 5000000
-// const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+// const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg']
 
 const addDeckForm = z.object({
-  // cover: z.instanceof(File).superRefine((f, ctx) => {
-  //   if (!ACCEPTED_IMAGE_TYPES.includes(f.type)) {
-  //     ctx.addIssue({
-  //       code: z.ZodIssueCode.custom,
-  //       message: `File must be one of [${ACCEPTED_IMAGE_TYPES.join(', ')}] but was ${f.type}`,
-  //     })
-  //   }
-  //   if (f.size > 3 * MAX_FILE_SIZE) {
-  //     ctx.addIssue({
-  //       code: z.ZodIssueCode.too_big,
-  //       type: 'array',
-  //       message: `The file must not be larger than ${3 * MAX_FILE_SIZE} bytes: ${f.size}`,
-  //       maximum: 3 * MAX_FILE_SIZE,
-  //       inclusive: true,
-  //     })
-  //   }
-  // }),
+  // cover: z
+  //   .instanceof(File)
+  //   .superRefine((f, ctx) => {
+  //     if (!ACCEPTED_IMAGE_TYPES.includes(f.type)) {
+  //       ctx.addIssue({
+  //         code: z.ZodIssueCode.custom,
+  //         message: `File must be one of [${ACCEPTED_IMAGE_TYPES.join(', ')}] but was ${f.type}`,
+  //       })
+  //     }
+  //   })
+  //   .or(z.literal('')),
   cover: z.any(),
   name: z.string().min(3, 'Too short deck name. It should be at least 3 symbols.').max(25),
   isPrivate: z.boolean().optional(),

@@ -1,2 +1,2 @@
 export { DecksPage } from '@/view/pages/DecksPage/DecksPage'
-export { SignInPage } from './sign-in-page/SignInPage'
+export { SignInPage } from '@/view/pages/SignInPage/SignInPage'

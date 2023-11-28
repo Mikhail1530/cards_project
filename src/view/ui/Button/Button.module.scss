@@ -103,17 +103,20 @@
 }
 
 .link {
+  padding: 0;
   color: var(--color-accent-500);
   background-color: transparent;
-  border: 0;
+  border-radius: 4px;
 
   &:hover {
     color: var(--color-accent-300);
   }
 
   &:focus {
-    border: 2px solid var(--color-info-500);
-    border-radius: 25px;
+    color: var(--color-accent-500);
+
+    //border: 2px solid var(--color-info-500);
+    //border-radius: 25px;
   }
 
   &:active {
@@ -126,5 +129,6 @@
 }
 
 .icon {
-  padding: 0
+  margin-right: 6px;
+  padding: 0;
 }

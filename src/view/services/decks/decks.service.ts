@@ -10,7 +10,7 @@ import {
   UpdateDeckArgs,
   UpdateDeckResponseType,
 } from '@/view/services/decks/decks.types'
-import { baseApi } from '@/view/services/base-api'
+import { baseApi } from '@/api/base-api'
 
 const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
