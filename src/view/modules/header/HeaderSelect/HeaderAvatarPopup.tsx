@@ -8,6 +8,7 @@ import { ProfileFormsManager } from '@/view/modules/profile/components/ProfileFo
 
 export const HeaderAvatarPopup = () => {
   const [open, setOpen] = useState(false)
+
   return (
     <div className={s.headerAvatarPopup}>
       <img onClick={() => setOpen(!open)} src={logo} alt={'logoPicture'} />

@@ -3,6 +3,7 @@ import s from './Dialog.module.scss'
 import { Button, Typography } from '@/view/ui'
 import { Close } from '@/view/assets'
 import { ComponentPropsWithoutRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { ButtonVariants } from '@/view/ui/Button/Button'
 
 type DialogProps = {
   handleFormSubmit: () => void
@@ -13,6 +14,7 @@ type DialogProps = {
   triggerBtnText: string
   open?: boolean
   onClose?: () => void
+  triggerBtnVariant?: ButtonVariants
 } & ComponentPropsWithoutRef<typeof RDialog.Dialog> &
   HTMLAttributes<HTMLDivElement>
 /**
@@ -34,13 +36,15 @@ export const Dialog = ({
   onClose,
   children,
   onClick,
+  triggerBtnVariant,
   ...props
 }: DialogProps): ReactNode => {
   return (
     <RDialog.Root open={open} onOpenChange={onClose}>
       <DialogTrigger asChild>
-        <Button onClick={onClick} fullWidth={false} variant={icon && 'icon'}>
-          {icon ? icon : triggerBtnText}
+        <Button onClick={onClick} fullWidth={false} variant={triggerBtnVariant}>
+          {icon}
+          {triggerBtnText}
         </Button>
       </DialogTrigger>
       <DialogContent setOpen={onClose} {...props}>

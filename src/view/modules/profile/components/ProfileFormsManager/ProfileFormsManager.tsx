@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { PersonalInformationForm } from '@/view/modules/profile'
+import { Bin } from '@/view/assets/icons'
+import avatar from '../../../../../view/assets/pictures/logo.png'
 
 type ProfileFormsManagerPropsType = {
   type: 'PROFILE' | 'LOGOUT'
@@ -19,12 +21,15 @@ export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
           onSubmit={() => {}}
           // open={open}
           // onClose={() => setOpen(!open)}
-          avatar={''}
+          icon={<Bin />}
+          avatar={avatar}
           changeAvatar={() => {}}
           changeName={() => {}}
           email={''}
           nickname={''}
           saveChangedName={() => {}}
+          onClose={() => setOpen(!open)}
+          open={open}
         />
       )
       break

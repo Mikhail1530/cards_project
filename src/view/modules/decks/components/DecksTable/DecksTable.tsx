@@ -40,9 +40,8 @@ export const DecksTable = ({ currentTableData }: DecksTable) => {
                     as={Link}
                     to={`/decks/${deck.id}/learn`}
                     variant={'icon'}
-                  >
-                    <PlayInCircle />
-                  </Button>
+                    icon={<PlayInCircle />}
+                  />
                   <DeckFormsManager type={'EDIT'} deck={deck} />
                   <DeckFormsManager type={'DELETE'} deck={deck} />
                 </div>

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { TextField } from '@/view/ui/TextField/TextField.tsx'
+import { TextField } from '@/view/ui/TextField/TextField'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card } from '@/view/ui/Card'

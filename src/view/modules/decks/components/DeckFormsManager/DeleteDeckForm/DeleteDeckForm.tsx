@@ -48,10 +48,11 @@ export const DeleteDeckForm = ({
       title={'Delete Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Delete _selectedDeck'}
+      triggerBtnText={''}
       icon={icon}
       open={open}
       onClose={onClose}
+      triggerBtnVariant={'icon'}
     >
       <div className={s.invisible} />
       <form>
