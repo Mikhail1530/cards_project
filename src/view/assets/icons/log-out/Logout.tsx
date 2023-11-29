@@ -22,5 +22,3 @@ export const Logout = () => {
     </svg>
   )
 }
-
-export default Logout

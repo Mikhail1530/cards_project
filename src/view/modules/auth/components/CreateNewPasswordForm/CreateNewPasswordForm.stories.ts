@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { CreateNewPasswordForm } from '@/view/modules/auth/components/CreateNewPasswordForm/CreateNewPasswordForm.tsx'
+import { CreateNewPasswordForm } from './CreateNewPasswordForm'
 
 const meta = {
   title: 'Auth/CreateNewPasswordForm',

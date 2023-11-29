@@ -1,1 +1,1 @@
-export { RadioGroup } from './radioGroup.tsx'
+export { RadioGroup } from './radioGroup'

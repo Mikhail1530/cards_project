@@ -1,6 +1,7 @@
-import EditPencil from '@/view/assets/icons/editPencil/edit-pencil.tsx'
 import { Button } from '@/view/ui/Button'
 import s from './avatarWithEditButton.module.scss'
+import { EditPencil } from '@/view/assets/icons'
+
 type AvatarWithEditButton = {
   avatar: string
   handleAvatarChange: () => void

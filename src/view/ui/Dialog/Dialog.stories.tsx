@@ -18,5 +18,6 @@ export const Dialog: Story = {
     title: 'Add heading',
     acceptBtnText: 'Accept text',
     children: <div>The body of Dialog </div>,
+    triggerBtnText: 'open',
   },
 }

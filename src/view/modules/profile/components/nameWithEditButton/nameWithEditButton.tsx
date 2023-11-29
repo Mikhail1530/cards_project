@@ -1,8 +1,7 @@
 import { Typography } from '@/view/ui/Typography'
 import { Button } from '@/view/ui/Button'
-import EditPencil from '@/view/assets/icons/editPencil/edit-pencil.tsx'
-import Logout from '@/view/assets/icons/log-out/Logout.tsx'
 import s from './nameWithEditButton.module.scss'
+import { EditPencil, Logout } from '@/view/assets/icons'
 
 export const NameWithEditButton = ({ openNameEditing, email, nickname }: any) => {
   return (

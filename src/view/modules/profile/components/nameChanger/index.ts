@@ -1,1 +1,1 @@
-export { NameChanger } from './nameChanger.tsx'
+export { NameChanger } from './nameChanger'

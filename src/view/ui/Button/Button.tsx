@@ -37,6 +37,7 @@ export const Button = forwardRef(
       ...rest
     } = props
 
+    // @ts-ignore
     const isLink = Component === Link
     const classNames = {
       component: clsx(s.button, s[variant], className, fullWidth && s.fullWidth, isLink && s.link),

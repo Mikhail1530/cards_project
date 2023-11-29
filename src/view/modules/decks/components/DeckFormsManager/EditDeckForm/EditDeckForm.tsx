@@ -58,10 +58,11 @@ export const EditDeckForm = ({
       title={'Edit Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Edit _selectedDeck'}
+      triggerBtnText={''}
       open={open}
       icon={icon}
       onClose={onClose}
+      triggerBtnVariant={'icon'}
     >
       <div className={s.invisible} />
       <form>
