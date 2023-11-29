@@ -20,7 +20,7 @@ type PersonalInformationFormProps = {
   changeAvatar: () => void
   saveChangedName: () => void
   changeName: () => void
-  icon: ReactNode
+  icon?: ReactNode
   onClose: () => void
   open: boolean
 }
