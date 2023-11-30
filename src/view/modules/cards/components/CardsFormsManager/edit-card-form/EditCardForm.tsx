@@ -59,10 +59,8 @@ export const EditCardForm = ({
       questionForm: '',
     },
   })
-  console.log(errors)
 
   const handleFormSubmit = handleSubmit((data: EditDeckFormValues) => {
-    debugger
     const formData = new FormData()
     formData.append('question', data.question)
     formData.append('answer', data.answer)
@@ -78,14 +76,16 @@ export const EditCardForm = ({
       title={'Edit Card'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Save changes'}
+      triggerBtnText={''}
       icon={icon}
       open={open}
       onClose={onClose}
+      triggerBtnVariant={'icon'}
     >
       <form>
         <div className={s.body}>
           <ControlledSelect
+            className={s.bodyItem}
             options={['text', 'image', 'video']}
             name={'questionForm'}
             control={control}

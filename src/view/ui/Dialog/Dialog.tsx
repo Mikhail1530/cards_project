@@ -15,6 +15,7 @@ type DialogProps = {
   open?: boolean
   onClose?: () => void
   triggerBtnVariant?: ButtonVariants
+  headerFooterNeeded?: boolean
 } & ComponentPropsWithoutRef<typeof RDialog.Dialog> &
   HTMLAttributes<HTMLDivElement>
 /**
@@ -61,6 +62,7 @@ export type DialogContentProps = {
   title?: string
   // onOpenChange: (open: boolean) => void
   setOpen?: () => void
+  headerFooterNeeded?: boolean
 } & Omit<ComponentPropsWithoutRef<typeof RDialog.Dialog>, 'onOpenChange' | 'open'>
 /**
  *  @component
@@ -74,31 +76,43 @@ export type DialogContentProps = {
  */
 const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
   (
-    { title, handleFormSubmit, acceptBtnText, setOpen, children, ...props }: DialogContentProps,
+    {
+      title,
+      handleFormSubmit,
+      acceptBtnText,
+      setOpen,
+      headerFooterNeeded = true,
+      children,
+      ...props
+    }: DialogContentProps,
     forwardedRef
   ) => (
     <RDialog.Portal>
       <RDialog.Overlay className={s.dialogOverlay} />
       <RDialog.Content {...props} ref={forwardedRef} className={s.dialogContent}>
-        <div className={s.header}>
-          <RDialog.Title className={s.dialogTitle}>
-            <Typography variant={'h2'}>{title}</Typography>
-            <RDialog.Close aria-label="Close">
-              <Close />
-            </RDialog.Close>
-          </RDialog.Title>
-        </div>
-        <div className={s.body}>{children}</div>
-        <div className={s.footer}>
-          <div className={s.dialogFooter}>
-            <Button onClick={setOpen} fullWidth={false} variant={'secondary'}>
-              Close
-            </Button>
-            <Button onClick={handleFormSubmit} fullWidth={false}>
-              {acceptBtnText}
-            </Button>
+        {headerFooterNeeded && (
+          <div className={s.header}>
+            <RDialog.Title className={s.dialogTitle}>
+              <Typography variant={'h2'}>{title}</Typography>
+              <RDialog.Close aria-label="Close">
+                <Close />
+              </RDialog.Close>
+            </RDialog.Title>
           </div>
-        </div>
+        )}
+        <div className={s.body}>{children}</div>
+        {headerFooterNeeded && (
+          <div className={s.footer}>
+            <div className={s.dialogFooter}>
+              <Button onClick={setOpen} fullWidth={false} variant={'secondary'}>
+                Close
+              </Button>
+              <Button onClick={handleFormSubmit} fullWidth={false}>
+                {acceptBtnText}
+              </Button>
+            </div>
+          </div>
+        )}
       </RDialog.Content>
     </RDialog.Portal>
   )

@@ -45,12 +45,13 @@ export const DeleteCardForm = ({
     <Dialog
       className={s.dialog}
       title={'Delete Deck'}
-      acceptBtnText={'Save changes'}
+      acceptBtnText={'Delete'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={'Delete _selectedDeck'}
+      triggerBtnText={''}
       open={open}
       icon={icon}
       onClose={onClose}
+      triggerBtnVariant={'icon'}
     >
       <div className={s.invisible} />
       <form>

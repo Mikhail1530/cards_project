@@ -72,6 +72,7 @@ export const PersonalInformationForm = ({
       open={open}
       onClose={onClose}
       triggerBtnVariant={'link'}
+      headerFooterNeeded={false}
     >
       <form>
         <div className={s.body}>
