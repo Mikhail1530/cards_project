@@ -32,6 +32,27 @@
       border-radius: 4px;
     }
 
+    //Hide input type='file' default button
+    [type="file"] {
+        color: transparent;
+
+      &::file-selector-button {
+        display: none;
+      }
+
+      // Safari only
+      @media not all and (resolution >=.001dpcm) {
+        @supports (-webkit-appearance:none) {
+          margin-left: -7em;
+          text-indent: -120px;
+
+          &::file-selector-button {
+            display: inline;
+          }
+        }
+      }
+    }
+
     img {
       width: 121px;
       height: 121px;

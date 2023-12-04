@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { PersonalInformationForm } from './PersonalInformationForm'
+import { PersonalInformationForm } from '@/view/modules/profile'
 import { useState } from 'react'
 import { Bin } from '@/view/assets'
 
@@ -22,13 +22,11 @@ export const PersonalInformationFormStories: Story = {
         }
         nickname="bob"
         email="dummy@data.com"
-        changeAvatar={() => console.log('changeAvatar')}
-        saveChangedName={() => console.log('saveChanges')}
-        changeName={() => console.log('changeName')}
         open={open}
         onClose={() => setOpen(!open)}
         onSubmit={() => {}}
         icon={<Bin />}
+        logout={() => {}}
       />
     )
   },
@@ -37,9 +35,6 @@ export const PersonalInformationFormStories: Story = {
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwRTYbYaWZbc9r4KKdclIUiwO6JRrHgSpRQjB7RTA&s',
     nickname: 'bob',
     email: 'dummy@data.com',
-    changeAvatar: () => console.log('changeAvatar'),
-    saveChangedName: () => console.log('saveChanges'),
-    changeName: () => console.log('changeName'),
     open: false,
     onClose: () => {},
     icon: <Bin />,

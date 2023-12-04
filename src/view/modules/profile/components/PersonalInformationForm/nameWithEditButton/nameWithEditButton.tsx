@@ -2,8 +2,28 @@ import { Typography } from '@/view/ui/Typography'
 import { Button } from '@/view/ui/Button'
 import s from './nameWithEditButton.module.scss'
 import { EditPencil, Logout } from '@/view/assets/icons'
+import { useNavigate } from 'react-router-dom'
 
-export const NameWithEditButton = ({ openNameEditing, email, nickname }: any) => {
+type NameWithEditButtonPropsType = {
+  openNameEditing: (open: boolean) => void
+  email: string
+  nickname: string
+  logout: () => void
+}
+
+export const NameWithEditButton = ({
+  openNameEditing,
+  email,
+  nickname,
+  logout,
+}: NameWithEditButtonPropsType) => {
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    navigate('/login')
+    await logout()
+  }
+
   return (
     <div className={s.nameWithEditButtonContainer}>
       <div className={s.nameWithEditButton}>
@@ -22,7 +42,12 @@ export const NameWithEditButton = ({ openNameEditing, email, nickname }: any) =>
           {email}
         </Typography>
       </div>
-      <Button icon={<Logout />} className={s.logout_btn} variant={'secondary'}>
+      <Button
+        icon={<Logout />}
+        onClick={handleLogout}
+        className={s.logout_btn}
+        variant={'secondary'}
+      >
         Logout
       </Button>
     </div>

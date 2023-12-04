@@ -9,7 +9,7 @@ import {
   RetrieveCardInDeckResponseType,
   UpdateDeckArgs,
   UpdateDeckResponseType,
-} from '@/view/services/decks/decks.types'
+} from '@/api/services/decks/decks.types'
 import { baseApi } from '@/api/base-api'
 
 const decksService = baseApi.injectEndpoints({

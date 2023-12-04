@@ -6,6 +6,7 @@ import { Card } from '@/view/ui/Card'
 import { Typography } from '@/view/ui/Typography'
 import s from './LoginForm.module.scss'
 import { ControlledCheckbox, ControlledTextField } from '../../../../ui'
+import { Link } from 'react-router-dom'
 
 export type FormValues = z.infer<typeof loginSchema>
 
@@ -22,7 +23,6 @@ type LoginProps = {
 export const LoginForm = ({ onSubmit }: LoginProps) => {
   const {
     control,
-    //register,  {/* Register contains ref. With useControl we replace register object.*/
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -31,7 +31,6 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
   })
 
   const handleFormSubmit = (data: FormValues) => {
-    console.log(data)
     onSubmit(data)
   }
 
@@ -62,7 +61,12 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
               control={control}
               name={'rememberMe'}
             />
-            <Typography className={s.recoverPasswordLink} as={'a'} variant={'body2'}>
+            <Typography
+              as={Link}
+              to={'/forgotPassword'}
+              className={s.recoverPasswordLink}
+              variant={'body2'}
+            >
               Forgot Password?
             </Typography>
           </div>
@@ -73,7 +77,7 @@ export const LoginForm = ({ onSubmit }: LoginProps) => {
             <Typography className={s.signupItem} as={'div'} variant={'body2'}>
               Don't have an account?
             </Typography>
-            <Typography as={'a'} className={s.signupLink} variant={'link1'}>
+            <Typography as={Link} to={'/signUp'} className={s.signupLink} variant={'link1'}>
               Sign up
             </Typography>
             {/*//FIXME: element should be clickable link */}

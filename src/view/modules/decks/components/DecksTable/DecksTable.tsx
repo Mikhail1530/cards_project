@@ -3,7 +3,7 @@ import { Button } from '@/view/ui/Button'
 import s from './DecksTable.module.scss'
 import { Link } from 'react-router-dom'
 import { PlayInCircle } from '@/view/assets/icons'
-import { GetDecksResponseItem as DeckType } from '@/view/services/decks/decks.types'
+import { GetDecksResponseItem as DeckType } from '@/api/services/decks/decks.types'
 import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManager/DeckFormsManager'
 
 type DecksTable = {

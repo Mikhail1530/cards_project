@@ -6,6 +6,9 @@ import { Card } from '@/view/ui/Card'
 import { Typography } from '@/view/ui/Typography'
 import s from './SignUpForm.module.scss'
 import { Button } from '@/view/ui/Button'
+import { ControlledTextField } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
+import { SignUpArgs } from '@/api/services/auth/auth.types'
+import { Link } from 'react-router-dom'
 
 type FormValues = z.infer<typeof signupSchema>
 
@@ -26,34 +29,56 @@ const signupSchema = z
   })
 
 type SignUpProps = {
-  onSubmit: (data: FormValues) => void
+  onSubmit: (data: SignUpArgs) => void
 }
 
 export const SignUpForm = ({ onSubmit }: SignUpProps) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: { email: '', password: '', confirmPassword: '' },
   })
 
+  const handleSignUpSubmit = (data: FormValues) => {
+    // Remove "confirmPassword" property
+    const { confirmPassword, ...newData } = data
+
+    // Add new properties
+    const modifiedData = {
+      ...newData,
+      html: htmlValue,
+      email: data.email,
+      password: data.password,
+      name: data.email.slice(0, 6),
+      subject: '',
+      sendConfirmationEmail: false,
+    }
+
+    // Call onSubmit with the modified data
+    onSubmit(modifiedData)
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleSignUpSubmit)}>
       <Card>
         <div className={s.signInContainer}>
           <Typography as={'div'} className={s.caption} variant={'h1'}>
             Sign Up
           </Typography>
           <div className={s.form}>
-            <TextField
-              {...register('email')}
+            <ControlledTextField
+              name={'email'}
+              control={control}
               errorMessage={errors.email?.message}
               label={'Email'}
             />
-            <TextField
-              {...register('password')}
+            <ControlledTextField
+              control={control}
+              name={'password'}
               errorMessage={errors.password?.message}
               label={'Password'}
             />
@@ -70,13 +95,15 @@ export const SignUpForm = ({ onSubmit }: SignUpProps) => {
             <Typography className={s.signupItem} as={'div'} variant={'body2'}>
               Don't have an account?
             </Typography>
-            <Typography as={'a'} className={s.signupLink} variant={'link1'}>
+            <Typography as={Link} to={'/login'} className={s.signupLink} variant={'link1'}>
               Sign in
             </Typography>
-            {/*//FIXME: element should be clickable link */}
           </div>
         </div>
       </Card>
     </form>
   )
 }
+
+const htmlValue =
+  '<b>Hello, ##name##!</b><br/>Please confirm your email by clicking on the link below:<br/><a href="http://localhost:3000/confirm-email/##token##">Confirm email</a>. If it doesn\'t work, copy and paste the following link in your browser:<br/>http://localhost:3000/confirm-email/##token##'

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Bin, EditPencil } from '@/view/assets'
-import { CardType } from '@/view/services/decks/decks.types'
+import { CardType } from '@/api/services/decks/decks.types'
 import { AddCardForm } from '@/view/modules/cards/components/CardsFormsManager/add-card-form/AddCardForm'
 import {
   useCreateCardMutation,
   useDeleteCardMutation,
   useUpdateCardMutation,
-} from '@/view/services/cards/cards.service'
+} from '@/api/services/cards/cards.service'
 import { EditCardForm } from '@/view/modules/cards/components/CardsFormsManager/edit-card-form/EditCardForm'
 import { DeleteCardForm } from '@/view/modules/cards/components/CardsFormsManager/delete-card-form/DeleteCardForm'
 
