@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { AppRootStateType } from '@/app/store'
 
 type HeaderPropsType = {
-  text: 'Login' | 'Sign up'
+  text?: 'Login' | 'Sign up'
 }
 
 export const Header = ({ text }: HeaderPropsType) => {

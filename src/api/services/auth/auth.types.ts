@@ -1,5 +1,3 @@
-import { string } from 'zod'
-
 export type LoginArgs = {
   email: string
   password: string
