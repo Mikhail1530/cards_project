@@ -6,6 +6,8 @@ import { Card } from '@/view/ui/Card'
 import { Typography } from '@/view/ui/Typography'
 import s from './ForgotPasswordForm.module.scss'
 import { ControlledTextField } from '../../../../ui'
+import { Link } from 'react-router-dom'
+import { RecoverPasswordArgs } from '@/api/services/auth/auth.types'
 
 type FormValues = z.infer<typeof forgotPasswordSchema>
 
@@ -14,7 +16,7 @@ const forgotPasswordSchema = z.object({
 })
 
 type ForgotPasswordFormProps = {
-  onSubmit: (data: FormValues) => void
+  onSubmit: (data: RecoverPasswordArgs) => void
 }
 
 export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
@@ -27,8 +29,18 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
     defaultValues: { email: '' },
   })
 
+  const handleFormSubmit = (data: FormValues) => {
+    //FIXME how to handle typuzation errors
+    // @ts-ignore
+    data['html'] = htmlValue
+    // @ts-ignore
+    data['subject'] = ''
+    // @ts-ignore
+    onSubmit(data)
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       {/*TODO: since button is in form, then form automatically pass the ref to button and we don't have to specify that? */}
       <Card>
         <div className={s.signInContainer}>
@@ -48,18 +60,19 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
           </div>
           <div className={s.signupContainer}>
             <Button className={s.button} type="submit" variant={'primary'}>
-              Sign Up
+              Send instructions
             </Button>
             <Typography className={s.signupItem} as={'div'} variant={'body2'}>
               Did you remember your password?
             </Typography>
-            <Typography as={'a'} className={s.signupLink} variant={'link1'}>
-              Try logging in
+            <Typography as={Link} to={'/login'} className={s.signupLink} variant={'link1'}>
+              Try to log in
             </Typography>
-            {/*//FIXME: element should be clickable link */}
           </div>
         </div>
       </Card>
     </form>
   )
 }
+
+const htmlValue = `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:3000/reset-password/##token##">here</a> to recover your password</p>`

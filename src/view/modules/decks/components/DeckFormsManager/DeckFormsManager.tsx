@@ -2,11 +2,11 @@ import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useUpdateDeckMutation,
-} from '@/view/services/decks/decks.service'
+} from '@/api/services/decks/decks.service'
 import { useState } from 'react'
 import { EditDeckForm } from '@/view/modules/decks/components/DeckFormsManager/EditDeckForm/EditDeckForm'
 import { Bin, EditPencil } from '@/view/assets'
-import { GetDecksResponseItem as DeckType } from '@/view/services/decks/decks.types'
+import { GetDecksResponseItem as DeckType } from '@/api/services/decks/decks.types'
 import { AddDeckForm } from '@/view/modules'
 import { DeleteDeckForm } from '@/view/modules/decks/components/DeckFormsManager/DeleteDeckForm/DeleteDeckForm'
 

@@ -36,7 +36,6 @@ export const EditDeckForm = ({
   checkboxLabel = 'Private _selectedDeck',
   isPrivate,
 }: EditDeckProps) => {
-  console.log(isPrivate, 'isprivate')
   const {
     control,
     handleSubmit,

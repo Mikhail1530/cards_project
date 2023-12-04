@@ -1,4 +1,11 @@
-import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import {
+  ChangeEvent,
+  ComponentProps,
+  ComponentPropsWithoutRef,
+  forwardRef,
+  ReactNode,
+  useState,
+} from 'react'
 
 import { clsx } from 'clsx'
 import s from './TextField.module.scss'
@@ -15,8 +22,8 @@ export type TextFieldProps = {
   //   value?: string | undefined,
   //   e?: ChangeEvent<HTMLInputElement> | undefined
   // ) => void
+  icon?: ReactNode
   search?: boolean
-  pictureObj?: any
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -29,6 +36,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       labelProps,
       onChange,
       // onValueChange,
+      icon,
       placeholder,
       search,
       type,
@@ -72,12 +80,18 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </Typography>
         )}
         <div className={classNames.fieldContainer}>
+          {icon && (
+            <label htmlFor={'inputId'} className={s.icon}>
+              {icon}
+            </label>
+          )}
           <input
             className={classNames.field}
             onChange={handleChange}
             placeholder={placeholder}
             ref={ref}
             type={finalType}
+            id={'inputId'}
             {...restProps}
           />
           {isShowPasswordButtonShown && (

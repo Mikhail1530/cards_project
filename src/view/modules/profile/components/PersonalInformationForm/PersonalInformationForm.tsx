@@ -4,25 +4,31 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Dialog, Typography } from '@/view/ui'
 import s from './PersonalInformationForm.module.scss'
 import { ReactNode, useState } from 'react'
-import { AvatarWithEditButton, NameChanger, NameWithEditButton } from '../index'
+import { NameChanger, NameWithEditButton } from '../index'
+import { EditPencil } from '@/view/assets'
+import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
 
-type FormValues = z.infer<typeof personalInformationSchema>
+export type PersonalInformationFormValues = z.infer<typeof personalInformationSchema>
 
 const personalInformationSchema = z.object({
-  nickname: z.string().min(2, 'Too short nickname').max(25),
+  name: z.string().min(2, 'Too short nickname').max(25),
+  email: z
+    .string()
+    .min(1, { message: 'This field has to be filled.' })
+    .email('This is not a valid email.'),
+  avatar: z.any().optional(),
 })
 
 type PersonalInformationFormProps = {
-  onSubmit: () => void
+  onSubmit: (data: FormData) => void
   nickname: string
   email: string
   avatar: string
-  changeAvatar: () => void
-  saveChangedName: () => void
-  changeName: () => void
+  // changeAvatar: (formData: FormData) => any
   icon?: ReactNode
   onClose: () => void
   open: boolean
+  logout: () => void
 }
 
 export const PersonalInformationForm = ({
@@ -30,35 +36,36 @@ export const PersonalInformationForm = ({
   onSubmit,
   nickname,
   email,
-  changeAvatar,
   icon,
   onClose,
   open,
+  logout,
 }: PersonalInformationFormProps) => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<PersonalInformationFormValues>({
     resolver: zodResolver(personalInformationSchema),
-    defaultValues: { nickname: nickname },
+    defaultValues: { name: nickname, email: email, avatar: '' },
   })
 
   const [isNameEditing, setIsNameEditing] = useState(false)
-
-  const handleAvatarChange = () => {
-    changeAvatar()
-  }
 
   const openNameEditing = () => {
     setIsNameEditing(!isNameEditing)
   }
 
-  const handleFormSubmit = handleSubmit((data: FormValues) => {
+  const handleFormSubmit = handleSubmit((data: PersonalInformationFormValues) => {
     setIsNameEditing(false)
-    onSubmit()
-    console.log(data, 'personalInformation submit form data')
+    const formData = new FormData()
+    // if default value of data wasn't changed don't append to formData
+    if (data.avatar && avatar !== data.avatar) {
+      formData.append('avatar', data.avatar)
+    }
+    formData.append('name', data.name)
+    formData.append('email', data.email)
+    onSubmit(formData)
   })
 
   return (
@@ -80,16 +87,43 @@ export const PersonalInformationForm = ({
             Personal information
           </Typography>
 
-          <AvatarWithEditButton avatar={avatar} handleAvatarChange={handleAvatarChange} />
-
           {!isNameEditing ? (
-            <NameWithEditButton
-              openNameEditing={openNameEditing}
-              email={email}
-              nickname={nickname}
-            />
+            <>
+              <div className={s.avatarContainer}>
+                <div className={s.avatar}>
+                  <img src={avatar} alt={'avatar'}></img>
+                </div>
+              </div>
+              <NameWithEditButton
+                openNameEditing={openNameEditing}
+                email={email}
+                nickname={nickname}
+                logout={logout}
+              />
+            </>
           ) : (
-            <NameChanger control={control} register={register} errors={errors} />
+            <>
+              <div className={s.avatarContainer}>
+                <div className={s.avatar}>
+                  <img src={avatar} alt={'avatar'}></img>
+                  <ControlledFileUploader
+                    type={'file'}
+                    className={s.avatarEditButton}
+                    name={'avatar'}
+                    icon={<EditPencil />}
+                    control={control}
+                    onClick={() => setIsNameEditing(true)}
+                    // onChange={handleFormSubmit}
+                  />
+                </div>
+              </div>
+              <NameChanger
+                handleFormSubmit={handleFormSubmit}
+                control={control}
+                name={'name'}
+                errors={errors}
+              />
+            </>
           )}
         </div>
       </form>

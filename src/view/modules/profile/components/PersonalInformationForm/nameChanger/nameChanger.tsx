@@ -1,25 +1,31 @@
 import { Button } from '@/view/ui/Button'
 import s from './nameChanger.module.scss'
-import { ControlledTextField } from '../../../../ui'
+import { ControlledTextField } from '../../../../../ui'
+import { useState } from 'react'
 
-export const NameChanger = ({ control, register, errors }: any) => {
+export const NameChanger = ({ handleFormSubmit, name, errors, control }: any) => {
+  const [disabled, setDisabled] = useState(false)
+  const onSubmit = () => {
+    setDisabled(true)
+    handleFormSubmit()
+    setDisabled(false)
+  }
   return (
     <>
       <div className={s.nameChanger}>
         <ControlledTextField
           control={control}
           type={'text'}
-          {...register('nickname')}
           errorMessage={errors.nickname?.message}
           label={'Nickname'}
+          name={name}
         />
       </div>
       <div className={s.saveChangeNameBtn}>
-        <Button type="submit" variant={'primary'}>
+        <Button onClick={onSubmit} disabled={disabled} type="submit" variant={'primary'}>
           Save changes
         </Button>
       </div>
-      {/*  TODO: When you click on the button outline appears. Should be removed*/}
     </>
   )
 }

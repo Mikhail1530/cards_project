@@ -1,34 +1,36 @@
 import { Button, Card, Typography } from '@/view/ui'
-import logo from '@/view/assets/pictures/logo.png'
 import { useState } from 'react'
 import s from './HeaderAvatarPopup.module.scss'
-import { Bin } from '@/view/assets'
-import avatar from '../../../assets/pictures/logo.png'
 import { ProfileFormsManager } from '@/view/modules/profile/components/ProfileFormsManager/ProfileFormsManager'
+import { useAuthMeQuery } from '@/api/services/auth/auth.service'
 
 export const HeaderAvatarPopup = () => {
   const [open, setOpen] = useState(false)
+  const { data } = useAuthMeQuery({ skip: true })
+
+  if (!data) {
+    return null
+  }
 
   return (
     <div className={s.headerAvatarPopup}>
-      <img onClick={() => setOpen(!open)} src={logo} alt={'logoPicture'} />
+      {!data.name ? (
+        <Button fullWidth={false}>Sign Up</Button>
+      ) : (
+        <img onClick={() => setOpen(!open)} src={data.avatar} alt={'logoPicture'} />
+      )}
       {open && (
         <Card className={s.headerAvaraPopupCard}>
           <div className={s.pictureAndProfileInfoContainer}>
-            <img src={avatar} alt={'avatar'} />
+            <img src={data.avatar} alt={'avatar'} />
             <div className={s.text}>
-              <Typography variant={'subtitle2'}>Name</Typography>
-              <Typography variant={'caption'}>email@email.com</Typography>
+              <Typography variant={'subtitle2'}>{data.name}</Typography>
+              <Typography variant={'caption'}>{data.email}</Typography>
             </div>
           </div>
           <div className={s.btnsContainer}>
             <ProfileFormsManager type={'PROFILE'} />
-            <Button variant={'link'} icon={<Bin />} fullWidth={false}>
-              My profile
-            </Button>
-            <Button variant={'link'} icon={<Bin />} fullWidth={false}>
-              Sign out
-            </Button>
+            <ProfileFormsManager type={'LOGOUT-BTN'} />
           </div>
         </Card>
       )}

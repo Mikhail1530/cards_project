@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/view/services/decks/decks.service'
+import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/api/services/decks/decks.service'
 import { Button, Card, Pagination, Typography } from '@/view/ui'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { CardsTable } from '@/view/modules/cards/components/CardsTable/CardsTable'

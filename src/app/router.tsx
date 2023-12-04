@@ -5,9 +5,14 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
-import { useAuthMeQuery } from '@/view/services/auth/auth.service'
+import { useAuthMeQuery } from '@/api/services/auth/auth.service'
 import { DecksPage, SignInPage } from '@/view/pages'
 import { DeckPage } from '@/view/pages/DeckPage/DeckPage'
+import { userActions } from '@/view/modules/auth/slices/auth-slice'
+import { useDispatch } from 'react-redux'
+import { SignUpPage } from '@/view/pages/SignUpPage/SignUpPage'
+import { ForgotPasswordPage } from '@/view/pages/ForgotPasswordPage/ForgotPasswordPage'
+import { CheckEmailPage } from '@/view/pages/CheckEmailPage/CheckEmailPage'
 
 const privateRoutes: RouteObject[] = [
   {
@@ -28,6 +33,18 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/login',
     element: <SignInPage />,
+  },
+  {
+    path: '/signUp',
+    element: <SignUpPage />,
+  },
+  {
+    path: '/forgotPassword',
+    element: <ForgotPasswordPage />,
+  },
+  {
+    path: '/confirm-email/:token?',
+    element: <CheckEmailPage />,
   },
 ]
 
@@ -57,9 +74,14 @@ const router = createBrowserRouter([
 //that matched route will then be rendered at the location of the `<Outlet/>`
 //component.
 function PrivateRoutes() {
-  const { isError, isLoading } = useAuthMeQuery() // before accessing any private resource we send autherization request (cookie) to server
+  const dispatch = useDispatch()
+  const { data, isError, isSuccess, isLoading } = useAuthMeQuery() // before accessing any private resource we send autherization request (cookie) to server
   if (isLoading) {
     return null
+  }
+  // FIXME: currently it sets data from useAuthMeQuery everytime i open new page, but do i need to do so?
+  if (isSuccess && data) {
+    dispatch(userActions.setUserDataAC(data))
   }
   const isAuthenticated = !isError
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
