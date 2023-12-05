@@ -12,16 +12,12 @@ import { userActions } from '@/view/modules/auth/slices/auth-slice'
 import { useDispatch } from 'react-redux'
 import { SignUpPage } from '@/view/pages/SignUpPage/SignUpPage'
 import { ForgotPasswordPage } from '@/view/pages/ForgotPasswordPage/ForgotPasswordPage'
-import { CheckEmailPage } from '@/view/pages/CheckEmailPage/CheckEmailPage'
+import ResetPasswordPage from '@/view/pages/ResetPasswordPage/ResetPasswordPage'
 
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
     element: <DecksPage />,
-  },
-  {
-    path: '/usersChart',
-    element: <div>hello</div>,
   },
   {
     path: `/decks/:id/learn`,
@@ -43,8 +39,8 @@ const publicRoutes: RouteObject[] = [
     element: <ForgotPasswordPage />,
   },
   {
-    path: '/confirm-email/:token?',
-    element: <CheckEmailPage />,
+    path: '/reset-password/:token',
+    element: <ResetPasswordPage />,
   },
 ]
 

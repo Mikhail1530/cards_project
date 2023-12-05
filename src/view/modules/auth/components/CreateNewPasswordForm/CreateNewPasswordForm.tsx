@@ -6,14 +6,13 @@ import { Card } from '@/view/ui/Card'
 import { Typography } from '@/view/ui/Typography'
 import s from './CreateNewPasswordForm.module.scss'
 import { ControlledTextField } from '../../../../ui'
-import { Bin } from '@/view/assets'
+import { useParams } from 'react-router-dom'
 
 type FormValues = z.infer<typeof createNewPasswordSchema>
 
 const createNewPasswordSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
   password: z.string().min(3, 'Too short password').max(25),
-  rememberMe: z.boolean().optional(),
+  token: z.string(),
 })
 
 type CreateNewPasswordFormProps = {
@@ -21,13 +20,14 @@ type CreateNewPasswordFormProps = {
 }
 
 export const CreateNewPasswordForm = ({ onSubmit }: CreateNewPasswordFormProps) => {
+  const { token } = useParams()
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(createNewPasswordSchema),
-    defaultValues: { email: '', password: '', rememberMe: false },
+    defaultValues: { password: '', token },
   })
 
   return (
@@ -45,16 +45,14 @@ export const CreateNewPasswordForm = ({ onSubmit }: CreateNewPasswordFormProps) 
               type={'password'}
               name={'password'}
             />
-            <Typography className={s.instructions} as={'a'} variant={'body2'}>
+            <Typography className={s.instructions} variant={'body2'}>
               Create new password and we will send you further instructions to email
             </Typography>
           </div>
           <div className={s.signupContainer}>
             <Button className={s.button} type="submit" variant={'primary'}>
-              Create New Password›
+              Create New Password
             </Button>
-            <Button icon={<Bin />} />
-            {/*//FIXME: element should be clickable link */}
           </div>
         </div>
       </Card>

@@ -10,7 +10,7 @@ type HeaderPropsType = {
   text?: 'Login' | 'Sign up'
 }
 
-export const Header = ({ text }: HeaderPropsType) => {
+export const Header = ({ text = 'Login' }: HeaderPropsType) => {
   const userId = useSelector((state: AppRootStateType) => state.user.id)
   const navigate = useNavigate()
   const { pathname } = useLocation()

@@ -3,6 +3,7 @@ import {
   AuthMeResponseType,
   LoginArgs,
   RecoverPasswordArgs,
+  ResetPasswordArgs,
   SignUpArgs,
   SignUpResponseType,
 } from '@/api/services/auth/auth.types'
@@ -53,6 +54,13 @@ export const authService = baseApi.injectEndpoints({
         url: `v1/auth/recover-password`,
       }),
     }),
+    resetPassword: builder.mutation<void, ResetPasswordArgs>({
+      query: ({ password, token }) => ({
+        method: 'POST',
+        url: `v1/auth/reset-password/${token}`,
+        body: { password },
+      }),
+    }),
   }),
 })
 
@@ -63,4 +71,5 @@ export const {
   useLogoutMutation,
   useSignUpMutation,
   useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authService

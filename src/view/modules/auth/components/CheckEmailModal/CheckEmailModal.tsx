@@ -3,8 +3,10 @@ import { Card } from '@/view/ui/Card'
 import { Typography } from '@/view/ui/Typography'
 import s from './CheckEmailModal.module.scss'
 import { EmailIcon } from '@/view/assets'
+import { useNavigate } from 'react-router-dom'
 
-export const CheckEmailModal = ({ onSubmit }: any) => {
+export const CheckEmailModal = ({ email }: { email: string }) => {
+  const navigate = useNavigate()
   return (
     <Card className={s.card}>
       <Typography as={'div'} className={s.title} variant={'h1'}>
@@ -13,11 +15,11 @@ export const CheckEmailModal = ({ onSubmit }: any) => {
       <EmailIcon className={s.icon} />
       <Typography className={s.caption} as={'div'} variant={'body2'}>
         We’ve sent an Email with instructions to <br />
-        example@mail.com
+        {email}
       </Typography>
       <Button
         fullWidth={false}
-        onClick={onSubmit}
+        onClick={() => navigate('/login')}
         className={s.button}
         type="submit"
         variant={'primary'}
