@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ElementRef, ReactNode, useState } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactNode, useState } from 'react'
 
 import { ArrowDownOutline } from '@/view/assets/icons/arrows/Arrow-down'
 import * as RSelect from '@radix-ui/react-select'
@@ -17,20 +17,22 @@ export type SelectMenuProps = {
   setQuestionForm?: (value: string) => void
   className?: string
 } & ComponentPropsWithoutRef<typeof RSelect.Root>
-//& SelectProps
 
-export const Select = React.forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProps>(
-  ({
-    onChangeOption,
-    options,
-    placeholder = options[0],
-    title,
-    itemsPerPage,
-    setQuestionForm,
-    icon,
-    className,
-    ...rest
-  }: SelectMenuProps) => {
+export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProps>(
+  (
+    {
+      onChangeOption,
+      options,
+      placeholder = options[0],
+      title,
+      itemsPerPage,
+      setQuestionForm,
+      icon,
+      className,
+      ...rest
+    }: SelectMenuProps
+    // ref
+  ) => {
     const [isOpened, setIsOpened] = useState<boolean>(false)
 
     const onChangeCallback = (value: string) => {
@@ -57,10 +59,10 @@ export const Select = React.forwardRef<ElementRef<typeof RSelect.Root>, SelectMe
       <div className={s.wrapper}>
         <div className={s.title}>{title}</div>
         <RSelect.Root
-          // ref={ref}
           onOpenChange={toggleIsOpened}
           onValueChange={onChangeCallback}
           {...rest}
+          // ref={ref}
         >
           <RSelect.Trigger className={classNames['trigger']}>
             <RSelect.Value placeholder={itemsPerPage} />

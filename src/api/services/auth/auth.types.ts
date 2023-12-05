@@ -28,3 +28,7 @@ export type RecoverPasswordArgs = {
   email: string
   subject: string
 }
+export type ResetPasswordArgs = {
+  token: string
+  password: string
+}

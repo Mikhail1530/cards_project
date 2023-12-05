@@ -1,0 +1,18 @@
+.errorModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+
+  & :nth-child(2) {
+    margin-top: 20px;
+  }
+
+  & :nth-child(3) {
+    margin-top: 20px;
+  }
+
+  .errorMessage {
+    text-align: center;
+  }
+}

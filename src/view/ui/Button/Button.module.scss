@@ -14,11 +14,12 @@
 
   border: none;
   outline: none;
+  box-shadow: 0 4px 18px 0 #8C61FF59;
 
   &.fullWidth {
     justify-content: center;
     width: 100%;
-    padding: 6px 0;
+    padding: 6px 0 !important;
   }
 
   .icon > svg {

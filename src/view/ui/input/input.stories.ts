@@ -35,7 +35,7 @@ export const InputPassword: Story = {
 
 export const InputError: Story = {
   args: {
-    error: 'Error!',
+    error: 'ErrorModal!',
     placeholder: 'Input',
     type: 'text',
   },
