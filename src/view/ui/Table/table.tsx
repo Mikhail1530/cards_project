@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, forwardRef, useMemo } from 'react'
+import { ComponentPropsWithoutRef, FC, forwardRef } from 'react'
 import { clsx } from 'clsx'
 import s from './table.module.scss'
 import { Column } from '@/view/ui/Table/table.stories'

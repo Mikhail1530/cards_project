@@ -4,7 +4,6 @@ import { Typography } from '@/view/ui/Typography'
 import s from './CheckEmailModal.module.scss'
 import { EmailIcon } from '@/view/assets'
 import { useNavigate } from 'react-router-dom'
-import Loading from '@/view/assets/components/Loading/Loading'
 
 export const CheckEmailModal = ({ email }: { email: string }) => {
   const navigate = useNavigate()
