@@ -19,11 +19,14 @@
     align-items: center;
     justify-content: center;
 
+    .userName {
+      border-bottom: 1px dashed;
+    }
+
     img {
       width: 50px;
       clip-path: circle(40% at 50% 50%);
       
     }
-
   }
 }

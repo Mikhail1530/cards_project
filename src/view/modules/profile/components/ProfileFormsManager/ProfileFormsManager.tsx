@@ -11,7 +11,6 @@ import { Button } from '@/view/ui'
 import { useNavigate } from 'react-router-dom'
 import { userActions } from '@/view/modules/auth/slices/auth-slice'
 import { useDispatch } from 'react-redux'
-import { SignUpForm } from '@/view/modules/auth/components/SignUpForm/SignUpForm'
 
 type ProfileFormsManagerPropsType = {
   type: 'PROFILE' | 'LOGOUT-BTN' | 'SIGN-UP'
@@ -41,14 +40,11 @@ export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
           avatar={authData.avatar ?? anonymous}
           email={authData.email}
           nickname={authData.name}
+          id={authData.id}
           onClose={() => setOpen(!open)}
           open={open}
         />
       )
-      break
-    }
-    case 'SIGN-UP': {
-      formComponent = <SignUpForm onSubmit={() => {}} />
       break
     }
     case 'LOGOUT-BTN': {

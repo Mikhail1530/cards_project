@@ -58,7 +58,6 @@ export const SignUpForm = ({ onSubmit }: SignUpProps) => {
       sendConfirmationEmail: false,
     }
 
-    // Call onSubmit with the modified data
     onSubmit(modifiedData)
   }
 

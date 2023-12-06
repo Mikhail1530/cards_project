@@ -4,11 +4,16 @@ import { useNavigate } from 'react-router-dom'
 import { Header } from '@/view/modules'
 import { Page } from '@/view/ui'
 import { SignUpForm } from '@/view/modules/auth/components/SignUpForm/SignUpForm'
+import Loading from '@/view/assets/components/Loading/Loading'
 
 export const SignUpPage = () => {
-  const [signUp] = useSignUpMutation()
+  const [signUp, { isLoading }] = useSignUpMutation()
   const [login] = useLoginMutation()
   const navigate = useNavigate()
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   const handleSignUp = async (args: SignUpArgs) => {
     try {

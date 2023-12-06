@@ -23,6 +23,7 @@ export type ButtonProps<T extends ElementType> = {
   icon?: ReactNode
   title?: string
   variant: ButtonVariants
+  shadow?: 'none' | 'purple' | 'dark'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = forwardRef(
@@ -34,6 +35,7 @@ export const Button = forwardRef(
       fullWidth = true,
       icon,
       variant = 'primary',
+      shadow = 'purple',
       ...rest
     } = props
 
@@ -42,6 +44,10 @@ export const Button = forwardRef(
     const classNames = {
       component: clsx(s.button, s[variant], className, fullWidth && s.fullWidth, isLink && s.link),
       icon: clsx(s.icon, s[variant]),
+      shadow: clsx({
+        [s.purpleShadow]: shadow === 'purple',
+        [s.darkShadow]: shadow === 'dark',
+      }),
     }
 
     return (

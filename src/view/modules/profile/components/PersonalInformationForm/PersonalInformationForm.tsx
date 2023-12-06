@@ -7,6 +7,7 @@ import { ReactNode, useState } from 'react'
 import { NameChanger, NameWithEditButton } from '../index'
 import { EditPencil } from '@/view/assets'
 import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
+import { useDeleteAccountMutation } from '@/api/services/users/users.service'
 
 export type PersonalInformationFormValues = z.infer<typeof personalInformationSchema>
 
@@ -29,6 +30,7 @@ type PersonalInformationFormProps = {
   onClose: () => void
   open: boolean
   logout: () => void
+  id: string
 }
 
 export const PersonalInformationForm = ({
@@ -40,6 +42,7 @@ export const PersonalInformationForm = ({
   onClose,
   open,
   logout,
+  id,
 }: PersonalInformationFormProps) => {
   const {
     control,
@@ -49,6 +52,9 @@ export const PersonalInformationForm = ({
     resolver: zodResolver(personalInformationSchema),
     defaultValues: { name: nickname, email: email, avatar: '' },
   })
+
+  //TODO: finish the logic
+  const [deleteAccount] = useDeleteAccountMutation()
 
   const [isNameEditing, setIsNameEditing] = useState(false)
 
@@ -86,7 +92,15 @@ export const PersonalInformationForm = ({
           <Typography as={'div'} className={s.caption} variant={'h1'}>
             Personal information
           </Typography>
-
+          <button
+            type="submit"
+            onClick={(event: any) => {
+              deleteAccount({ id })
+              event.preventDefault()
+            }}
+          >
+            x
+          </button>
           {!isNameEditing ? (
             <>
               <div className={s.avatarContainer}>

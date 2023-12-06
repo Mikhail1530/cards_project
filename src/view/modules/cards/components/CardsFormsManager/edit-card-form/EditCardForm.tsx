@@ -93,13 +93,13 @@ export const EditCardForm = ({
           />
           {questionForm === 'image' ? (
             <div className={s.fileUploadersContainer}>
-              <img src={questionImg} alt={'questionImg'} />
+              {questionImg && <img src={questionImg} alt={'questionImg'} />}
               <ControlledFileUploader
                 className={s.bodyItem}
                 control={control}
                 name={'questionImg'}
               />
-              <img src={answerImg} alt={'answerImg'} />
+              {answerImg && <img src={answerImg} alt={'answerImg'} />}
               <ControlledFileUploader className={s.bodyItem} control={control} name={'answerImg'} />
             </div>
           ) : (
@@ -120,27 +120,6 @@ export const EditCardForm = ({
               />
             </>
           )}
-          {/*<ControlledTextField*/}
-          {/*  className={s.bodyItem}*/}
-          {/*  control={control}*/}
-          {/*  name={'questionImg'}*/}
-          {/*  label={'Choose a question format'}*/}
-          {/*  errorMessage={errors.questionImg?.message}*/}
-          {/*/>*/}
-          {/*<ControlledTextField*/}
-          {/*  className={s.bodyItem}*/}
-          {/*  control={control}*/}
-          {/*  name={'question'}*/}
-          {/*  label={'Question'}*/}
-          {/*  errorMessage={errors.question?.message}*/}
-          {/*/>*/}
-          {/*<ControlledTextField*/}
-          {/*  className={s.bodyItem}*/}
-          {/*  control={control}*/}
-          {/*  name={'answer'}*/}
-          {/*  label={'Answer'}*/}
-          {/*  errorMessage={errors.answer?.message}*/}
-          {/*/>*/}
         </div>
       </form>
     </Dialog>

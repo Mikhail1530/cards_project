@@ -1,4 +1,4 @@
-import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table'
+import { Table, TableHeader, TBody, TCell, TRow } from '@/view/ui/Table/table'
 import { Button } from '@/view/ui/Button'
 import s from './DecksTable.module.scss'
 import { Link } from 'react-router-dom'
@@ -8,20 +8,39 @@ import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManag
 
 type DecksTable = {
   currentTableData: DeckType[]
+  sort: any
+  setSort: any
 }
 
-export const DecksTable = ({ currentTableData }: DecksTable) => {
+export type Column = {
+  key: string
+  sortable?: boolean
+  title: string
+}
+
+const columns: Array<Column> = [
+  {
+    key: 'name',
+    title: 'Name',
+  },
+  {
+    key: 'cardsCount',
+    title: 'Cards',
+  },
+  {
+    key: 'updated',
+    title: 'Last Updated',
+  },
+  {
+    key: 'createdBy',
+    title: 'Created by',
+  },
+]
+
+export const DecksTable = ({ currentTableData, sort, setSort }: DecksTable) => {
   return (
     <Table>
-      <THead>
-        <TRow>
-          <THeader>Name</THeader>
-          <THeader>Cards</THeader>
-          <THeader>Last Updated</THeader>
-          <THeader>Created By</THeader>
-          <THeader></THeader>
-        </TRow>
-      </THead>
+      <TableHeader columns={columns} sort={sort} onSort={setSort} />
       <TBody>
         {currentTableData.map((deck: DeckType) => {
           return (
