@@ -1,2 +1,2 @@
 export * from './icons'
-export { ErrorModal } from './ErrorModal/ErrorModal'
+export { ErrorModal } from '@/view/assets/components/ErrorModal/ErrorModal'

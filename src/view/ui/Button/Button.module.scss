@@ -14,7 +14,8 @@
 
   border: none;
   outline: none;
-  box-shadow: 0 4px 18px 0 #8C61FF59;
+
+  //box-shadow: 0 4px 18px 0 #8C61FF59;
 
   &.fullWidth {
     justify-content: center;
@@ -26,8 +27,6 @@
     display: flex;
     width: 18px;
     height: 18px;
-
-    //margin-right: 8px;
   }
 
   &:focus-visible {
@@ -133,4 +132,12 @@
 .icon {
   //margin-right: 6px;
   padding: 0;
+}
+
+.purpleShadow {
+  box-shadow: 0 4px 18px 0 #8C61FF59;
+}
+
+.darkShadow {
+  box-shadow: 0 4px 18px 0 rgb(28 28 28 / 90%);
 }

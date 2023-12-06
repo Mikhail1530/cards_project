@@ -11,7 +11,8 @@ export type GetDecksArgs = {
   itemsPerPage?: number | string
   name?: string
   authorId?: string
-  orderBy?: string
+  // orderBy?: string
+  orderBy?: string | null
 }
 
 export type RetrieveCardInDeckResponseType = {

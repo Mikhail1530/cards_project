@@ -5,13 +5,14 @@ import { useForgotPasswordMutation } from '@/api/services/auth/auth.service'
 import { RecoverPasswordArgs } from '@/api/services/auth/auth.types'
 import { useState } from 'react'
 import { CheckEmailModal } from '@/view/modules/auth/components/CheckEmailModal/CheckEmailModal'
+import Loading from '@/view/assets/components/Loading/Loading'
 
 export const ForgotPasswordPage = () => {
   const [state, setState] = useState({
     email: '',
     isEmailModalVisible: false,
   })
-  const [callForgotPassword] = useForgotPasswordMutation()
+  const [callForgotPassword, { isLoading }] = useForgotPasswordMutation()
 
   const handleForgotYourPassword = async (args: RecoverPasswordArgs) => {
     try {
@@ -20,6 +21,10 @@ export const ForgotPasswordPage = () => {
     } catch (e) {
       console.error(e)
     }
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (

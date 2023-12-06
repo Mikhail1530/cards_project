@@ -43,7 +43,7 @@ export const Dialog = ({
   return (
     <RDialog.Root open={open} onOpenChange={onClose}>
       <DialogTrigger asChild>
-        <Button onClick={onClick} fullWidth={false} variant={triggerBtnVariant}>
+        <Button shadow={'none'} onClick={onClick} fullWidth={false} variant={triggerBtnVariant}>
           {icon}
           {triggerBtnText}
         </Button>

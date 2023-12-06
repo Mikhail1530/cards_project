@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux'
 import { SignUpPage } from '@/view/pages/SignUpPage/SignUpPage'
 import { ForgotPasswordPage } from '@/view/pages/ForgotPasswordPage/ForgotPasswordPage'
 import ResetPasswordPage from '@/view/pages/ResetPasswordPage/ResetPasswordPage'
+import Loading from '@/view/assets/components/Loading/Loading'
 
 const privateRoutes: RouteObject[] = [
   {
@@ -73,7 +74,7 @@ function PrivateRoutes() {
   const dispatch = useDispatch()
   const { data, isError, isSuccess, isLoading } = useAuthMeQuery() // before accessing any private resource we send autherization request (cookie) to server
   if (isLoading) {
-    return null
+    return <Loading />
   }
   // FIXME: currently it sets data from useAuthMeQuery everytime i open new page, but do i need to do so?
   if (isSuccess && data) {

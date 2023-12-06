@@ -7,6 +7,8 @@ import { ShowNoCards } from '@/view/modules/cards/helpers/ShowNoCards/ShowNoCard
 import s from './DeckPage.module.scss'
 import { ArrowBack } from '@/view/assets/icons/arrow-back/ArrowBack'
 import { CardFormsManager } from '@/view/modules/cards/components/CardsFormsManager/CardFormsManager'
+import Loading from '@/view/assets/components/Loading/Loading'
+import { Error } from '@/view/assets/components/Error/Error'
 
 export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -19,6 +21,7 @@ export const DeckPage = () => {
     isLoading,
     isFetching,
     error,
+    isError,
   } = useGetCardsInDeckQuery({
     id: match?.params.id,
     currentPage: currentPage,
@@ -27,20 +30,10 @@ export const DeckPage = () => {
   const deck = useGetDeckByIdQuery({ id: match?.params.id })
 
   if (isLoading || isFetching) {
-    return <div>loading...</div>
+    return <Loading />
   }
-  if (error) {
-    if ('status' in error) {
-      const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
-      return (
-        <>
-          <Typography>An error has occurred:</Typography>
-          <Typography>{errMsg}</Typography>
-        </>
-      )
-    } else {
-      return <div>{error.message}</div>
-    }
+  if (isError) {
+    ;<Error error={error} />
   }
 
   const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {

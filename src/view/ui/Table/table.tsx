@@ -1,6 +1,7 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, FC, forwardRef } from 'react'
 import { clsx } from 'clsx'
 import s from './table.module.scss'
+import { Column } from '@/view/ui/Table/table.stories'
 
 export const THead = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'thead'>>(
   ({ className, ...rest }, ref) => {
@@ -64,3 +65,52 @@ export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'tabl
 
 // ComponentPropsWithoutRef<'table'>
 // is used to define the allowed props for the Table component,
+
+export type Sort = {
+  key: string
+  direction: 'asc' | 'desc'
+} | null
+
+export const TableHeader: FC<
+  Omit<
+    ComponentPropsWithoutRef<'thead'> & {
+      columns: Column[]
+      onSort?: (sort: Sort) => void
+      sort?: Sort
+    },
+    'children'
+  >
+> = ({ columns, onSort, sort, ...restProps }) => {
+  const handleSort = (key: string, sortable?: boolean) => () => {
+    if (!onSort || !sortable) {
+      return
+    }
+
+    if (sort?.key !== key) {
+      return onSort({ direction: 'asc', key })
+    }
+
+    if (sort.direction === 'desc') {
+      return onSort(null)
+    }
+
+    return onSort({
+      direction: sort?.direction === 'asc' ? 'desc' : 'asc',
+      key,
+    })
+  }
+
+  return (
+    <THead {...restProps}>
+      <TRow>
+        {columns.map(({ key, sortable = true, title }) => (
+          <THeader key={key} onClick={handleSort(key, sortable)}>
+            {title}
+            {sort && sort.key === key && <span>{sort.direction === 'asc' ? '▲' : '▼'}</span>}
+          </THeader>
+        ))}
+        <THeader />
+      </TRow>
+    </THead>
+  )
+}

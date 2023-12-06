@@ -27,6 +27,7 @@ export const PersonalInformationFormStories: Story = {
         onSubmit={() => {}}
         icon={<Bin />}
         logout={() => {}}
+        id={''}
       />
     )
   },
@@ -38,5 +39,6 @@ export const PersonalInformationFormStories: Story = {
     open: false,
     onClose: () => {},
     icon: <Bin />,
+    id: '',
   },
 }
