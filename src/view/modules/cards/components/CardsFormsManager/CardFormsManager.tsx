@@ -38,7 +38,7 @@ export const CardFormsManager = ({ type, card, deckId }: CardFormsManagerPropsTy
     }
     case 'EDIT': {
       if (!card) throw new Error('No necessary data provided to form!')
-
+      console.log(card, 'card')
       formComponent = (
         <EditCardForm
           question={card.question}

@@ -66,9 +66,13 @@ export const EditCardForm = ({
     formData.append('answer', data.answer)
     if (data.questionImg) formData.append('questionImg', data.questionImg)
     if (data.answerImg) formData.append('answerImg', data.answerImg)
-
+    const formDataArray = Array.from(formData.entries())
+    console.log(formDataArray, 'formADta')
+    debugger
     onSubmit({ cardId, formData })
   })
+
+  console.log(answerImg)
 
   return (
     <Dialog
@@ -98,9 +102,15 @@ export const EditCardForm = ({
                 className={s.bodyItem}
                 control={control}
                 name={'questionImg'}
+                fileInputLabelText={'Change question image'}
               />
               {answerImg && <img src={answerImg} alt={'answerImg'} />}
-              <ControlledFileUploader className={s.bodyItem} control={control} name={'answerImg'} />
+              <ControlledFileUploader
+                className={s.bodyItem}
+                control={control}
+                name={'answerImg'}
+                fileInputLabelText={'Change answer image'}
+              />
             </div>
           ) : (
             <>

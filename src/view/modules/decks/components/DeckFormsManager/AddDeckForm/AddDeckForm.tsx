@@ -70,6 +70,7 @@ export const AddDeckForm = ({ icon, onSubmit, open, onClose }: AddDeckProps) => 
             control={control}
             name={'cover'}
             label={'Cover'}
+            fileInputLabelText={'Change cover'}
             // errorMessage={errors.cover?.message}
           />
           <ControlledTextField

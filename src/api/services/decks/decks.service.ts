@@ -12,7 +12,7 @@ import {
 } from '@/api/services/decks/decks.types'
 import { baseApi } from '@/api/base-api'
 
-const decksService = baseApi.injectEndpoints({
+export const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       getDecks: builder.query<GetDecksResponse, GetDecksArgs | void>({

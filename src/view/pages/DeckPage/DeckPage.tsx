@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/api/services/decks/decks.service'
-import { Button, Card, Pagination, Typography } from '@/view/ui'
+import { Button, Page, Pagination, TextField, Typography } from '@/view/ui'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { CardsTable } from '@/view/modules/cards/components/CardsTable/CardsTable'
 import { ShowNoCards } from '@/view/modules/cards/helpers/ShowNoCards/ShowNoCards'
@@ -9,6 +9,8 @@ import { ArrowBack } from '@/view/assets/icons/arrow-back/ArrowBack'
 import { CardFormsManager } from '@/view/modules/cards/components/CardsFormsManager/CardFormsManager'
 import Loading from '@/view/assets/components/Loading/Loading'
 import { Error } from '@/view/assets/components/Error/Error'
+import { Header } from '@/view/modules'
+import { Bin } from '@/view/assets'
 
 export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -46,37 +48,55 @@ export const DeckPage = () => {
     return <Error error={error} />
   }
 
-  console.log(deck.cover, 'deck')
-
   return (
-    <Card className={s.card}>
-      {cards.items.length < 1 ? (
-        <ShowNoCards cover={deck.cover} deckId={deck.id} deckName={deck.name} navigate={navigate} />
-      ) : (
-        <>
-          <div className={s.header}>
-            <Button className={s.backBtn} onClick={() => navigate(-1)} variant={'icon'}>
-              <ArrowBack />
-              <Typography>Back to Decks List</Typography>
-            </Button>
-            <div className={s.deckNameWithBtn}>
-              <Typography variant={'large'}>{deck.name}</Typography>
-              <CardFormsManager type={'ADD'} deckId={match?.params.id} />
+    <>
+      <Header />
+      <Page>
+        {cards.items.length < 1 ? (
+          <ShowNoCards
+            cover={deck.cover}
+            deckId={deck.id}
+            deckName={deck.name}
+            navigate={navigate}
+          />
+        ) : (
+          <>
+            <div className={s.header}>
+              <Button className={s.backBtn} onClick={() => navigate(-1)} variant={'icon'}>
+                <ArrowBack />
+                <Typography>Back to Decks List</Typography>
+              </Button>
+              <div className={s.deckNameAndBtnContainer}>
+                <div className={s.deckNameWithImg}>
+                  <Typography variant={'large'}>{deck.name}</Typography>
+                  {deck.cover && <img src={deck.cover} alt={'Deck cover'} />}
+                </div>
+                <div className={s.header__btn}>
+                  <CardFormsManager type={'ADD'} deckId={match?.params.id} />
+                </div>
+              </div>
             </div>
-          </div>
-          <CardsTable selectedDeckTableData={cards?.items} />
-        </>
-      )}
+            <TextField
+              search={true}
+              type="search"
+              className={s.search}
+              placeholder={'Card search'}
+              icon={<Bin />}
+            />
+            <CardsTable selectedDeckTableData={cards?.items} />
+          </>
+        )}
 
-      <Pagination
-        currentPage={currentPage}
-        totalCount={cards.pagination.totalItems}
-        totalPages={cards.pagination.totalPages}
-        handlePageChange={handlePageChange}
-        handleSetItemsPerPage={handleSetItemsPerPage}
-        itemsPerPage={cards.pagination.itemsPerPage}
-        selectOptions={selectOptionsOfDecksToDisplay}
-      />
-    </Card>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={cards.pagination.totalItems}
+          totalPages={cards.pagination.totalPages}
+          handlePageChange={handlePageChange}
+          handleSetItemsPerPage={handleSetItemsPerPage}
+          itemsPerPage={cards.pagination.itemsPerPage}
+          selectOptions={selectOptionsOfDecksToDisplay}
+        />
+      </Page>
+    </>
   )
 }

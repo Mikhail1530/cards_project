@@ -61,9 +61,10 @@ export const AddCardForm = ({
     const formData = new FormData()
     formData.append('question', data.question)
     formData.append('answer', data.answer)
-    if (data.questionImg) formData.append('questionImg', data.questionImg)
-    if (data.answerImg) formData.append('answerImg', data.answerImg)
+    formData.append('questionImg', data.questionImg)
+    formData.append('answerImg', data.answerImg)
     // Object.entries(data).forEach(([key, value]) => formData.append(key, JSON.stringify(value)))
+    console.log(Array.from(formData.entries()), 'addCard')
     onSubmit({ formData, deckId })
     onClose()
   })
@@ -72,7 +73,7 @@ export const AddCardForm = ({
   return (
     <Dialog
       className={s.dialog}
-      title={'Add New CardType'}
+      title={'Add New Card'}
       acceptBtnText={'Add card'}
       handleFormSubmit={handleFormSubmit}
       triggerBtnText={'Add new card'}
@@ -83,6 +84,7 @@ export const AddCardForm = ({
       <form>
         <div className={s.body}>
           <ControlledSelect
+            className={s.select}
             options={['text', 'image', 'video']}
             name={'questionForm'}
             control={control}
@@ -95,16 +97,22 @@ export const AddCardForm = ({
                 className={s.bodyItem}
                 control={control}
                 name={'questionImg'}
+                fileInputLabelText={'Add question picture'}
               />
               <ControlledTextField
-                className={s.bodyItem}
+                className={s.bodyItem + ' ' + s.question}
                 control={control}
                 name={'question'}
                 label={'Question'}
                 errorMessage={errors.question?.message}
               />
               {answerImg && <img src={answerImg} alt={'answerImg'} />}
-              <ControlledFileUploader className={s.bodyItem} control={control} name={'answerImg'} />
+              <ControlledFileUploader
+                className={s.bodyItem}
+                control={control}
+                name={'answerImg'}
+                fileInputLabelText={'Add answer picture '}
+              />
               <ControlledTextField
                 className={s.bodyItem}
                 control={control}

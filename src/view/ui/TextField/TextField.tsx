@@ -24,6 +24,7 @@ export type TextFieldProps = {
   // ) => void
   icon?: ReactNode
   search?: boolean
+  fileInputLabelText?: string
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -40,6 +41,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       placeholder,
       search,
       type,
+      fileInputLabelText,
       ...restProps
     },
     ref
@@ -48,6 +50,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     const isShowPasswordButtonShown = type === 'password'
     const isFileType = type === 'file'
+    // const isSearchType = type === 'search'
+    console.log(isFileType, 'ifFiletype')
 
     const finalType = getFinalType(type, showPassword)
 
@@ -66,7 +70,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         isFileType && s.fileType,
         className
       ),
-      fileInputContainer: clsx(s.fileInputContainer, isFileType && s.fileType),
+      fileInputContainer: clsx(s.fileInputContainer, isFileType && className),
       fieldContainer: clsx(s.fieldContainer),
       label: clsx(s.label, labelProps?.className),
       leadingIcon: s.leadingIcon,
@@ -81,15 +85,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </Typography>
         )}
         <div className={classNames.fieldContainer}>
-          {icon && (
-            <label htmlFor={'inputId'} className={s.icon}>
-              {icon}
-            </label>
-          )}
           {isFileType ? (
             <div className={classNames.fileInputContainer}>
               <label htmlFor="fileInput" className={s.fileInputLabel}>
-                Change Cover
+                {fileInputLabelText}
+                {icon}
               </label>
               <input
                 id="fileInput"
@@ -101,15 +101,22 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               />
             </div>
           ) : (
-            <input
-              className={classNames.field}
-              onChange={handleChange}
-              placeholder={placeholder}
-              ref={ref}
-              type={finalType}
-              id="inputId"
-              {...restProps}
-            />
+            <>
+              {icon && (
+                <label htmlFor={'inputId'} className={s.icon}>
+                  {icon}
+                </label>
+              )}
+              <input
+                className={classNames.field}
+                onChange={handleChange}
+                placeholder={placeholder}
+                ref={ref}
+                type={finalType}
+                id="inputId"
+                {...restProps}
+              />
+            </>
           )}
           {isShowPasswordButtonShown && (
             <button

@@ -25,7 +25,9 @@
     position: relative;
 
     .avatarEditButton {
-      all: unset;
+      //display: none;
+
+      //all: unset;
 
       cursor: pointer;
 
@@ -39,9 +41,6 @@
 
       width: 32px;
       height: 32px;
-
-      background-color: var(--color-dark-300);
-      border-radius: 4px;
     }
 
     //Hide input type='file' default button
