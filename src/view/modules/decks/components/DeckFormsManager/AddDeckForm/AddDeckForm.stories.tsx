@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { AddDeckForm } from '../../../../index'
+import { AddDeckForm } from '@/view/modules'
 
 const meta = {
   argTypes: {},

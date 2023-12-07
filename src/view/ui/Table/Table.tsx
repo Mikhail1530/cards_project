@@ -1,7 +1,8 @@
 import { ComponentPropsWithoutRef, FC, forwardRef } from 'react'
 import { clsx } from 'clsx'
-import s from './table.module.scss'
-import { Column } from '@/view/ui/Table/table.stories'
+import s from './Table.module.scss'
+import { Column } from '@/view/ui/Table/Table.stories'
+import { Sort, SortAsc, SortDesc } from '@/view/assets'
 
 export const THead = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'thead'>>(
   ({ className, ...rest }, ref) => {
@@ -49,7 +50,6 @@ export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'tabl
     const classNames = {
       table: clsx(className, s.table),
     }
-
     return <table className={classNames['table']} {...rest} ref={ref}></table>
   }
 )
@@ -105,8 +105,13 @@ export const TableHeader: FC<
       <TRow>
         {columns.map(({ key, sortable = true, title }) => (
           <THeader key={key} onClick={handleSort(key, sortable)}>
-            {title}
-            {sort && sort.key === key && <span>{sort.direction === 'asc' ? '▲' : '▼'}</span>}
+            <div className={s.titleAndSortIcon}>
+              {title}
+              {!sort && title !== 'Created by' && <Sort />}
+              {sort && sort.key === key && (
+                <span>{sort.direction === 'asc' ? <SortAsc /> : <SortDesc />}</span>
+              )}
+            </div>
           </THeader>
         ))}
         <THeader />

@@ -66,6 +66,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         isFileType && s.fileType,
         className
       ),
+      fileInputContainer: clsx(s.fileInputContainer, isFileType && s.fileType),
       fieldContainer: clsx(s.fieldContainer),
       label: clsx(s.label, labelProps?.className),
       leadingIcon: s.leadingIcon,
@@ -85,15 +86,31 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               {icon}
             </label>
           )}
-          <input
-            className={classNames.field}
-            onChange={handleChange}
-            placeholder={placeholder}
-            ref={ref}
-            type={finalType}
-            id={'inputId'}
-            {...restProps}
-          />
+          {isFileType ? (
+            <div className={classNames.fileInputContainer}>
+              <label htmlFor="fileInput" className={s.fileInputLabel}>
+                Change Cover
+              </label>
+              <input
+                id="fileInput"
+                className={clsx(s.fileInput, className)}
+                type="file"
+                ref={ref}
+                onChange={handleChange}
+                {...restProps}
+              />
+            </div>
+          ) : (
+            <input
+              className={classNames.field}
+              onChange={handleChange}
+              placeholder={placeholder}
+              ref={ref}
+              type={finalType}
+              id="inputId"
+              {...restProps}
+            />
+          )}
           {isShowPasswordButtonShown && (
             <button
               className={s.showPassword}

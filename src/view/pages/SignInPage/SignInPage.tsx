@@ -19,9 +19,11 @@ export const SignInPage = () => {
   }
 
   return (
-    <Page>
+    <>
       <Header text={'Sign up'} />
-      <LoginForm onSubmit={handleLogin} />
-    </Page>
+      <Page>
+        <LoginForm onSubmit={handleLogin} />
+      </Page>
+    </>
   )
 }

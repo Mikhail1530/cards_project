@@ -1,4 +1,4 @@
-import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table'
+import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/Table'
 import s from './CardsTable.module.scss'
 import { CardType } from '@/api/services/decks/decks.types'
 import { CardFormsManager } from '@/view/modules/cards/components/CardsFormsManager/CardFormsManager'

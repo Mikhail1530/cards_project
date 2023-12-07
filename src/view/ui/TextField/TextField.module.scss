@@ -48,30 +48,70 @@
   &.error {
     color: var(--color-danger-300);
     border-color: var(--color-danger-300);
+    outline: none;
+
+    &:focus-visible {
+      outline: 1px solid var(--color-danger-300);
+    }
   }
 
   &.hasLeadingIcon {
     padding-left: 41px;
   }
 
-  &.fileType {
-    &:hover {
-      background-color: var(--color-dark-100);
-    }
+  //&.fileType {
+  //  //display: none;
+  //  //opacity: 0;
+  //  border: 1px solid var(--color-dark-100);
+  //
+  //  &:hover {
+  //    background-color: var(--color-dark-100);
+  //  }
+  //
+  //  &:disabled {
+  //    background-color: var(--color-dark-500);
+  //  }
+  //}
+}
 
-    &:disabled {
-      background-color: var(--color-dark-500);
-    }
+.fileInputContainer {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
 
-    //display: none;
-    //opacity: 0;
+.fileInputLabel {
+  cursor: pointer;
+
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-300);
+  border-radius: 4px;
+
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--color-dark-600);
   }
+}
+
+.fileInput {
+  cursor: pointer;
+
+  position: absolute;
+  top: -30px;
+  left: 150px;
+
+  opacity: 0;
 }
 
 .errorText {
   position: absolute;
-
-  //margin-top:-24px;
   color: var(--color-danger-300) !important;
 }
 

@@ -19,7 +19,6 @@ export const DeckPage = () => {
   const {
     data: cards,
     isLoading,
-    isFetching,
     error,
     isError,
   } = useGetCardsInDeckQuery({
@@ -27,13 +26,10 @@ export const DeckPage = () => {
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
   })
-  const deck = useGetDeckByIdQuery({ id: match?.params.id })
+  const { data: deck, isLoading: isCardLoading } = useGetDeckByIdQuery({ id: match?.params.id })
 
-  if (isLoading || isFetching) {
+  if (isLoading || isCardLoading) {
     return <Loading />
-  }
-  if (isError) {
-    ;<Error error={error} />
   }
 
   const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {
@@ -46,14 +42,16 @@ export const DeckPage = () => {
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
-  if (!cards) {
-    return null // FIXME ask how to handle this properly
+  if (!cards || !deck || isError) {
+    return <Error error={error} />
   }
+
+  console.log(deck.cover, 'deck')
 
   return (
     <Card className={s.card}>
       {cards.items.length < 1 ? (
-        <ShowNoCards deckId={deck?.data?.id} deckName={deck?.data?.name} navigate={navigate} />
+        <ShowNoCards cover={deck.cover} deckId={deck.id} deckName={deck.name} navigate={navigate} />
       ) : (
         <>
           <div className={s.header}>
@@ -62,7 +60,7 @@ export const DeckPage = () => {
               <Typography>Back to Decks List</Typography>
             </Button>
             <div className={s.deckNameWithBtn}>
-              <Typography variant={'large'}>{deck.data?.name}</Typography>
+              <Typography variant={'large'}>{deck.name}</Typography>
               <CardFormsManager type={'ADD'} deckId={match?.params.id} />
             </div>
           </div>

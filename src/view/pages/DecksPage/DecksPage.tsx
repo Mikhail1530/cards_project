@@ -6,8 +6,8 @@ import { Typography } from '@/view/ui/Typography'
 import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManager/DeckFormsManager'
 import { Page } from '@/view/ui'
 import { Header } from '@/view/modules'
-import Loading from '@/view/assets/components/Loading/Loading'
-import { Sort } from '@/view/ui/Table/table'
+import { Sort } from '@/view/ui/Table/Table'
+import { TableWithPageLoadingSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 
 export const DecksPage = () => {
   const [sort, setSort] = useState<Sort>(null)
@@ -34,7 +34,7 @@ export const DecksPage = () => {
   })
 
   if (isLoading || isFetching) {
-    return <Loading />
+    return <TableWithPageLoadingSkeleton numRows={+itemsPerPage} />
   }
 
   if (!decks) {

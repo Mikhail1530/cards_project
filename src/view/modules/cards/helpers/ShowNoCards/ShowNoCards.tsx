@@ -8,9 +8,10 @@ type ShowNoCardsType = {
   deckName?: string
   deckId: string | undefined
   navigate: NavigateFunction
+  cover: string
 }
 
-export const ShowNoCards = ({ deckId, navigate, deckName }: ShowNoCardsType) => {
+export const ShowNoCards = ({ deckId, navigate, deckName, cover }: ShowNoCardsType) => {
   return (
     <>
       <div className={s.header}>
@@ -19,6 +20,7 @@ export const ShowNoCards = ({ deckId, navigate, deckName }: ShowNoCardsType) => 
           <Typography>Back to Decks List</Typography>
         </Button>
         <Typography variant={'large'}>{deckName}</Typography>
+        {cover && <img src={cover} alt={'Deck cover'} />}
       </div>
       <div className={s.body}>
         <Typography variant={'body1'} className={s.bodyTypography}>

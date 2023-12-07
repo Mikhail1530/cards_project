@@ -5,7 +5,11 @@
 .body {
   .bodyItem {
     position: relative; // FIXME: Problem with error messages position
-    margin-bottom: 24px;
+    //margin-bottom: 24px;
+  }
+
+  .addDeckCheckbox {
+    margin-top: 24px;
   }
 }
 

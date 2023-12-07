@@ -1,4 +1,4 @@
-import { Table, TableHeader, TBody, TCell, TRow } from '@/view/ui/Table/table'
+import { Table, TableHeader, TBody, TCell, TRow } from '@/view/ui/Table/Table'
 import { Button } from '@/view/ui/Button'
 import s from './DecksTable.module.scss'
 import { Link } from 'react-router-dom'
@@ -34,6 +34,7 @@ const columns: Array<Column> = [
   {
     key: 'createdBy',
     title: 'Created by',
+    sortable: false,
   },
 ]
 

@@ -1,9 +1,9 @@
 import { CreateNewPasswordForm } from '@/view/modules/auth/components/CreateNewPasswordForm/CreateNewPasswordForm'
 import { Header } from '@/view/modules'
-import s from './ResetPasswordPage.module.scss'
 import { useResetPasswordMutation } from '@/api/services/auth/auth.service'
 import { ResetPasswordArgs } from '@/api/services/auth/auth.types'
 import { ErrorModal } from '@/view/assets'
+import { Page } from '@/view/ui'
 
 const ResetPasswordPage = () => {
   // We pass resetPassword hook where we pass all args that goes to API call.
@@ -23,11 +23,13 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    <div className={s.resetPasswordPageContainer}>
+    <>
       <Header />
-      {isSuccess && <div>CONGRATS!!!!</div>}
-      <CreateNewPasswordForm onSubmit={handleResetPassword} />
-    </div>
+      <Page>
+        {isSuccess && <div>CONGRATS!!!!</div>}
+        <CreateNewPasswordForm onSubmit={handleResetPassword} />
+      </Page>
+    </>
   )
 }
 

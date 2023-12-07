@@ -79,7 +79,12 @@ export const AddDeckForm = ({ icon, onSubmit, open, onClose }: AddDeckProps) => 
             label={'Deck name'}
             errorMessage={errors.name?.message}
           />
-          <ControlledCheckbox control={control} name={'isPrivate'} label={'Private deck'} />
+          <ControlledCheckbox
+            className={s.addDeckCheckbox}
+            control={control}
+            name={'isPrivate'}
+            label={'Private deck'}
+          />
         </div>
       </form>
     </Dialog>
