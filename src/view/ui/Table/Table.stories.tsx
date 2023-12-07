@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { Table } from '@/view/ui'
 import { ComponentPropsWithoutRef, FC, useMemo, useState } from 'react'
-import { TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/table'
+import { TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/Table'
 
 const meta = {
   argTypes: {

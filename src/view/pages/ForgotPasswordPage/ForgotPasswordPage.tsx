@@ -28,13 +28,15 @@ export const ForgotPasswordPage = () => {
   }
 
   return (
-    <Page>
-      <Header text={'Login'} />
-      {state.isEmailModalVisible ? (
-        <CheckEmailModal email={state.email} />
-      ) : (
-        <ForgotPasswordForm onSubmit={handleForgotYourPassword} />
-      )}
-    </Page>
+    <>
+      <Header />
+      <Page>
+        {state.isEmailModalVisible ? (
+          <CheckEmailModal email={state.email} />
+        ) : (
+          <ForgotPasswordForm onSubmit={handleForgotYourPassword} />
+        )}
+      </Page>
+    </>
   )
 }
