@@ -15,8 +15,8 @@
   height: 50px;
   margin: 20px auto;
 
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
+  border: 8px solid var(--color-light-100);
+  border-top: 8px solid var(--color-accent-700);
   border-radius: 50%;
 
   animation: spin 1s linear infinite;

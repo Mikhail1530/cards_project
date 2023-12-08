@@ -7,7 +7,7 @@ import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManag
 import { Page, TextField } from '@/view/ui'
 import { Header } from '@/view/modules'
 import { Sort } from '@/view/ui/Table/Table'
-import { TableWithPageLoadingSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
+import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 import s from './DecksPage.module.scss'
 
 export const DecksPage = () => {
@@ -15,6 +15,14 @@ export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState<string | number>(10)
   const searchTermRef = useRef('')
+
+  // another option is to use debounce hook instead of ref
+  // const [searchTerm, setSearchTerm] = useState('')
+  // const debouncedValue = useDebounce(searchTerm)
+  // useEffect(() => {
+  //   refetch()
+  //   console.log('debouncedValue', debouncedValue)
+  // }, [debouncedValue])
 
   const sortedString = useMemo(() => {
     if (!sort) return null
@@ -35,13 +43,9 @@ export const DecksPage = () => {
     name: searchTermRef.current,
   })
 
-  if (isLoading || isFetching) {
-    return <TableWithPageLoadingSkeleton numRows={+itemsPerPage} />
-  }
-
-  if (!decks) {
-    return 'No decks available!'
-  }
+  // if (isLoading || isFetching) {
+  //   return <TableWithPageLoadingSkeleton numRows={+itemsPerPage} />
+  // }
 
   if (error) {
     if ('status' in error) {
@@ -66,7 +70,7 @@ export const DecksPage = () => {
     setCurrentPage(pageNumber)
   }
 
-  let timeoutId: NodeJS.Timeout | undefined
+  let timeoutId: NodeJS.Timeout
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     searchTermRef.current = e.target.value
     if (timeoutId) {
@@ -88,16 +92,20 @@ export const DecksPage = () => {
           <DeckFormsManager type={'ADD'} />
         </div>
         <div className={s.filtersContainer}>
-          <TextField onChange={handleSearchChange} />
+          <TextField defaultValue={searchTermRef.current} onChange={handleSearchChange} />
         </div>
-        <DecksTable currentTableData={decks.items} sort={sort} setSort={setSort} />
+        {isLoading || isFetching ? (
+          <TableSkeleton numRows={+itemsPerPage} />
+        ) : (
+          <DecksTable currentTableData={decks?.items} sort={sort} setSort={setSort} />
+        )}
         <Pagination
           currentPage={currentPage}
-          totalCount={decks.pagination.totalItems}
-          totalPages={decks.pagination.totalPages}
+          totalCount={decks?.pagination.totalItems}
+          totalPages={decks?.pagination.totalPages}
           handlePageChange={handlePageChange}
           handleSetItemsPerPage={handleSetItemsPerPage}
-          itemsPerPage={decks.pagination.itemsPerPage}
+          itemsPerPage={decks?.pagination.itemsPerPage}
           selectOptions={selectOptionsOfDecksToDisplay}
         />
       </Page>

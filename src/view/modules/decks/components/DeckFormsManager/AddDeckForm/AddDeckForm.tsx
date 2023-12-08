@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './AddDeckForm.module.scss'
 import { ReactNode } from 'react'
-import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
+import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledFileUploader/ControlledFileUploader'
 
 export type AddDeckProps = {
   onSubmit: (data: FormData) => void

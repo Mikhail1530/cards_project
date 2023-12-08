@@ -7,7 +7,12 @@
     color: var(--color-light-100);
     text-align: center;
   }
+}
 
+.uploader {
+  float: right;
+  width: 34px;
+  margin-top: -25px;
 }
 
 .avatarContainer {
@@ -23,25 +28,6 @@
 
   > div {
     position: relative;
-
-    .avatarEditButton {
-      //display: none;
-
-      //all: unset;
-
-      cursor: pointer;
-
-      position: absolute;
-      right: 0;
-      bottom: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 32px;
-      height: 32px;
-    }
 
     //Hide input type='file' default button
     [type="file"] {

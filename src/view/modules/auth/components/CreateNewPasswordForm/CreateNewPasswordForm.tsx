@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom'
 type FormValues = z.infer<typeof createNewPasswordSchema>
 
 const createNewPasswordSchema = z.object({
-  password: z.string().min(3, 'Too short password').max(25),
+  password: z.string().min(3, 'Too short password. It should be at least 3 symbols').max(25),
   token: z.string(),
 })
 

@@ -1,6 +1,5 @@
 export { Button } from './Button/Button'
 export { Card } from './Card/Card'
-export { Input } from './input/input'
 export { Pagination } from '@/view/components/pagination/pagination'
 export { RadioGroup } from '@/view/ui/Radio/radioGroup'
 export { Select } from './Select/Select'

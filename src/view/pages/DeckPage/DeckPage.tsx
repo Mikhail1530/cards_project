@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/api/services/decks/decks.service'
 import { Button, Page, Pagination, TextField, Typography } from '@/view/ui'
 import { useMatch, useNavigate } from 'react-router-dom'
@@ -11,22 +11,28 @@ import Loading from '@/view/assets/components/Loading/Loading'
 import { Error } from '@/view/assets/components/Error/Error'
 import { Header } from '@/view/modules'
 import { Bin } from '@/view/assets'
+import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 
 export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState<number | string>(10)
   const navigate = useNavigate()
   const match = useMatch('/decks/:id/learn')
+  const searchedCardNameValue = useRef('')
 
   const {
     data: cards,
     isLoading,
     error,
     isError,
+    isFetching,
+    refetch,
   } = useGetCardsInDeckQuery({
     id: match?.params.id,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
+    question: searchedCardNameValue.current,
+    // answer: searchedCardNameValue.current,
   })
   const { data: deck, isLoading: isCardLoading } = useGetDeckByIdQuery({ id: match?.params.id })
 
@@ -35,6 +41,7 @@ export const DeckPage = () => {
   }
 
   const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {
+    console.log(numOfItemsPerPage)
     setItemsPerPage(numOfItemsPerPage)
   }
 
@@ -48,11 +55,22 @@ export const DeckPage = () => {
     return <Error error={error} />
   }
 
+  let timeoutId: NodeJS.Timeout
+  const handleCardSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    searchedCardNameValue.current = e.target.value
+    if (timeoutId) clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => {
+      refetch()
+      // searchedCardNameValue.current = ''
+    }, 500)
+  }
+  console.log(cards, 'Cards')
+
   return (
     <>
       <Header />
       <Page>
-        {cards.items.length < 1 ? (
+        {cards.items.length < 1 && !searchedCardNameValue ? (
           <ShowNoCards
             cover={deck.cover}
             deckId={deck.id}
@@ -80,13 +98,17 @@ export const DeckPage = () => {
               search={true}
               type="search"
               className={s.search}
-              placeholder={'Card search'}
+              placeholder={'Enter card question'}
               icon={<Bin />}
+              onChange={handleCardSearch}
             />
-            <CardsTable selectedDeckTableData={cards?.items} />
+            {isLoading || isFetching ? (
+              <TableSkeleton numRows={cards.items.length} />
+            ) : (
+              <CardsTable selectedDeckTableData={cards?.items} />
+            )}
           </>
         )}
-
         <Pagination
           currentPage={currentPage}
           totalCount={cards.pagination.totalItems}

@@ -7,7 +7,7 @@ import {
 
 const cardsService = baseApi.injectEndpoints({
   endpoints: builder => {
-    debugger
+    // debugger
     return {
       createCard: builder.mutation<
         CreateCardResponseType,
@@ -16,7 +16,7 @@ const cardsService = baseApi.injectEndpoints({
         query: ({ formData, deckId }) => {
           const formDataArray = Array.from(formData.entries())
           console.log(formDataArray, 'formADta')
-          debugger
+          // debugger
           return {
             url: `v1/decks/${deckId}/cards`,
             method: 'POST',

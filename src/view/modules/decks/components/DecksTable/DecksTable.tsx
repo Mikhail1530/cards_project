@@ -7,7 +7,7 @@ import { GetDecksResponseItem as DeckType } from '@/api/services/decks/decks.typ
 import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManager/DeckFormsManager'
 
 type DecksTable = {
-  currentTableData: DeckType[]
+  currentTableData: DeckType[] | undefined
   sort: any
   setSort: any
 }
@@ -43,7 +43,7 @@ export const DecksTable = ({ currentTableData, sort, setSort }: DecksTable) => {
     <Table>
       <TableHeader columns={columns} sort={sort} onSort={setSort} />
       <TBody>
-        {currentTableData.map((deck: DeckType) => {
+        {currentTableData?.map((deck: DeckType) => {
           return (
             <TRow key={deck.id}>
               <TCell>

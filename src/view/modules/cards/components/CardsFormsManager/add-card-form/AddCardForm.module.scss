@@ -1,26 +1,25 @@
-
-.dialog {
-}
-
 .body {
-  .fileUploadersContainer {
-    margin-bottom: 24px;
-  }
-
   .select {
     margin-bottom: 24px;
   }
 
-  //.bodyItem {
-  //  margin-bottom: 0;
-  //}
+  .fileUploadersContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+  }
+
+  .textUploaderContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
 
   .bodyItem.question {
     position: relative; // FIXME: Problem with error messages position
     margin-bottom: 24px;
   }
 }
-
 
 .footerBtns {
   display: flex;
