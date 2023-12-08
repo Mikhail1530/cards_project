@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './EditCardForm.module.scss'
 import { ReactNode, useState } from 'react'
-import { ControlledSelect } from '@/view/components/shared-controlled/ControlledSelect/ControlledSelect'
-import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
+import { ControlledFileUploader, ControlledSelect } from '@/view/components/shared-controlled'
 
 export type EditCardFormProps = {
   onSubmit: (data: { cardId: string | undefined; formData: FormData }) => void
@@ -25,8 +24,8 @@ type EditDeckFormValues = z.infer<typeof editCardForm>
 
 const editCardForm = z.object({
   cardId: z.string(),
-  answer: z.string().min(3, 'Too short _selectedDeck name').max(100),
-  question: z.string().min(3, 'Too short _selectedDeck name').max(100),
+  answer: z.string().min(3, 'Too short deck name. It should be at least 3 symbols').max(100),
+  question: z.string().min(3, 'Too short deck name. It should be at least 3 symbols').max(100),
   questionForm: z.string().optional(),
   questionImg: z.any().optional(),
   answerImg: z.any().optional(),
@@ -64,15 +63,10 @@ export const EditCardForm = ({
     const formData = new FormData()
     formData.append('question', data.question)
     formData.append('answer', data.answer)
-    if (data.questionImg) formData.append('questionImg', data.questionImg)
-    if (data.answerImg) formData.append('answerImg', data.answerImg)
-    const formDataArray = Array.from(formData.entries())
-    console.log(formDataArray, 'formADta')
-    debugger
+    formData.append('questionImg', data.questionImg)
+    formData.append('answerImg', data.answerImg)
     onSubmit({ cardId, formData })
   })
-
-  console.log(answerImg)
 
   return (
     <Dialog

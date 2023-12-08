@@ -31,9 +31,13 @@
   .logout_btn {
     width: 50%;
 
-    svg {
-      margin-top: 3px;
-      margin-right: 10px;
+    span {
+      background-color: transparent;
+
+      svg {
+        margin-top: 3px;
+        margin-right: 10px;
+      }
     }
   }
 }

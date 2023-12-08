@@ -87,6 +87,8 @@ export type GetCardsByDeckIdArgs = {
   id: string | undefined
   currentPage?: number
   itemsPerPage?: number | string
+  question?: string
+  answer?: string
 }
 
 export type GetDeckByIdArgs = {

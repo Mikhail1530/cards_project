@@ -20,7 +20,7 @@ export type EditDeckProps = {
 type EditDeckFormValues = z.infer<typeof editDeckForm>
 
 const editDeckForm = z.object({
-  name: z.string().min(3, 'Too short _selectedDeck name').max(25),
+  name: z.string().min(3, 'Too short deck name. It should be at lesst 3 symbols').max(25),
   isPrivate: z.boolean().optional(),
   id: z.string(),
 })
@@ -33,7 +33,7 @@ export const EditDeckForm = ({
   onSubmit,
   onClose,
   inputLabel = 'Edit',
-  checkboxLabel = 'Private _selectedDeck',
+  checkboxLabel = 'deck',
   isPrivate,
 }: EditDeckProps) => {
   const {

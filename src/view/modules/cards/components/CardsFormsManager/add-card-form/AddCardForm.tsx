@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import s from './AddCardForm.module.scss'
 import { ReactNode, useState } from 'react'
 import { ControlledSelect } from '@/view/components/shared-controlled/ControlledSelect/ControlledSelect'
-import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
+import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledFileUploader/ControlledFileUploader'
 
 export type AddCardFormProps = {
   onSubmit: (data: { deckId: string; formData: FormData }) => void
@@ -26,8 +26,8 @@ const addCardForm = z.object({
   deckId: z.string(),
   questionImg: z.any().optional(),
   answerImg: z.any().optional(),
-  question: z.string().min(3, 'Too short question').max(100),
-  answer: z.string().min(3, 'Too short answer').max(100),
+  question: z.string().min(3, 'Too short question. It should be at least 3 symbols').max(100),
+  answer: z.string().min(3, 'Too short answer. It should be at least 3 symbols').max(100),
   questionForm: z.string().optional(),
 })
 
@@ -64,11 +64,9 @@ export const AddCardForm = ({
     formData.append('questionImg', data.questionImg)
     formData.append('answerImg', data.answerImg)
     // Object.entries(data).forEach(([key, value]) => formData.append(key, JSON.stringify(value)))
-    console.log(Array.from(formData.entries()), 'addCard')
     onSubmit({ formData, deckId })
     onClose()
   })
-  console.log(errors)
 
   return (
     <Dialog
@@ -92,26 +90,47 @@ export const AddCardForm = ({
           />
           {questionForm === 'image' ? (
             <div className={s.fileUploadersContainer}>
-              {questionImg && <img src={questionImg} alt={'questionImg'} />}
-              <ControlledFileUploader
-                className={s.bodyItem}
-                control={control}
-                name={'questionImg'}
-                fileInputLabelText={'Add question picture'}
-              />
+              <div className={s.questionContainer}>
+                {questionImg && <img src={questionImg} alt={'questionImg'} />}
+                <ControlledFileUploader
+                  className={s.bodyItem}
+                  control={control}
+                  name={'questionImg'}
+                  fileInputLabelText={'Add question picture'}
+                />
+                <ControlledTextField
+                  className={s.bodyItem + ' ' + errors && s.question}
+                  control={control}
+                  name={'question'}
+                  label={'Question'}
+                  errorMessage={errors.question?.message}
+                />
+              </div>
+              <div className={s.answerContainer}>
+                {answerImg && <img src={answerImg} alt={'answerImg'} />}
+                <ControlledFileUploader
+                  className={s.bodyItem}
+                  control={control}
+                  name={'answerImg'}
+                  fileInputLabelText={'Add answer picture '}
+                />
+                <ControlledTextField
+                  className={s.bodyItem}
+                  control={control}
+                  name={'answer'}
+                  label={'Answer'}
+                  errorMessage={errors.answer?.message}
+                />
+              </div>
+            </div>
+          ) : (
+            <div className={s.textUploaderContainer}>
               <ControlledTextField
-                className={s.bodyItem + ' ' + s.question}
+                className={s.bodyItem}
                 control={control}
                 name={'question'}
                 label={'Question'}
                 errorMessage={errors.question?.message}
-              />
-              {answerImg && <img src={answerImg} alt={'answerImg'} />}
-              <ControlledFileUploader
-                className={s.bodyItem}
-                control={control}
-                name={'answerImg'}
-                fileInputLabelText={'Add answer picture '}
               />
               <ControlledTextField
                 className={s.bodyItem}
@@ -121,23 +140,6 @@ export const AddCardForm = ({
                 errorMessage={errors.answer?.message}
               />
             </div>
-          ) : (
-            <>
-              <ControlledTextField
-                className={s.bodyItem}
-                control={control}
-                name={'question'}
-                label={'Question'}
-                errorMessage={errors.question?.message}
-              />
-              <ControlledTextField
-                className={s.bodyItem}
-                control={control}
-                name={'answer'}
-                label={'Answer'}
-                errorMessage={errors.answer?.message}
-              />
-            </>
           )}
         </div>
       </form>

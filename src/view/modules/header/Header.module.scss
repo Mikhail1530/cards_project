@@ -30,4 +30,24 @@
       
     }
   }
+
+  @media screen and (width <= 785px) {
+    padding: 0 85px;
+  }
+
+  @media screen and (width <= 680px) {
+    padding: 0 40px;
+  }
+
+  @media screen and (width <= 590px) {
+    padding: 0 20px;
+  }
+
+  @media screen and (width <= 550px) {
+    padding: 0 10px;
+  }
+
+  @media screen and (width <= 530px) {
+    padding: 0 5px;
+  }
 }

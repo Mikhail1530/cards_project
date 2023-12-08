@@ -6,12 +6,12 @@ import s from './PersonalInformationForm.module.scss'
 import { ReactNode, useState } from 'react'
 import { NameChanger, NameWithEditButton } from '../index'
 import { EditPencil } from '@/view/assets'
-import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledTextField/ControlledTextField'
+import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledFileUploader/ControlledFileUploader'
 
 export type PersonalInformationFormValues = z.infer<typeof personalInformationSchema>
 
 const personalInformationSchema = z.object({
-  name: z.string().min(2, 'Too short nickname').max(25),
+  name: z.string().min(2, 'Too short nickname. It should be at least 3 symbols').max(25),
   email: z
     .string()
     .min(1, { message: 'This field has to be filled.' })
@@ -40,9 +40,8 @@ export const PersonalInformationForm = ({
   icon,
   onClose,
   open,
-  logout,
-} // id,
-: PersonalInformationFormProps) => {
+  logout, // id,
+}: PersonalInformationFormProps) => {
   const {
     control,
     handleSubmit,
@@ -109,7 +108,7 @@ export const PersonalInformationForm = ({
                   <img src={avatar} alt={'avatar'}></img>
                   <ControlledFileUploader
                     type={'file'}
-                    className={s.avatarEditButton}
+                    className={s.uploader}
                     name={'avatar'}
                     icon={<EditPencil />}
                     control={control}

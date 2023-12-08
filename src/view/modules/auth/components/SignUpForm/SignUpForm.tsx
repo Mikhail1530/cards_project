@@ -15,8 +15,11 @@ type FormValues = z.infer<typeof signupSchema>
 const signupSchema = z
   .object({
     email: z.string().email({ message: 'Invalid email address' }),
-    password: z.string().min(3, 'Too short password').max(25),
-    confirmPassword: z.string().min(3, 'Too short password').max(25),
+    password: z.string().min(3, 'Too short password. It should be at lesst 3 symbols').max(25),
+    confirmPassword: z
+      .string()
+      .min(3, 'Too short password. It should be at least 3 symbols')
+      .max(25),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {

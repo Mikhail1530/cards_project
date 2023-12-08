@@ -7,9 +7,9 @@ import { Typography } from '@/view/ui/Typography'
 export type PaginatorPropsType = {
   handlePageChange: (pageNumber: number) => void
   handleSetItemsPerPage: (numItemsPerPage: string | number) => void
-  totalPages: number
-  totalCount: number
-  itemsPerPage: number
+  totalPages: number | undefined
+  totalCount: number | undefined
+  itemsPerPage: number | undefined
   siblingCount?: number
   currentPage: number
   className?: string
@@ -20,10 +20,10 @@ export const Pagination = (props: PaginatorPropsType) => {
   const {
     handlePageChange,
     handleSetItemsPerPage,
-    totalCount,
+    totalCount = 10,
     siblingCount = 1,
-    currentPage,
-    itemsPerPage,
+    currentPage = 1,
+    itemsPerPage = 10,
     className,
     selectOptions,
   } = props

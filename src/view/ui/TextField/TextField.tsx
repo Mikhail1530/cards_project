@@ -22,6 +22,7 @@ export type TextFieldProps = {
   //   value?: string | undefined,
   //   e?: ChangeEvent<HTMLInputElement> | undefined
   // ) => void
+  root?: string
   icon?: ReactNode
   search?: boolean
   fileInputLabelText?: string
@@ -49,9 +50,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const [showPassword, setShowPassword] = useState(false)
 
     const isShowPasswordButtonShown = type === 'password'
-    const isFileType = type === 'file'
-    // const isSearchType = type === 'search'
-    console.log(isFileType, 'ifFiletype')
 
     const finalType = getFinalType(type, showPassword)
 
@@ -63,14 +61,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     const classNames = {
       error: clsx(s.errorText),
-      field: clsx(
-        s.field,
-        !!errorMessage && s.error,
-        search && s.hasLeadingIcon,
-        isFileType && s.fileType,
-        className
-      ),
-      fileInputContainer: clsx(s.fileInputContainer, isFileType && className),
+      field: clsx(s.field, !!errorMessage && s.error, search && s.hasLeadingIcon, className),
       fieldContainer: clsx(s.fieldContainer),
       label: clsx(s.label, labelProps?.className),
       leadingIcon: s.leadingIcon,
@@ -85,39 +76,20 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </Typography>
         )}
         <div className={classNames.fieldContainer}>
-          {isFileType ? (
-            <div className={classNames.fileInputContainer}>
-              <label htmlFor="fileInput" className={s.fileInputLabel}>
-                {fileInputLabelText}
-                {icon}
-              </label>
-              <input
-                id="fileInput"
-                className={clsx(s.fileInput, className)}
-                type="file"
-                ref={ref}
-                onChange={handleChange}
-                {...restProps}
-              />
-            </div>
-          ) : (
-            <>
-              {icon && (
-                <label htmlFor={'inputId'} className={s.icon}>
-                  {icon}
-                </label>
-              )}
-              <input
-                className={classNames.field}
-                onChange={handleChange}
-                placeholder={placeholder}
-                ref={ref}
-                type={finalType}
-                id="inputId"
-                {...restProps}
-              />
-            </>
+          {icon && (
+            <label htmlFor={'inputId'} className={s.icon}>
+              {icon}
+            </label>
           )}
+          <input
+            className={classNames.field}
+            onChange={handleChange}
+            placeholder={placeholder}
+            ref={ref}
+            type={finalType}
+            id="inputId"
+            {...restProps}
+          />
           {isShowPasswordButtonShown && (
             <button
               className={s.showPassword}
@@ -128,7 +100,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             </button>
           )}
         </div>
-
         <Typography className={classNames.error}>{errorMessage}</Typography>
       </div>
     )
@@ -138,6 +109,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 function getFinalType(type: ComponentProps<'input'>['type'], showPassword: boolean) {
   if (type === 'password' && showPassword) {
     return 'text'
+  } else {
+    return type
   }
-  return type
 }

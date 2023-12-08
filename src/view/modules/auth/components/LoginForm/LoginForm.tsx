@@ -12,7 +12,7 @@ export type FormValues = z.infer<typeof loginSchema>
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
-  password: z.string().min(3, 'Too short password').max(25),
+  password: z.string().min(3, 'Too short password. It should be at least 3 symbols').max(25),
   rememberMe: z.boolean().optional(),
 })
 
