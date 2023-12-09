@@ -1,5 +1,22 @@
-.headerAndAddDeckBtn {
+.decksPage {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  row-gap: 30px;
+
+  .captionAndAddDeckBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .filtersContainer {
+    display: flex;
+
+    //width: 100%;
+
+    //
+    //.decksFilterBtns {
+    //  display: flex;
+    //}
+  }
 }

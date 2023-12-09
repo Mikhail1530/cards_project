@@ -23,6 +23,19 @@
     padding: 6px 0 !important;
   }
 
+  &.sharp {
+    border: 1px solid var(--color-dark-500);
+    border-radius: 0;
+  }
+
+  &.sharpRight {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &.sharpLeft {
+    border-radius: 0 4px 4px 0;
+  }
+
   .icon > svg {
     display: flex;
     width: 18px;

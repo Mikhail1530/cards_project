@@ -12,6 +12,7 @@ import { Error } from '@/view/assets/components/Error/Error'
 import { Header } from '@/view/modules'
 import { Bin } from '@/view/assets'
 import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
+import { useAuthMeQuery } from '@/api/services/auth/auth.service'
 
 export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -35,7 +36,9 @@ export const DeckPage = () => {
     // answer: searchedCardNameValue.current,
   })
   const { data: deck, isLoading: isCardLoading } = useGetDeckByIdQuery({ id: match?.params.id })
+  const { data: user } = useAuthMeQuery({ skip: true })
 
+  console.log(deck, 'deck')
   if (isLoading || isCardLoading) {
     return <Loading />
   }
@@ -70,7 +73,7 @@ export const DeckPage = () => {
     <>
       <Header />
       <Page>
-        {cards.items.length < 1 && !searchedCardNameValue ? (
+        {cards.items.length < 1 && user?.id === deck.userId ? (
           <ShowNoCards
             cover={deck.cover}
             deckId={deck.id}
