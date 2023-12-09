@@ -10,6 +10,7 @@ type DecksTable = {
   currentTableData: DeckType[] | undefined
   sort: any
   setSort: any
+  userId: string
 }
 
 export type Column = {
@@ -38,7 +39,8 @@ const columns: Array<Column> = [
   },
 ]
 
-export const DecksTable = ({ currentTableData, sort, setSort }: DecksTable) => {
+export const DecksTable = ({ currentTableData, sort, setSort, userId }: DecksTable) => {
+  console.log(userId, 'userOd')
   return (
     <Table>
       <TableHeader columns={columns} sort={sort} onSort={setSort} />
@@ -62,8 +64,8 @@ export const DecksTable = ({ currentTableData, sort, setSort }: DecksTable) => {
                     variant={'icon'}
                     icon={<PlayInCircle />}
                   />
-                  <DeckFormsManager type={'EDIT'} deck={deck} />
-                  <DeckFormsManager type={'DELETE'} deck={deck} />
+                  {userId === deck.author.id && <DeckFormsManager type={'EDIT'} deck={deck} />}
+                  {userId === deck.author.id && <DeckFormsManager type={'DELETE'} deck={deck} />}
                 </div>
               </TCell>
             </TRow>

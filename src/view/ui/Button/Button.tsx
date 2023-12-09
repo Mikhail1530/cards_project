@@ -24,6 +24,7 @@ export type ButtonProps<T extends ElementType> = {
   title?: string
   variant: ButtonVariants
   shadow?: 'none' | 'purple' | 'dark'
+  edges?: 'sharp' | 'sharpRight'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = forwardRef(
@@ -36,13 +37,21 @@ export const Button = forwardRef(
       icon,
       variant = 'primary',
       shadow = 'purple',
+      edges,
       ...rest
     } = props
 
     // @ts-ignore
     const isLink = Component === Link
     const classNames = {
-      component: clsx(s.button, s[variant], className, fullWidth && s.fullWidth, isLink && s.link),
+      component: clsx(
+        s.button,
+        s[variant],
+        className,
+        fullWidth && s.fullWidth,
+        isLink && s.link,
+        edges && s[edges]
+      ),
       icon: clsx(s.icon, s[variant]),
       shadow: clsx({
         [s.purpleShadow]: shadow === 'purple',

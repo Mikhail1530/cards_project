@@ -4,31 +4,37 @@ import { Pagination } from '@/view/components/pagination/pagination'
 import { useGetDecksQuery } from '@/api/services/decks/decks.service'
 import { Typography } from '@/view/ui/Typography'
 import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManager/DeckFormsManager'
-import { Page, TextField } from '@/view/ui'
+import { Button, Page, Slider, TextField } from '@/view/ui'
 import { Header } from '@/view/modules'
 import { Sort } from '@/view/ui/Table/Table'
 import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 import s from './DecksPage.module.scss'
+import { ErrorModal } from '@/view/assets'
+import { useAuthMeQuery } from '@/api/services/auth/auth.service'
 
 export const DecksPage = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState<string | number>(10)
   const searchTermRef = useRef('')
-
-  // another option is to use debounce hook instead of ref
-  // const [searchTerm, setSearchTerm] = useState('')
-  // const debouncedValue = useDebounce(searchTerm)
-  // useEffect(() => {
-  //   refetch()
-  //   console.log('debouncedValue', debouncedValue)
-  // }, [debouncedValue])
+  // TODO: ask is it possible to get rid of these states.
+  const [ownerId, setOwnerId] = useState<string | undefined>('')
+  const [activeBtn, setActiveBtn] = useState({
+    myDeck: false,
+    allDecks: true,
+  })
+  const [cardsCount, setCardsCount] = useState({
+    minCardsCount: 0,
+    maxCardsCount: 100,
+  })
 
   const sortedString = useMemo(() => {
     if (!sort) return null
 
     return `${sort.key}-${sort.direction}`
   }, [sort])
+
+  const { data: user } = useAuthMeQuery({ skip: true })
 
   const {
     data: decks,
@@ -37,28 +43,35 @@ export const DecksPage = () => {
     error,
     refetch,
   } = useGetDecksQuery({
+    minCardsCount: cardsCount.minCardsCount,
+    maxCardsCount: cardsCount.maxCardsCount,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
     orderBy: sortedString,
     name: searchTermRef.current,
+    authorId: ownerId,
   })
 
-  // if (isLoading || isFetching) {
-  //   return <TableWithPageLoadingSkeleton numRows={+itemsPerPage} />
-  // }
-
   if (error) {
-    if ('status' in error) {
-      const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
+    return <ErrorModal errorMessage={JSON.stringify(error)} />
+  }
 
-      return (
-        <>
-          <Typography>An error has occurred:</Typography>
-          <Typography>{errMsg}</Typography>
-        </>
-      )
+  //TODO: ask how to handle this properly
+  const filterDecksByOwner = (author: 'me' | 'all') => {
+    if (author === 'me') {
+      setOwnerId(user?.id)
+      setActiveBtn({
+        myDeck: true,
+        allDecks: false,
+      })
+      refetch()
     } else {
-      return <div>{error.message}</div>
+      setOwnerId('')
+      setActiveBtn({
+        myDeck: false,
+        allDecks: true,
+      })
+      refetch()
     }
   }
 
@@ -68,6 +81,19 @@ export const DecksPage = () => {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber)
+  }
+
+  const cleanFilters = () => {
+    searchByCardsInDeck([0, 100])
+    setOwnerId('')
+    setActiveBtn({
+      myDeck: false,
+      allDecks: true,
+    })
+  }
+
+  const searchByCardsInDeck = (minMaxCardsValues: number[]) => {
+    setCardsCount({ minCardsCount: minMaxCardsValues[0], maxCardsCount: minMaxCardsValues[1] })
   }
 
   let timeoutId: NodeJS.Timeout
@@ -83,21 +109,58 @@ export const DecksPage = () => {
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
+  if (!user) {
+    return 'No user!'
+  }
+
   return (
     <>
       <Header />
-      <Page>
-        <div className={s.headerAndAddDeckBtn}>
+      <Page className={s.decksPage}>
+        <div className={s.captionAndAddDeckBtn}>
           <Typography variant={'h1'}>Decks list</Typography>
           <DeckFormsManager type={'ADD'} />
         </div>
         <div className={s.filtersContainer}>
           <TextField defaultValue={searchTermRef.current} onChange={handleSearchChange} />
+          {/*TODO: ask about this logic as well. Second btn if isActivBtn = true -> has tertiary color, not logical*/}
+          {/*<div className={s.decksFilterBtns}>*/}
+          <Typography variant={'caption'}>Select decks</Typography>
+          <Button
+            variant={activeBtn.myDeck ? 'primary' : 'tertiary'}
+            edges={'sharpRight'}
+            onClick={() => filterDecksByOwner('me')}
+            // fullWidth={false}
+          >
+            My decks
+          </Button>
+          <Button
+            variant={activeBtn.allDecks ? 'primary' : 'tertiary'}
+            edges={'sharpLeft'}
+            onClick={() => filterDecksByOwner('all')}
+            // fullWidth={false}
+          >
+            All decks
+          </Button>
+          {/*</div>*/}
+          <Slider
+            onSubmit={searchByCardsInDeck}
+            //TODO ask how to make properly cleaner
+            // cleanOnSubmit={!!cardsCount}
+          />
+          <Button variant={'secondary'} onClick={cleanFilters}>
+            Clean filters
+          </Button>
         </div>
         {isLoading || isFetching ? (
           <TableSkeleton numRows={+itemsPerPage} />
         ) : (
-          <DecksTable currentTableData={decks?.items} sort={sort} setSort={setSort} />
+          <DecksTable
+            userId={user.id}
+            currentTableData={decks?.items}
+            sort={sort}
+            setSort={setSort}
+          />
         )}
         <Pagination
           currentPage={currentPage}
@@ -112,3 +175,11 @@ export const DecksPage = () => {
     </>
   )
 }
+
+// Another option instead of Ref is to use debounce hook instead of ref
+// const [searchTerm, setSearchTerm] = useState('')
+// const debouncedValue = useDebounce(searchTerm)
+// useEffect(() => {
+//   refetch()
+//   console.log('debouncedValue', debouncedValue)
+// }, [debouncedValue])
