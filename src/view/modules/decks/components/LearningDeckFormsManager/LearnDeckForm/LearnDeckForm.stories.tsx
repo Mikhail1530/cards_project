@@ -13,5 +13,8 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const LearnDeckForm: Story = {
-  args: {},
+  args: {
+    deckId: '',
+    onSubmit: () => {},
+  },
 }
