@@ -2,12 +2,15 @@ import { Table, TBody, TCell, THead, THeader, TRow } from '@/view/ui/Table/Table
 import s from './CardsTable.module.scss'
 import { CardType } from '@/api/services/decks/decks.types'
 import { CardFormsManager } from '@/view/modules/cards/components/CardsFormsManager/CardFormsManager'
+import { FilledRatingStar } from '@/view/assets'
+import { EmptyRatingStar } from '@/view/assets/icons/emptyRatingStar/EmptyRatingStar'
 
 type SelectedDeckTableType = {
   selectedDeckTableData: CardType[]
+  userId: string
 }
 
-export const CardsTable = ({ selectedDeckTableData }: SelectedDeckTableType) => {
+export const CardsTable = ({ selectedDeckTableData, userId }: SelectedDeckTableType) => {
   return (
     <Table>
       <THead>
@@ -15,8 +18,7 @@ export const CardsTable = ({ selectedDeckTableData }: SelectedDeckTableType) => 
           <THeader>Question</THeader>
           <THeader>Answer</THeader>
           <THeader>Last Updated</THeader>
-          <THeader>Grade</THeader>
-          <THeader></THeader>
+          <THeader colSpan={2}>Grade</THeader>
         </TRow>
       </THead>
       <TBody>
@@ -44,17 +46,26 @@ export const CardsTable = ({ selectedDeckTableData }: SelectedDeckTableType) => 
                 )}
               </TCell>
               <TCell>{new Date(card?.updated).toLocaleDateString()}</TCell>
-              <TCell>{card?.grade}</TCell>
-              <TCell>
-                <div className={s.iconsContainer}>
-                  <CardFormsManager type={'EDIT'} card={card} />
-                  <CardFormsManager type={'DELETE'} card={card} />
-                </div>
-              </TCell>
+              <TCell>{drawStars(card?.grade)}</TCell>
+              {card.userId === userId && (
+                <TCell>
+                  <div className={s.iconsContainer}>
+                    <CardFormsManager type={'EDIT'} card={card} />
+                    <CardFormsManager type={'DELETE'} card={card} />
+                  </div>
+                </TCell>
+              )}
             </TRow>
           )
         })}
       </TBody>
     </Table>
   )
+}
+
+// React knows how to render arrays of JSX elements, treating each element as a separate child in the DOM.
+const drawStars = (numberOfFilledStars: number) => {
+  return Array(5)
+    .fill(<FilledRatingStar />, 0, numberOfFilledStars)
+    .fill(<EmptyRatingStar />, numberOfFilledStars, 5)
 }

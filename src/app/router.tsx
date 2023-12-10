@@ -14,6 +14,7 @@ import { SignUpPage } from '@/view/pages/SignUpPage/SignUpPage'
 import { ForgotPasswordPage } from '@/view/pages/ForgotPasswordPage/ForgotPasswordPage'
 import ResetPasswordPage from '@/view/pages/ResetPasswordPage/ResetPasswordPage'
 import Loading from '@/view/assets/components/Loading/Loading'
+import { DeckLearnPage } from '@/view/pages/DeckLearnPage/DeckLearnPage'
 
 const privateRoutes: RouteObject[] = [
   {
@@ -21,9 +22,10 @@ const privateRoutes: RouteObject[] = [
     element: <DecksPage />,
   },
   {
-    path: `/decks/:id/learn`,
+    path: `/decks/:id`,
     element: <DeckPage />,
   },
+  { path: '/decks/:id/learn', element: <DeckLearnPage /> },
 ]
 
 const publicRoutes: RouteObject[] = [

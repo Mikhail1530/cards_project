@@ -9,6 +9,7 @@ export type RadioGroupProps = {
   className?: string
   disabled?: boolean
   options: Option[]
+  value: string
 }
 
 type Option = {
@@ -18,7 +19,7 @@ type Option = {
 }
 
 export const RadioGroup = forwardRef<ElementRef<typeof RadRadioGroup.Root>, RadioGroupProps>(
-  ({ disabled = false, options, ...rest }, ref) => {
+  ({ disabled = false, options, value, ...rest }, ref) => {
     return (
       <form>
         <RadRadioGroup.Root

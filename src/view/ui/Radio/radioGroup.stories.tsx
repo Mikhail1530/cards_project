@@ -14,16 +14,18 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
+    value: '1',
     disabled: false,
     options: [
-      { label: 'Default One', value: 'text' },
-      { label: 'Default Two', value: 'text2' },
+      { label: 'Default One', value: '1' },
+      { label: 'Default Two', value: '2' },
     ],
   },
 }
 
 export const Disabled: Story = {
   args: {
+    value: '1',
     disabled: true,
     options: [
       { label: 'disabled One', value: 'disabled-one', checked: true },

@@ -1,0 +1,24 @@
+.learnDeckCard {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  align-items: center;
+
+  padding: 30px;
+
+  .questionAndCaption {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+  }
+
+  .answerRadioGroup {
+    align-self: flex-start;
+  }
+
+  .answerHeaders {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+  }
+}

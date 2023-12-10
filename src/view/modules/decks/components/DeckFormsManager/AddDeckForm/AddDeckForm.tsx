@@ -49,7 +49,6 @@ export const AddDeckForm = ({ icon, onSubmit, open, onClose }: AddDeckProps) => 
     Object.entries(data).forEach(([key, value]) => formData.append(key, value))
     onSubmit(formData)
     onClose()
-    console.log(data, 'this is whole formADaata')
   })
 
   return (
