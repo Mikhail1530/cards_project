@@ -18,7 +18,7 @@ export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState<number | string>(10)
   const navigate = useNavigate()
-  const match = useMatch('/decks/:id/learn')
+  const match = useMatch('/decks/:id/')
   const searchedCardNameValue = useRef('')
 
   const {
@@ -68,6 +68,7 @@ export const DeckPage = () => {
   return (
     <>
       <Header />
+      <Button onClick={() => navigate(`/decks/${deck.id}/learn`)}>Study</Button>
       <Page>
         {cards.items.length < 1 && user.id === deck.userId ? (
           <ShowNoCards

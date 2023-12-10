@@ -60,7 +60,7 @@ export const DecksTable = ({ currentTableData, sort, setSort, userId }: DecksTab
                   <Button
                     fullWidth={false}
                     as={Link}
-                    to={`/decks/${deck.id}/learn`}
+                    to={`/decks/${deck.id}`}
                     variant={'icon'}
                     icon={<PlayInCircle />}
                   />

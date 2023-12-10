@@ -43,6 +43,11 @@ export type DeleteCardArgs = {
   cardId: string
 }
 
+export type AddGradeToCardArgs = {
+  deckId: string
+  body: { cardId: string; grade: number }
+}
+
 // export type CreateCardArgs = {
 //   id: string
 //   question: string

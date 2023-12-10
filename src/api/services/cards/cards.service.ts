@@ -1,5 +1,6 @@
 import { baseApi } from '@/api/base-api'
 import {
+  AddGradeToCardArgs,
   CreateCardResponseType,
   DeleteCardArgs,
   UpdateCardResponseType,
@@ -14,9 +15,6 @@ const cardsService = baseApi.injectEndpoints({
         { deckId: string | undefined; formData: FormData }
       >({
         query: ({ formData, deckId }) => {
-          const formDataArray = Array.from(formData.entries())
-          console.log(formDataArray, 'formADta')
-          // debugger
           return {
             url: `v1/decks/${deckId}/cards`,
             method: 'POST',
@@ -47,8 +45,25 @@ const cardsService = baseApi.injectEndpoints({
         },
         invalidatesTags: ['Cards'],
       }),
+      addGradeToCard: builder.mutation<void, AddGradeToCardArgs>({
+        query: args => {
+          console.log(args)
+          debugger
+          return {
+            url: `v1/decks/${args.deckId}`,
+            method: 'POST',
+            body: args.body,
+          }
+        },
+        invalidatesTags: ['Cards'],
+      }),
     }
   },
 })
 
-export const { useCreateCardMutation, useUpdateCardMutation, useDeleteCardMutation } = cardsService
+export const {
+  useCreateCardMutation,
+  useUpdateCardMutation,
+  useDeleteCardMutation,
+  useAddGradeToCardMutation,
+} = cardsService
