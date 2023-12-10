@@ -1,6 +1,14 @@
 
 .sliderContainer {
   display: flex;
+  align-items: center;
+
+  .minMax {
+    margin: 0 5px;
+    padding: 4px 8px;
+    border: 1px solid var(--color-dark-500);
+    border-radius: 3px;
+  }
 
   .SliderRoot {
     touch-action: none;

@@ -65,7 +65,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       fieldContainer: clsx(s.fieldContainer),
       label: clsx(s.label, labelProps?.className),
       leadingIcon: s.leadingIcon,
-      root: clsx(s.root, containerProps?.className),
+      root: clsx(s.root, className, containerProps?.className),
     }
 
     return (

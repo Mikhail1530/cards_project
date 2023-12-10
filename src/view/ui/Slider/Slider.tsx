@@ -20,7 +20,7 @@ export const Slider = ({ onSubmit }: SliderPropsType) => {
   return (
     // <form>
     <div className={s.sliderContainer}>
-      <span>{minMaxCardsInDecks?.[0]}</span>
+      <span className={s.minMax}>{minMaxCardsInDecks?.[0]}</span>
       <RSlider.Root
         className={s.SliderRoot}
         defaultValue={[0, 100]}
@@ -37,7 +37,7 @@ export const Slider = ({ onSubmit }: SliderPropsType) => {
         <RSlider.Thumb className={s.SliderThumb} />
         <RSlider.Thumb className={s.SliderThumb} />
       </RSlider.Root>
-      <span>{minMaxCardsInDecks?.[1]}</span>
+      <span className={s.minMax}>{minMaxCardsInDecks?.[1]}</span>
     </div>
     // </form>
   )

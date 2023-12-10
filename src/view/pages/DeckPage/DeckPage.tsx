@@ -38,13 +38,11 @@ export const DeckPage = () => {
   const { data: deck, isLoading: isCardLoading } = useGetDeckByIdQuery({ id: match?.params.id })
   const { data: user } = useAuthMeQuery({ skip: true })
 
-  console.log(deck, 'deck')
   if (isLoading || isCardLoading) {
     return <Loading />
   }
 
   const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {
-    console.log(numOfItemsPerPage)
     setItemsPerPage(numOfItemsPerPage)
   }
 
@@ -54,26 +52,24 @@ export const DeckPage = () => {
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
-  if (!cards || !deck || isError) {
-    return <Error error={error} />
-  }
-
   let timeoutId: NodeJS.Timeout
   const handleCardSearch = (e: ChangeEvent<HTMLInputElement>) => {
     searchedCardNameValue.current = e.target.value
     if (timeoutId) clearTimeout(timeoutId)
     timeoutId = setTimeout(() => {
       refetch()
-      // searchedCardNameValue.current = ''
     }, 500)
   }
-  console.log(cards, 'Cards')
+
+  if (!cards || !deck || !user || isError) {
+    return <Error error={error} />
+  }
 
   return (
     <>
       <Header />
       <Page>
-        {cards.items.length < 1 && user?.id === deck.userId ? (
+        {cards.items.length < 1 && user.id === deck.userId ? (
           <ShowNoCards
             cover={deck.cover}
             deckId={deck.id}
@@ -92,9 +88,11 @@ export const DeckPage = () => {
                   <Typography variant={'large'}>{deck.name}</Typography>
                   {deck.cover && <img src={deck.cover} alt={'Deck cover'} />}
                 </div>
-                <div className={s.header__btn}>
-                  <CardFormsManager type={'ADD'} deckId={match?.params.id} />
-                </div>
+                {user.id === deck.userId && (
+                  <div className={s.header__btn}>
+                    <CardFormsManager type={'ADD'} deckId={match?.params.id} />
+                  </div>
+                )}
               </div>
             </div>
             <TextField
@@ -108,7 +106,7 @@ export const DeckPage = () => {
             {isLoading || isFetching ? (
               <TableSkeleton numRows={cards.items.length} />
             ) : (
-              <CardsTable selectedDeckTableData={cards?.items} />
+              <CardsTable selectedDeckTableData={cards.items} userId={user.id} />
             )}
           </>
         )}

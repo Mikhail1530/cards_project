@@ -9,7 +9,7 @@ import { Header } from '@/view/modules'
 import { Sort } from '@/view/ui/Table/Table'
 import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 import s from './DecksPage.module.scss'
-import { ErrorModal } from '@/view/assets'
+import { Bin, ErrorModal } from '@/view/assets'
 import { useAuthMeQuery } from '@/api/services/auth/auth.service'
 
 export const DecksPage = () => {
@@ -122,35 +122,45 @@ export const DecksPage = () => {
           <DeckFormsManager type={'ADD'} />
         </div>
         <div className={s.filtersContainer}>
-          <TextField defaultValue={searchTermRef.current} onChange={handleSearchChange} />
-          {/*TODO: ask about this logic as well. Second btn if isActivBtn = true -> has tertiary color, not logical*/}
-          {/*<div className={s.decksFilterBtns}>*/}
-          <Typography variant={'caption'}>Select decks</Typography>
-          <Button
-            variant={activeBtn.myDeck ? 'primary' : 'tertiary'}
-            edges={'sharpRight'}
-            onClick={() => filterDecksByOwner('me')}
-            // fullWidth={false}
-          >
-            My decks
-          </Button>
-          <Button
-            variant={activeBtn.allDecks ? 'primary' : 'tertiary'}
-            edges={'sharpLeft'}
-            onClick={() => filterDecksByOwner('all')}
-            // fullWidth={false}
-          >
-            All decks
-          </Button>
-          {/*</div>*/}
+          <TextField
+            className={s.filtersTextfield}
+            defaultValue={searchTermRef.current}
+            onChange={handleSearchChange}
+            placeholder={'Search deck'}
+            icon={<Bin />}
+            search={true}
+          />
+          <div className={s.decksFilterBtnsContainer}>
+            <Typography variant={'caption'}>Select decks</Typography>
+            <div className={s.decksFilterBtns}>
+              <Button
+                variant={activeBtn.myDeck ? 'primary' : 'tertiary'}
+                edges={'sharpRight'}
+                onClick={() => filterDecksByOwner('me')}
+                fullWidth={false}
+              >
+                My decks
+              </Button>
+              <Button
+                variant={activeBtn.allDecks ? 'primary' : 'tertiary'}
+                edges={'sharpLeft'}
+                onClick={() => filterDecksByOwner('all')}
+                fullWidth={false}
+              >
+                All decks
+              </Button>
+            </div>
+          </div>
           <Slider
             onSubmit={searchByCardsInDeck}
             //TODO ask how to make properly cleaner
             // cleanOnSubmit={!!cardsCount}
           />
-          <Button variant={'secondary'} onClick={cleanFilters}>
-            Clean filters
-          </Button>
+          <div>
+            <Button variant={'secondary'} onClick={cleanFilters} fullWidth={false}>
+              Clean filters
+            </Button>
+          </div>
         </div>
         {isLoading || isFetching ? (
           <TableSkeleton numRows={+itemsPerPage} />

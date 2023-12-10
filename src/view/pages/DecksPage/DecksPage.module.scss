@@ -4,13 +4,28 @@
 
   .captionAndAddDeckBtn {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     width: 100%;
   }
 
+  .decksFilterBtnsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   .filtersContainer {
     display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    width: 100%;
+
+    .filtersTextfield {
+      flex-wrap: wrap;
+      width: initial;
+    }
 
     //width: 100%;
 
@@ -18,5 +33,15 @@
     //.decksFilterBtns {
     //  display: flex;
     //}
+
+    .decksFilterBtns {
+      display: flex;
+
+      :first-child {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+      }
+    }
   }
 }
