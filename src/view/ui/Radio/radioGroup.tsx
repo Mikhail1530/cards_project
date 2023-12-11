@@ -21,32 +21,33 @@ type Option = {
 export const RadioGroup = forwardRef<ElementRef<typeof RadRadioGroup.Root>, RadioGroupProps>(
   ({ disabled = false, options, value, ...rest }, ref) => {
     return (
-      <form>
-        <RadRadioGroup.Root
-          className={s.RadioGroupRoot}
-          aria-label="View density"
-          disabled={disabled}
-          {...rest}
-          ref={ref}
-        >
-          {options.map(option => (
-            <div className={s.radioItemsContainer} key={option.value}>
-              <RadRadioGroup.Item
-                className={s.RadioGroupItem}
-                value={option.value}
-                id={option.value}
-                disabled={disabled}
-                {...rest}
-              >
-                <RadRadioGroup.Indicator className={s.RadioGroupIndicator} />
-              </RadRadioGroup.Item>
-              <Typography as={'label'} className={s.Label} htmlFor={option.value} variant={'body2'}>
-                {option.label}
-              </Typography>
-            </div>
-          ))}
-        </RadRadioGroup.Root>
-      </form>
+      // <form>
+      <RadRadioGroup.Root
+        className={s.RadioGroupRoot}
+        aria-label="View density"
+        disabled={disabled}
+        {...rest}
+        ref={ref}
+      >
+        {options.map(option => (
+          <div className={s.radioItemsContainer} key={option.value}>
+            <RadRadioGroup.Item
+              className={s.RadioGroupItem}
+              value={option.value}
+              id={option.value}
+              disabled={disabled}
+              checked={option.checked}
+              {...rest}
+            >
+              <RadRadioGroup.Indicator className={s.RadioGroupIndicator} />
+            </RadRadioGroup.Item>
+            <Typography as={'label'} className={s.Label} htmlFor={option.value} variant={'body2'}>
+              {option.label}
+            </Typography>
+          </div>
+        ))}
+      </RadRadioGroup.Root>
+      // </form>
     )
   }
 )

@@ -80,7 +80,7 @@ export const DeckPage = () => {
         ) : (
           <>
             <div className={s.header}>
-              <Button className={s.backBtn} onClick={() => navigate(-1)} variant={'icon'}>
+              <Button className={s.backBtn} onClick={() => navigate(`/`)} variant={'icon'}>
                 <ArrowBack />
                 <Typography>Back to Decks List</Typography>
               </Button>

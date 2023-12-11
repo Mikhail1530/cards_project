@@ -47,16 +47,32 @@ const cardsService = baseApi.injectEndpoints({
       }),
       addGradeToCard: builder.mutation<void, AddGradeToCardArgs>({
         query: args => {
-          console.log(args)
-          debugger
           return {
-            url: `v1/decks/${args.deckId}`,
+            url: `v1/decks/${args.deckId}/learn`,
             method: 'POST',
             body: args.body,
           }
         },
         invalidatesTags: ['Cards'],
       }),
+      getRandomCard: builder.query<void, { deckId: string; previousCardId?: string }>({
+        query: ({ deckId, previousCardId }) => {
+          return {
+            url: `v1/decks/${deckId}/learn?previousCardId=${previousCardId && previousCardId}`,
+            method: 'GET',
+          }
+        },
+        providesTags: ['Cards'],
+      }),
+      // getCardById: builder.query<void, { cardId: string }>({
+      //   query: ({ cardId }) => {
+      //     return {
+      //       url: `v1/cards/${cardId}`,
+      //       method: 'GET',
+      //     }
+      //   },
+      //   invalidatesTags: ['Cards'],
+      // }),
     }
   },
 })
@@ -66,4 +82,6 @@ export const {
   useUpdateCardMutation,
   useDeleteCardMutation,
   useAddGradeToCardMutation,
+  // useGetCardByIdQuery,
+  useGetRandomCardQuery,
 } = cardsService
