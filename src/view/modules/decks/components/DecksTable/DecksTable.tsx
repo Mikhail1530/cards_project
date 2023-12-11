@@ -10,7 +10,7 @@ type DecksTable = {
   currentTableData: DeckType[] | undefined
   sort: any
   setSort: any
-  userId: string
+  userId: string | undefined
 }
 
 export type Column = {

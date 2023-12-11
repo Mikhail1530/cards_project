@@ -109,7 +109,7 @@ export const DecksPage = () => {
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
-  if (!user) {
+  if (!user && !isLoading) {
     return 'No user!'
   }
 
@@ -166,7 +166,7 @@ export const DecksPage = () => {
           <TableSkeleton numRows={+itemsPerPage} />
         ) : (
           <DecksTable
-            userId={user.id}
+            userId={user?.id}
             currentTableData={decks?.items}
             sort={sort}
             setSort={setSort}
