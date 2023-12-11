@@ -14,6 +14,21 @@ type Story = StoryObj<typeof meta>
 
 export const LearnDeckForm: Story = {
   args: {
+    deckName: 'First',
+    card: {
+      id: '',
+      question: '',
+      answer: '',
+      deckId: '',
+      questionVideo: '',
+      answerVideo: '',
+      created: '',
+      updated: '',
+      shots: 0,
+      grade: 0,
+      userId: '',
+    },
+    setPreviousCardId: () => {},
     deckId: '',
     onSubmit: () => {},
   },

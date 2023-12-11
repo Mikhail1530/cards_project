@@ -1,5 +1,5 @@
 import { Button, Card, ControlledRadioGroup, Typography } from '@/view/ui'
-import s from '@/view/modules/decks/components/LearningDeckFormsManager/LearnDeckForm/LearnDeckForm.module.scss'
+import s from './LearnDeckForm.module.scss'
 import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AddGradeToCardArgs } from '@/api/services/cards/cards.types'
