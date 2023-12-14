@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Loading.scss'
 
-const Loading = () => {
+export const Loading = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -20,5 +20,3 @@ const Loading = () => {
     </div>
   )
 }
-
-export default Loading

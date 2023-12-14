@@ -5,7 +5,7 @@ import { useForgotPasswordMutation } from '@/api/services/auth/auth.service'
 import { RecoverPasswordArgs } from '@/api/services/auth/auth.types'
 import { useState } from 'react'
 import { CheckEmailModal } from '@/view/modules/auth/components/CheckEmailModal/CheckEmailModal'
-import Loading from '@/view/assets/components/Loading/Loading'
+import { Loading } from '@/view/assets'
 
 export const ForgotPasswordPage = () => {
   const [state, setState] = useState({

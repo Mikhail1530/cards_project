@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PersonalInformationForm } from '@/view/modules/profile'
-import { Bin } from '@/view/assets/icons'
+import { EditPencil, Logout } from '@/view/assets/icons'
+import s from './ProfileFormsManager.module.scss'
 import {
   useAuthMeQuery,
   useLogoutMutation,
@@ -36,7 +37,7 @@ export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
         <PersonalInformationForm
           onSubmit={updatePersonalInfo}
           logout={logout}
-          icon={<Bin />}
+          icon={<EditPencil />}
           avatar={authData.avatar ?? anonymous}
           email={authData.email}
           nickname={authData.name}
@@ -55,7 +56,7 @@ export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
       }
       formComponent = (
         <form onSubmit={handleLogout}>
-          <Button variant={'link'} icon={<Bin />} fullWidth={false}>
+          <Button className={s.signoutBtn} variant={'link'} icon={<Logout />} fullWidth={false}>
             Sign out
           </Button>
         </form>

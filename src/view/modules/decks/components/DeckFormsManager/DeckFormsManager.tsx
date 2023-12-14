@@ -13,12 +13,13 @@ import { DeleteDeckForm } from '@/view/modules/decks/components/DeckFormsManager
 type DeckManagerProps = {
   type: 'ADD' | 'EDIT' | 'DELETE'
   deck?: DeckType
+  triggerBtnText?: string
 }
 
-export const DeckFormsManager = ({ type, deck }: DeckManagerProps) => {
+export const DeckFormsManager = ({ type, deck, triggerBtnText }: DeckManagerProps) => {
   const [createDeck] = useCreateDeckMutation() // first parameter is function we use to make a fetch. Second is the response from server if mutation was successful
   const [handleDeckEdit] = useUpdateDeckMutation()
-  const [handleDeckDelete] = useDeleteDeckMutation()
+  const [handleDeckDelete, { isSuccess: deleteSuccess }] = useDeleteDeckMutation()
   const [open, setOpen] = useState(false)
   //error={error1 || error2 || error3}
   let formComponent
@@ -31,7 +32,6 @@ export const DeckFormsManager = ({ type, deck }: DeckManagerProps) => {
     }
     case 'EDIT': {
       if (!deck) throw new Error('No deck provided to form!')
-
       formComponent = (
         <EditDeckForm
           deckName={deck.name}
@@ -43,6 +43,7 @@ export const DeckFormsManager = ({ type, deck }: DeckManagerProps) => {
           checkboxLabel={'Private deck'}
           isPrivate={deck.isPrivate}
           inputLabel={'Edit name'}
+          triggerBtnText={triggerBtnText}
         />
       )
       break
@@ -58,6 +59,8 @@ export const DeckFormsManager = ({ type, deck }: DeckManagerProps) => {
           onClose={() => setOpen(!open)}
           deckName={deck.name}
           onSubmit={handleDeckDelete}
+          triggerBtnText={triggerBtnText}
+          deleteSuccess={deleteSuccess}
         />
       )
       break

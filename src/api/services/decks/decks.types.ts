@@ -49,6 +49,10 @@ export type GetDeckByIdResponse = {
   created: string
   updated: string
   cardsCount: number
+  author: {
+    id: string
+    name: string
+  }
 }
 export type UpdateDeckResponseType = {
   id: string

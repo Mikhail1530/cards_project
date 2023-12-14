@@ -18,10 +18,6 @@ export type TextFieldProps = {
   errorMessage?: string
   label?: string
   labelProps?: ComponentProps<'label'>
-  // onValueChange?: (
-  //   value?: string | undefined,
-  //   e?: ChangeEvent<HTMLInputElement> | undefined
-  // ) => void
   root?: string
   icon?: ReactNode
   search?: boolean
@@ -37,7 +33,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       label,
       labelProps,
       onChange,
-      // onValueChange,
       icon,
       placeholder,
       search,
@@ -55,8 +50,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
       onChange?.(e)
-      // onValueChange?.(e.target.value)
-      // }
     }
 
     const classNames = {

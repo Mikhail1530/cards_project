@@ -63,7 +63,6 @@ export const AddCardForm = ({
     formData.append('answer', data.answer)
     formData.append('questionImg', data.questionImg)
     formData.append('answerImg', data.answerImg)
-    // Object.entries(data).forEach(([key, value]) => formData.append(key, JSON.stringify(value)))
     onSubmit({ formData, deckId })
     onClose()
   })

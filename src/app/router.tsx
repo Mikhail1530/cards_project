@@ -8,12 +8,10 @@ import {
 import { useAuthMeQuery } from '@/api/services/auth/auth.service'
 import { DecksPage, SignInPage } from '@/view/pages'
 import { DeckPage } from '@/view/pages/DeckPage/DeckPage'
-import { userActions } from '@/view/modules/auth/slices/auth-slice'
-import { useDispatch } from 'react-redux'
 import { SignUpPage } from '@/view/pages/SignUpPage/SignUpPage'
 import { ForgotPasswordPage } from '@/view/pages/ForgotPasswordPage/ForgotPasswordPage'
 import ResetPasswordPage from '@/view/pages/ResetPasswordPage/ResetPasswordPage'
-import Loading from '@/view/assets/components/Loading/Loading'
+import { Loading } from '@/view/assets'
 import { DeckLearnPage } from '@/view/pages/DeckLearnPage/DeckLearnPage'
 
 const privateRoutes: RouteObject[] = [
@@ -73,15 +71,14 @@ const router = createBrowserRouter([
 //that matched route will then be rendered at the location of the `<Outlet/>`
 //component.
 function PrivateRoutes() {
-  const dispatch = useDispatch()
-  const { data, isError, isSuccess, isLoading } = useAuthMeQuery() // before accessing any private resource we send autherization request (cookie) to server
+  const { isError, isLoading } = useAuthMeQuery() // before accessing any private resource we send autherization request (cookie) to server
   if (isLoading) {
     return <Loading />
   }
-  // FIXME: currently it sets data from useAuthMeQuery everytime i open new page, but do i need to do so?
-  if (isSuccess && data) {
-    dispatch(userActions.setUserDataAC(data))
-  }
+  // // FIXME: currently it sets data from useAuthMeQuery everytime i open new page, but do i need to do so?
+  // if (isSuccess && data) {
+  //   dispatch(userActions.setUserDataAC(data))
+  // }
   const isAuthenticated = !isError
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }

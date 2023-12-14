@@ -40,7 +40,6 @@ const columns: Array<Column> = [
 ]
 
 export const DecksTable = ({ currentTableData, sort, setSort, userId }: DecksTable) => {
-  console.log(userId, 'userOd')
   return (
     <Table>
       <TableHeader columns={columns} sort={sort} onSort={setSort} />

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Header } from '@/view/modules'
 import { Page } from '@/view/ui'
 import { SignUpForm } from '@/view/modules/auth/components/SignUpForm/SignUpForm'
-import Loading from '@/view/assets/components/Loading/Loading'
+import { Loading } from '@/view/assets'
 
 export const SignUpPage = () => {
   const [signUp, { isLoading }] = useSignUpMutation()

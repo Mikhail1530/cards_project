@@ -47,10 +47,10 @@ export const Button = forwardRef(
       component: clsx(
         s.button,
         s[variant],
-        className,
         fullWidth && s.fullWidth,
         isLink && s.link,
-        edges && s[edges]
+        edges && s[edges],
+        className
       ),
       icon: clsx(s.icon, s[variant]),
       shadow: clsx({

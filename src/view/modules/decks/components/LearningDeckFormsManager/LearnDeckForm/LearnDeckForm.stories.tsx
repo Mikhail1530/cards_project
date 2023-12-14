@@ -28,8 +28,9 @@ export const LearnDeckForm: Story = {
       grade: 0,
       userId: '',
     },
-    setPreviousCardId: () => {},
+    // setPreviousCardId: () => {},
     deckId: '',
-    onSubmit: () => {},
+    onSubmit: () => '',
+    isCardGradeLoading: false,
   },
 }

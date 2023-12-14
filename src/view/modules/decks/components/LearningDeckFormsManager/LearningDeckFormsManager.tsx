@@ -7,7 +7,6 @@ import {
 import { useGetDeckByIdQuery } from '@/api/services/decks/decks.service'
 import { useParams } from 'react-router-dom'
 import { Error } from '@/view/assets/components/Error/Error'
-import { useState } from 'react'
 
 type LearningDeckFormsManagerPropsType = {
   type: 'LEARN'
@@ -15,16 +14,22 @@ type LearningDeckFormsManagerPropsType = {
 }
 
 export const LearningDeckFormsManager = ({ type }: LearningDeckFormsManagerPropsType) => {
-  const [previousCardId, setPreviousCardId] = useState<string>('')
   const params = useParams()
+
   if (!params.id) return <Error>Oops! Something went wrong, there are no such deck anymore</Error>
-  const [addGradeToCard] = useAddGradeToCardMutation()
+
+  const [addGradeToCard, { data: newCard, isLoading: isCardGradeLoading }] =
+    useAddGradeToCardMutation()
   const { data: deck, error } = useGetDeckByIdQuery({ id: params.id })
-  const { data: card } = useGetRandomCardQuery({ deckId: params.id, previousCardId })
+  const { data: card } = useGetRandomCardQuery({
+    deckId: params.id,
+    // previousCardId: '',
+  })
 
   if (!deck || !card) {
     return <Error error={error} />
   }
+  const currCard = newCard || card
 
   let formComponent
   switch (type) {
@@ -34,8 +39,8 @@ export const LearningDeckFormsManager = ({ type }: LearningDeckFormsManagerProps
           onSubmit={addGradeToCard}
           deckId={deck?.id}
           deckName={deck?.name}
-          card={card}
-          setPreviousCardId={setPreviousCardId}
+          card={currCard}
+          isCardGradeLoading={isCardGradeLoading}
         />
       )
       break
