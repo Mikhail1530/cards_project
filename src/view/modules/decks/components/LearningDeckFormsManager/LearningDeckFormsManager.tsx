@@ -18,19 +18,19 @@ export const LearningDeckFormsManager = ({ type }: LearningDeckFormsManagerProps
 
   if (!params.id) return <Error>Oops! Something went wrong, there are no such deck anymore</Error>
 
-  const [addGradeToCard, { data: newCard, isLoading: isCardGradeLoading, isSuccess }] =
+  const [addGradeToCard, { data: newCard, isLoading: isCardGradeLoading }] =
     useAddGradeToCardMutation()
   const { data: deck, error } = useGetDeckByIdQuery({ id: params.id })
   const { data: card } = useGetRandomCardQuery({
     deckId: params.id,
     // previousCardId: '',
   })
-  console.log(newCard)
+
   if (!deck || !card) {
     return <Error error={error} />
   }
-
   const currCard = newCard || card
+
   let formComponent
   switch (type) {
     case 'LEARN': {
@@ -40,7 +40,6 @@ export const LearningDeckFormsManager = ({ type }: LearningDeckFormsManagerProps
           deckId={deck?.id}
           deckName={deck?.name}
           card={currCard}
-          isSuccess={isSuccess}
           isCardGradeLoading={isCardGradeLoading}
         />
       )

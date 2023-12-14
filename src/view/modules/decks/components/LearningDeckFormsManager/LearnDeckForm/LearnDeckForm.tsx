@@ -14,7 +14,6 @@ type LearnDeckFormPropsType = {
   deckName: string
   card: CardType
   isCardGradeLoading: boolean
-  isSuccess: boolean
 }
 
 type LearnDeckFromValues = z.infer<typeof learnDeckForm>
