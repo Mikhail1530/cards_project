@@ -7,12 +7,17 @@ import { ShowNoCards } from '@/view/modules/cards/helpers/ShowNoCards/ShowNoCard
 import s from './DeckPage.module.scss'
 import { ArrowBack } from '@/view/assets/icons/arrow-back/ArrowBack'
 import { CardFormsManager } from '@/view/modules/cards/components/CardsFormsManager/CardFormsManager'
-import Loading from '@/view/assets/components/Loading/Loading'
+import { Loading } from '@/view/assets'
 import { Error } from '@/view/assets/components/Error/Error'
 import { Header } from '@/view/modules'
-import { Bin } from '@/view/assets'
 import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 import { useAuthMeQuery } from '@/api/services/auth/auth.service'
+import { DropdownMenu } from '@/view/ui/DropDownMenu/DropDownMenu'
+import { ExtraMenu } from '@/view/assets/icons/extraMenu/ExtraMenu'
+import { PlayIcon } from '@radix-ui/react-icons'
+import { DeckFormsManager } from '@/view/modules/decks'
+import * as RDropdownMenu from '@radix-ui/react-dropdown-menu'
+import Search from '@/view/assets/icons/search/search'
 
 export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -33,13 +38,16 @@ export const DeckPage = () => {
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
     question: searchedCardNameValue.current,
-    // answer: searchedCardNameValue.current,
   })
   const { data: deck, isLoading: isCardLoading } = useGetDeckByIdQuery({ id: match?.params.id })
   const { data: user } = useAuthMeQuery({ skip: true })
 
   if (isLoading || isCardLoading) {
     return <Loading />
+  }
+
+  if (!cards || !deck || !user || isError) {
+    return <Error error={error} />
   }
 
   const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {
@@ -61,14 +69,9 @@ export const DeckPage = () => {
     }, 500)
   }
 
-  if (!cards || !deck || !user || isError) {
-    return <Error error={error} />
-  }
-
   return (
     <>
       <Header />
-      <Button onClick={() => navigate(`/decks/${deck.id}/learn`)}>Study</Button>
       <Page>
         {cards.items.length < 1 && user.id === deck.userId ? (
           <ShowNoCards
@@ -85,15 +88,47 @@ export const DeckPage = () => {
                 <Typography>Back to Decks List</Typography>
               </Button>
               <div className={s.deckNameAndBtnContainer}>
-                <div className={s.deckNameWithImg}>
-                  <Typography variant={'large'}>{deck.name}</Typography>
-                  {deck.cover && <img src={deck.cover} alt={'Deck cover'} />}
+                <div className={s.firstRow}>
+                  <Typography className={s.deckNameWithImg_titleAndDropDown} variant={'large'}>
+                    {deck.name}{' '}
+                    {user.id === deck.userId && (
+                      <DropdownMenu triggerIcon={<ExtraMenu />}>
+                        <RDropdownMenu.Item
+                          onSelect={e => {
+                            e.preventDefault()
+                            navigate(`/decks/${deck.id}/learn`)
+                          }}
+                          className={s.DropdownMenuItem}
+                        >
+                          <PlayIcon />
+                          Learn
+                        </RDropdownMenu.Item>
+                        <RDropdownMenu.Item
+                          onSelect={e => e.preventDefault()}
+                          className={s.DropdownMenuItem}
+                        >
+                          <DeckFormsManager type={'EDIT'} deck={deck} triggerBtnText={'Edit'} />
+                        </RDropdownMenu.Item>
+                        <RDropdownMenu.Item
+                          onSelect={e => e.preventDefault()}
+                          className={s.DropdownMenuItem}
+                        >
+                          <DeckFormsManager type={'DELETE'} deck={deck} triggerBtnText={'Delete'} />
+                        </RDropdownMenu.Item>
+                      </DropdownMenu>
+                    )}
+                  </Typography>
+                  {user.id === deck.userId ? (
+                    <div className={s.header__btn}>
+                      <CardFormsManager type={'ADD'} deckId={match?.params.id} />
+                    </div>
+                  ) : (
+                    <Button fullWidth={false} onClick={() => navigate(`/decks/${deck.id}/learn`)}>
+                      Study
+                    </Button>
+                  )}
                 </div>
-                {user.id === deck.userId && (
-                  <div className={s.header__btn}>
-                    <CardFormsManager type={'ADD'} deckId={match?.params.id} />
-                  </div>
-                )}
+                {deck.cover && <img src={deck.cover} alt={'Deck cover'} />}
               </div>
             </div>
             <TextField
@@ -101,7 +136,7 @@ export const DeckPage = () => {
               type="search"
               className={s.search}
               placeholder={'Enter card question'}
-              icon={<Bin />}
+              icon={<Search />}
               onChange={handleCardSearch}
             />
             {isLoading || isFetching ? (

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './DeleteDeckForm.module.scss'
 import { ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export type DeleteDeckProps = {
   deckName: string
@@ -14,7 +15,8 @@ export type DeleteDeckProps = {
   open: boolean
   onClose: () => void
   id: string
-  // onClick: () => void
+  triggerBtnText?: string
+  deleteSuccess: boolean
 }
 
 type DeleteDeckFormValues = z.infer<typeof deleteDeckForm>
@@ -30,16 +32,22 @@ export const DeleteDeckForm = ({
   deckName,
   onSubmit,
   onClose,
+  triggerBtnText,
+  deleteSuccess,
 }: DeleteDeckProps) => {
+  const navigate = useNavigate()
   const { handleSubmit } = useForm<DeleteDeckFormValues>({
     resolver: zodResolver(deleteDeckForm),
     defaultValues: { id: id },
   })
 
+  if (deleteSuccess) {
+    navigate(`/`)
+  }
+
   const handleFormSubmit = handleSubmit((data: DeleteDeckFormValues) => {
     onSubmit(data)
     onClose()
-    console.log(data, 'is data in DeleteDeckForm handleSubmit')
   })
 
   return (
@@ -48,7 +56,7 @@ export const DeleteDeckForm = ({
       title={'Delete Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={''}
+      triggerBtnText={triggerBtnText || ''}
       icon={icon}
       open={open}
       onClose={onClose}

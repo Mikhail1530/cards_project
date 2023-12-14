@@ -76,7 +76,7 @@ export const decksService = baseApi.injectEndpoints({
             method: 'DELETE',
           }
         },
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Cards'],
       }),
     }
   },

@@ -8,7 +8,7 @@ type SliderPropsType = {
 
 export const Slider = ({ onSubmit }: SliderPropsType) => {
   const [minMaxCardsInDecks, setMinMaxCardsInDecks] = useState<number[]>([0, 100])
-  console.log('render')
+
   const handleUpdate = (newValues: number[]) => {
     setMinMaxCardsInDecks(newValues)
   }

@@ -27,13 +27,6 @@
       width: initial;
     }
 
-    //width: 100%;
-
-    //
-    //.decksFilterBtns {
-    //  display: flex;
-    //}
-
     .decksFilterBtns {
       display: flex;
 
@@ -43,5 +36,7 @@
         align-self: center;
       }
     }
+
+    .cleanFilterBtn {}
   }
 }

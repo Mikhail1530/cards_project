@@ -5,10 +5,10 @@ import {
   DeleteCardArgs,
   UpdateCardResponseType,
 } from '@/api/services/cards/cards.types'
+import { CardType } from '@/api/services/decks/decks.types'
 
 const cardsService = baseApi.injectEndpoints({
   endpoints: builder => {
-    // debugger
     return {
       createCard: builder.mutation<
         CreateCardResponseType,
@@ -45,7 +45,7 @@ const cardsService = baseApi.injectEndpoints({
         },
         invalidatesTags: ['Cards'],
       }),
-      addGradeToCard: builder.mutation<void, AddGradeToCardArgs>({
+      addGradeToCard: builder.mutation<CardType, AddGradeToCardArgs>({
         query: args => {
           return {
             url: `v1/decks/${args.deckId}/learn`,
@@ -64,15 +64,6 @@ const cardsService = baseApi.injectEndpoints({
         },
         providesTags: ['Cards'],
       }),
-      // getCardById: builder.query<void, { cardId: string }>({
-      //   query: ({ cardId }) => {
-      //     return {
-      //       url: `v1/cards/${cardId}`,
-      //       method: 'GET',
-      //     }
-      //   },
-      //   invalidatesTags: ['Cards'],
-      // }),
     }
   },
 })

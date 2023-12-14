@@ -15,6 +15,7 @@ export type EditDeckProps = {
   onClose: () => void
   id: string
   isPrivate: boolean
+  triggerBtnText?: string
 }
 
 type EditDeckFormValues = z.infer<typeof editDeckForm>
@@ -35,6 +36,7 @@ export const EditDeckForm = ({
   inputLabel = 'Edit',
   checkboxLabel = 'deck',
   isPrivate,
+  triggerBtnText,
 }: EditDeckProps) => {
   const {
     control,
@@ -57,7 +59,7 @@ export const EditDeckForm = ({
       title={'Edit Deck'}
       acceptBtnText={'Save changes'}
       handleFormSubmit={handleFormSubmit}
-      triggerBtnText={''}
+      triggerBtnText={triggerBtnText ? triggerBtnText : ''}
       open={open}
       icon={icon}
       onClose={onClose}

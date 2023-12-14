@@ -30,8 +30,8 @@ export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProp
       icon,
       className,
       ...rest
-    }: SelectMenuProps
-    // ref
+    }: SelectMenuProps,
+    ref
   ) => {
     const [isOpened, setIsOpened] = useState<boolean>(false)
 
@@ -64,8 +64,8 @@ export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProp
           {...rest}
           // ref={ref}
         >
-          <RSelect.Trigger className={classNames['trigger']}>
-            <RSelect.Value placeholder={itemsPerPage} />
+          <RSelect.Trigger ref={ref} className={classNames['trigger']}>
+            <RSelect.Value placeholder={'text'} />
             <RSelect.Icon>
               {icon || <ArrowDownOutline className={isOpened ? s.iconRotated : s.icon} />}
             </RSelect.Icon>

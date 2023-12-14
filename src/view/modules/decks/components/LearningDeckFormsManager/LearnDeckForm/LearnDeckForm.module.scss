@@ -10,6 +10,17 @@
     display: flex;
     flex-direction: column;
     align-self: flex-start;
+
+    img {
+      width: 100px;
+    }
+
+    :nth-child(2) {
+      margin-top: 10px;
+      color: var(--color-dark-100);
+    }
+
+
   }
 
   .answerRadioGroup {
@@ -20,5 +31,17 @@
     display: flex;
     flex-direction: column;
     align-self: flex-start;
+    width: 100%;
+
+    :nth-child(2) {
+      width: 100%;
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-dark-100);
+    }
+
+    img {
+      width: 100px;
+    }
   }
 }

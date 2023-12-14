@@ -64,8 +64,19 @@ export const CardsTable = ({ selectedDeckTableData, userId }: SelectedDeckTableT
 }
 
 // React knows how to render arrays of JSX elements, treating each element as a separate child in the DOM.
+// const drawStars = (numberOfFilledStars: number) => {
+//   return Array(5)
+//     .fill(<FilledRatingStar />, 0, numberOfFilledStars)
+//     .fill(<EmptyRatingStar />, numberOfFilledStars, 5)
+// }
 const drawStars = (numberOfFilledStars: number) => {
   return Array(5)
-    .fill(<FilledRatingStar />, 0, numberOfFilledStars)
-    .fill(<EmptyRatingStar />, numberOfFilledStars, 5)
+    .fill(null)
+    .map((_, index) => {
+      return index < numberOfFilledStars ? (
+        <FilledRatingStar key={index} />
+      ) : (
+        <EmptyRatingStar key={index} />
+      )
+    })
 }

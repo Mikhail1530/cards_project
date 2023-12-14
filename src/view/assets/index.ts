@@ -1,3 +1,5 @@
 export * from './icons'
 export { ErrorModal } from '@/view/assets/components/ErrorModal/ErrorModal'
 export { FilterWidgetSkeleton } from '@/view/assets/components/FilterWidgetSkeleton/FilterWidgetSkeleton'
+export { DeletedSuccessfully } from '@/view/assets/components/DeletedSuccessfully/DeletedSuccessfully'
+export { Loading } from '@/view/assets/components/Loading/Loading'

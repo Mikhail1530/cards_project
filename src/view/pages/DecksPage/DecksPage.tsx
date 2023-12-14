@@ -9,8 +9,10 @@ import { Header } from '@/view/modules'
 import { Sort } from '@/view/ui/Table/Table'
 import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 import s from './DecksPage.module.scss'
-import { Bin, ErrorModal } from '@/view/assets'
+import { ErrorModal } from '@/view/assets'
 import { useAuthMeQuery } from '@/api/services/auth/auth.service'
+import { Loading } from '@/view/assets'
+import Search from '@/view/assets/icons/search/search'
 
 export const DecksPage = () => {
   const [sort, setSort] = useState<Sort>(null)
@@ -109,6 +111,10 @@ export const DecksPage = () => {
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
+  if (isLoading) {
+    return <Loading />
+  }
+
   if (!user && !isLoading) {
     return 'No user!'
   }
@@ -127,7 +133,7 @@ export const DecksPage = () => {
             defaultValue={searchTermRef.current}
             onChange={handleSearchChange}
             placeholder={'Search deck'}
-            icon={<Bin />}
+            icon={<Search />}
             search={true}
           />
           <div className={s.decksFilterBtnsContainer}>
@@ -153,12 +159,12 @@ export const DecksPage = () => {
           </div>
           <Slider
             onSubmit={searchByCardsInDeck}
-            //TODO ask how to make properly cleaner
+            //TODO make properly cleaner
             // cleanOnSubmit={!!cardsCount}
           />
-          <div>
+          <div className={s.cleanFilterBtn}>
             <Button variant={'secondary'} onClick={cleanFilters} fullWidth={false}>
-              Clean filters
+              &nbsp; Clean filters &nbsp;
             </Button>
           </div>
         </div>

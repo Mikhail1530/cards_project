@@ -1,5 +1,5 @@
 .button {
-  cursor: pointer;
+  cursor: pointer !important;
 
   display: flex;
   justify-content: center;
@@ -143,7 +143,7 @@
 }
 
 .icon {
-  //margin-right: 6px;
+  margin-right: 6px;
   padding: 0;
 }
 

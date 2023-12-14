@@ -4,8 +4,11 @@
 
 .fieldContainer {
   position: relative;
+
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
+
   width: 100%;
 
   .icon {

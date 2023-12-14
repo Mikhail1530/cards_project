@@ -2,6 +2,7 @@ import * as RadRadioGroup from '@radix-ui/react-radio-group'
 import s from './radioGroup.module.scss'
 import { Typography } from '@/view/ui/Typography'
 import { ElementRef, forwardRef } from 'react'
+import { clsx } from 'clsx'
 
 export type RadioGroupProps = {
   onValueChange?: () => void
@@ -10,6 +11,7 @@ export type RadioGroupProps = {
   disabled?: boolean
   options: Option[]
   value: string
+  errorMessage?: string
 }
 
 type Option = {
@@ -19,13 +21,19 @@ type Option = {
 }
 
 export const RadioGroup = forwardRef<ElementRef<typeof RadRadioGroup.Root>, RadioGroupProps>(
-  ({ disabled = false, options, value, ...rest }, ref) => {
+  ({ disabled = false, options, value, onValueChange, errorMessage, className, ...rest }, ref) => {
+    const classNames = {
+      error: clsx(s.error, className && className),
+    }
+
     return (
       // <form>
       <RadRadioGroup.Root
         className={s.RadioGroupRoot}
         aria-label="View density"
         disabled={disabled}
+        onValueChange={onValueChange}
+        required={true}
         {...rest}
         ref={ref}
       >
@@ -36,7 +44,8 @@ export const RadioGroup = forwardRef<ElementRef<typeof RadRadioGroup.Root>, Radi
               value={option.value}
               id={option.value}
               disabled={disabled}
-              checked={option.checked}
+              required={true}
+              // checked={option.checked}
               {...rest}
             >
               <RadRadioGroup.Indicator className={s.RadioGroupIndicator} />
@@ -46,6 +55,9 @@ export const RadioGroup = forwardRef<ElementRef<typeof RadRadioGroup.Root>, Radi
             </Typography>
           </div>
         ))}
+        <>
+          <Typography className={classNames.error}>{errorMessage}</Typography>
+        </>
       </RadRadioGroup.Root>
       // </form>
     )
