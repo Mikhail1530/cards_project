@@ -159,6 +159,7 @@ export const DecksPage = () => {
           </div>
           <Slider
             onSubmit={searchByCardsInDeck}
+            cardsCount={cardsCount}
             //TODO make properly cleaner
             // cleanOnSubmit={!!cardsCount}
           />

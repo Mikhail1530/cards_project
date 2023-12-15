@@ -23,6 +23,7 @@
     width: 100%;
 
     .filtersTextfield {
+      z-index: -1;
       flex-wrap: wrap;
       width: initial;
     }
