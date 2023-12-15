@@ -3,11 +3,11 @@ import s from './Slider.module.scss'
 import { useState } from 'react'
 type SliderPropsType = {
   onSubmit: (handleOnSubmit: number[]) => void
-  cardsCount: number[]
+  cardsCount?: number[]
   // cleanOnSubmit: boolean
 }
 
-export const Slider = ({ onSubmit, cardsCount }: SliderPropsType) => {
+export const Slider = ({ onSubmit }: SliderPropsType) => {
   const [minMaxCardsInDecks, setMinMaxCardsInDecks] = useState<number[]>([0, 100])
 
   const handleUpdate = (newValues: number[]) => {
