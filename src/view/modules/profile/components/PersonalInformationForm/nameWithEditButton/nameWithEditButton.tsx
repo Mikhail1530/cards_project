@@ -2,7 +2,6 @@ import { Typography } from '@/view/ui/Typography'
 import { Button } from '@/view/ui/Button'
 import s from './nameWithEditButton.module.scss'
 import { EditPencil, Logout } from '@/view/assets/icons'
-import { useNavigate } from 'react-router-dom'
 
 type NameWithEditButtonPropsType = {
   openNameEditing: (open: boolean) => void
@@ -17,11 +16,11 @@ export const NameWithEditButton = ({
   nickname,
   logout,
 }: NameWithEditButtonPropsType) => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const handleLogout = async () => {
-    navigate('/login')
     await logout()
+    // navigate('/login')
   }
 
   return (

@@ -12,7 +12,9 @@ export const SignInPage = () => {
   const handleLogin = async (args: LoginArgs) => {
     try {
       await login(args)
+      // setTimeout(() => {
       navigate('/')
+      // }, 0)
     } catch (e) {
       console.error(e)
     }

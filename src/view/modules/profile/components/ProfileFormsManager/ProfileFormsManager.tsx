@@ -9,7 +9,6 @@ import {
 } from '@/api/services/auth/auth.service'
 import anonymous from '@/view/assets/pictures/anonymous.jpeg'
 import { Button } from '@/view/ui'
-import { useNavigate } from 'react-router-dom'
 import { userActions } from '@/view/modules/auth/slices/auth-slice'
 import { useDispatch } from 'react-redux'
 
@@ -18,16 +17,16 @@ type ProfileFormsManagerPropsType = {
 }
 
 export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
   const { data: authData } = useAuthMeQuery()
-  const [logout] = useLogoutMutation()
+  const [logout, isLoading] = useLogoutMutation()
   const [updatePersonalInfo] = useUpdatePersonalInfoMutation()
 
   if (!authData) {
     return <div>Something went wrong!</div>
   }
+  console.log(isLoading)
 
   //error={error1 || error2 || error3}
   let formComponent
@@ -50,8 +49,8 @@ export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
     }
     case 'LOGOUT-BTN': {
       const handleLogout = async () => {
-        navigate('/login')
         await logout()
+        // navigate('/login')
         dispatch(userActions.clearUsereDataAC())
       }
       formComponent = (
