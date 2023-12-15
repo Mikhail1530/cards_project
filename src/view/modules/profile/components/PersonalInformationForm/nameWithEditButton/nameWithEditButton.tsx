@@ -33,7 +33,7 @@ export const NameWithEditButton = ({
           onClick={openNameEditing}
           className={s.editNameButton}
           icon={<EditPencil />}
-          variant={'secondary'}
+          variant={'icon'}
         ></Button>
       </div>
       <div>

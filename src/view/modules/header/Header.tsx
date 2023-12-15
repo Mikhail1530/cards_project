@@ -10,7 +10,7 @@ type HeaderPropsType = {
 }
 
 export const Header = ({ text = 'Login' }: HeaderPropsType) => {
-  const { data: user, error, isLoading } = useAuthMeQuery({ skip: true })
+  const { data: user } = useAuthMeQuery({ skip: true })
   console.log(user, 'userdata')
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -21,7 +21,13 @@ export const Header = ({ text = 'Login' }: HeaderPropsType) => {
 
   return (
     <div className={s.header}>
-      <img src={fancy_logo} alt={'logoPicture'} />
+      <img
+        onClick={() => {
+          navigate('/')
+        }}
+        src={fancy_logo}
+        alt={'logoPicture'}
+      />
       <div className={s.avatarAndName}>
         <Typography className={s.userName} variant={'body2'}>
           {user?.name}

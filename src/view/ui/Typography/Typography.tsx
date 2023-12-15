@@ -15,6 +15,7 @@ export type TypographyProps<T extends ElementType> = {
     | 'large'
     | 'link1'
     | 'link2'
+    | 'caption2'
     | 'overline'
     | 'subtitle1'
     | 'subtitle2'

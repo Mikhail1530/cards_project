@@ -61,7 +61,7 @@ export const Button = forwardRef(
 
     return (
       <Component className={classNames.component} ref={ref} {...rest}>
-        {icon && <span className={classNames.icon}>{icon}</span>}
+        {icon && <div className={classNames.icon}>{icon}</div>}
         {children}
       </Component>
     )

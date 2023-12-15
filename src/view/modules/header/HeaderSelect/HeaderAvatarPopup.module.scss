@@ -58,6 +58,12 @@
       flex-direction: column;
       row-gap: 20px;
       align-items: flex-start;
+
+      button {
+        svg {
+          margin-right: 7px;
+        }
+      }
     }
   }
 }

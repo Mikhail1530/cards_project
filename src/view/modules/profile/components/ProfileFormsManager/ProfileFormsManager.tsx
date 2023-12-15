@@ -20,13 +20,12 @@ export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
   const { data: authData } = useAuthMeQuery({ skip: true }) // { skip: true } ?
-  const [logout, isLoading] = useLogoutMutation()
+  const [logout] = useLogoutMutation()
   const [updatePersonalInfo] = useUpdatePersonalInfoMutation()
 
   if (!authData) {
     return <div>Something went wrong!</div>
   }
-  console.log(isLoading)
 
   //error={error1 || error2 || error3}
   let formComponent

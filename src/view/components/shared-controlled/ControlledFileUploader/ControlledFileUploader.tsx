@@ -23,7 +23,6 @@ export const ControlledFileUploader = <T extends FieldValues>({
   //change value from useController to Img File
   const handleOnChange = (e: ChangeEvent<HTMLInputElement> | undefined) => {
     if (!e || !e.target || !e.target.files) return
-    console.log(e?.target?.files, 'fileS!!!!')
     onChange(e?.target?.files[0])
   }
 

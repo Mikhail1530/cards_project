@@ -45,6 +45,13 @@
   @include typography(var(--font-size-xs), 400, var(--line-height-s));
 }
 
+.caption2 {
+  @include typography(var(--font-size-xs), 400, var(--line-height-s));
+
+  margin-left: 5px;
+  color: var(--color-accent-500);
+}
+
 .overline {
   @include typography(var(--font-size-xs), $line-height: var(--line-height-s));
 }

@@ -38,8 +38,12 @@
 
   .icon > svg {
     display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 18px;
     height: 18px;
+    margin: 0 !important;
   }
 
   &:focus-visible {
@@ -148,7 +152,7 @@
 }
 
 .purpleShadow {
-  box-shadow: 0 4px 18px 0 #8C61FF59;
+  box-shadow: 0 4px 18px 0 #8c61ff59;
 }
 
 .darkShadow {
