@@ -115,9 +115,9 @@ export const DecksPage = () => {
     return <Loading />
   }
 
-  if (!user && !isLoading) {
-    return 'No user!'
-  }
+  // if (!user && !isLoading) {
+  //   return 'No user!'
+  // }
 
   return (
     <>

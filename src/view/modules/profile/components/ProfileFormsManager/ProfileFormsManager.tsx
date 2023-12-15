@@ -19,7 +19,7 @@ type ProfileFormsManagerPropsType = {
 export const ProfileFormsManager = ({ type }: ProfileFormsManagerPropsType) => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
-  const { data: authData } = useAuthMeQuery()
+  const { data: authData } = useAuthMeQuery({ skip: true }) // { skip: true } ?
   const [logout, isLoading] = useLogoutMutation()
   const [updatePersonalInfo] = useUpdatePersonalInfoMutation()
 
