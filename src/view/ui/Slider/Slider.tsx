@@ -1,14 +1,23 @@
 import * as RSlider from '@radix-ui/react-slider'
 import s from './Slider.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
 type SliderPropsType = {
   onSubmit: (handleOnSubmit: number[]) => void
   cardsCount?: number[]
-  // cleanOnSubmit: boolean
+  minCardsCount: number
+  maxCardsCount: number
 }
 
-export const Slider = ({ onSubmit }: SliderPropsType) => {
-  const [minMaxCardsInDecks, setMinMaxCardsInDecks] = useState<number[]>([0, 100])
+export const Slider = ({ onSubmit, minCardsCount, maxCardsCount }: SliderPropsType) => {
+  const [minMaxCardsInDecks, setMinMaxCardsInDecks] = useState<number[]>([
+    minCardsCount,
+    maxCardsCount,
+  ])
+
+  useEffect(() => {
+    setMinMaxCardsInDecks([minCardsCount, maxCardsCount])
+  }, [minCardsCount, maxCardsCount])
 
   const handleUpdate = (newValues: number[]) => {
     setMinMaxCardsInDecks(newValues)

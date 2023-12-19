@@ -7,7 +7,7 @@ import s from './Select.module.scss'
 import { clsx } from 'clsx'
 
 export type SelectMenuProps = {
-  onChangeOption: (value: string) => void
+  onChangeOption: (value: string | number) => void
   options: string[]
   placeholder?: string
   title?: string
@@ -37,7 +37,7 @@ export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProp
 
     const onChangeCallback = (value: string) => {
       setQuestionForm?.(value)
-      onChangeOption && onChangeOption(value)
+      onChangeOption && onChangeOption(Number(value))
     }
 
     const toggleIsOpened = () => {
@@ -65,7 +65,7 @@ export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProp
           // ref={ref}
         >
           <RSelect.Trigger ref={ref} className={classNames['trigger']}>
-            <RSelect.Value placeholder={'text'} />
+            <RSelect.Value placeholder={placeholder} />
             <RSelect.Icon>
               {icon || <ArrowDownOutline className={isOpened ? s.iconRotated : s.icon} />}
             </RSelect.Icon>

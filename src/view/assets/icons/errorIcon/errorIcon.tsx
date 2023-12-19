@@ -284,8 +284,8 @@ export const ErrorIcon = () => {
           y2="-74.3306"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00065435" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="#D6D7F4" />
+          <stop offset="0.00065435" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="#D6D7F4" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2_5413"
@@ -295,8 +295,8 @@ export const ErrorIcon = () => {
           y2="173.465"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00099143" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="#B0BEC5" />
+          <stop offset="0.00099143" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="#B0BEC5" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_2_5413"
@@ -306,8 +306,8 @@ export const ErrorIcon = () => {
           y2="166.312"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00099143" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="#B0BEC5" />
+          <stop offset="0.00099143" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="#B0BEC5" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_2_5413"
@@ -317,8 +317,8 @@ export const ErrorIcon = () => {
           y2="160.386"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00099143" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="#B0BEC5" />
+          <stop offset="0.00099143" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="#B0BEC5" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_2_5413"
@@ -328,8 +328,8 @@ export const ErrorIcon = () => {
           y2="138.568"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00099143" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="#B0BEC5" />
+          <stop offset="0.00099143" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="#B0BEC5" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_2_5413"
@@ -339,8 +339,8 @@ export const ErrorIcon = () => {
           y2="166.312"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00099143" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="#B0BEC5" />
+          <stop offset="0.00099143" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="#B0BEC5" />
         </linearGradient>
         <linearGradient
           id="paint6_linear_2_5413"
@@ -350,8 +350,8 @@ export const ErrorIcon = () => {
           y2="203.114"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00099143" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="#B0BEC5" />
+          <stop offset="0.00099143" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="#B0BEC5" />
         </linearGradient>
         <linearGradient
           id="paint7_linear_2_5413"
@@ -361,7 +361,7 @@ export const ErrorIcon = () => {
           y2="169.324"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00065435" stop-color="white" stop-opacity="0" />
+          <stop offset="0.00065435" stopColor="white" stopOpacity="0" />
           <stop offset="1" />
         </linearGradient>
         <linearGradient
@@ -372,7 +372,7 @@ export const ErrorIcon = () => {
           y2="114.744"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00065435" stop-color="white" stop-opacity="0" />
+          <stop offset="0.00065435" stopColor="white" stopOpacity="0" />
           <stop offset="1" />
         </linearGradient>
         <linearGradient
@@ -383,7 +383,7 @@ export const ErrorIcon = () => {
           y2="169.506"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00065435" stop-color="white" stop-opacity="0" />
+          <stop offset="0.00065435" stopColor="white" stopOpacity="0" />
           <stop offset="1" />
         </linearGradient>
         <linearGradient
@@ -394,7 +394,7 @@ export const ErrorIcon = () => {
           y2="117.114"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00065435" stop-color="white" stop-opacity="0" />
+          <stop offset="0.00065435" stopColor="white" stopOpacity="0" />
           <stop offset="1" />
         </linearGradient>
         <linearGradient
@@ -405,7 +405,7 @@ export const ErrorIcon = () => {
           y2="193.6"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.00065435" stop-color="white" stop-opacity="0" />
+          <stop offset="0.00065435" stopColor="white" stopOpacity="0" />
           <stop offset="1" />
         </linearGradient>
       </defs>

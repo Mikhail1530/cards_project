@@ -11,6 +11,7 @@ import {
   UpdateDeckResponseType,
 } from '@/api/services/decks/decks.types'
 import { baseApi } from '@/api/base-api'
+import { AppRootStateType } from '@/app/store'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -68,7 +69,51 @@ export const decksService = baseApi.injectEndpoints({
           }
         },
         invalidatesTags: ['Decks'],
+        onQueryStarted: async ({ id, ...args }, { dispatch, getState, queryFulfilled }) => {
+          const state = getState() as AppRootStateType
+          const currentPage = state.decks.currentPage
+          const itemsPerPage = state.decks.itemsPerPage
+          const minCardsCount = state.decks.minCardsCount
+          const maxCardsCount = state.decks.maxCardsCount
+          const authorId = state.decks.authorId
+          const orderBy = state.decks.orderBy
+          const name = state.decks.name
+
+          console.log(
+            { authorId, currentPage, itemsPerPage, maxCardsCount, minCardsCount, name, orderBy },
+            'data'
+          )
+          debugger
+          const patchResult = dispatch(
+            decksService.util.updateQueryData(
+              'getDecks',
+              {
+                currentPage,
+                itemsPerPage,
+                maxCardsCount,
+                minCardsCount,
+                authorId,
+                orderBy,
+                name,
+              },
+              draft => {
+                debugger
+                console.log(draft)
+                const deck = draft.items.find(deck => deck.id === id)
+                if (deck) {
+                  Object.assign(deck, { ...deck, ...args })
+                }
+              }
+            )
+          )
+          try {
+            await queryFulfilled
+          } catch {
+            patchResult.undo()
+          }
+        },
       }),
+
       deleteDeck: builder.mutation<DeleteDeckResponseType, DeleteDeckArgs>({
         query: ({ id }) => {
           return {

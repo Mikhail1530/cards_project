@@ -50,7 +50,6 @@ export const EditDeckForm = ({
   const handleFormSubmit = handleSubmit((data: EditDeckFormValues) => {
     onSubmit(data)
     onClose()
-    console.log(data, 'is data in EditDeckForm handleSubmit')
   })
 
   return (

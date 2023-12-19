@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useRef, useState } from 'react'
+import { ChangeEvent, useRef } from 'react'
 import { DecksTable } from '@/view/modules/decks/components/DecksTable/DecksTable'
 import { Pagination } from '@/view/components/pagination/pagination'
 import { useGetDecksQuery } from '@/api/services/decks/decks.service'
@@ -7,117 +7,128 @@ import { DeckFormsManager } from '@/view/modules/decks/components/DeckFormsManag
 import { Button, Page, Slider, TextField } from '@/view/ui'
 import { Header } from '@/view/modules'
 import { Sort } from '@/view/ui/Table/Table'
-import { TableSkeleton } from '@/view/ui/Table/TableSkeleton/TableSkeleton'
 import s from './DecksPage.module.scss'
-import { ErrorModal } from '@/view/assets'
+import { ErrorModal, Loading } from '@/view/assets'
 import { useAuthMeQuery } from '@/api/services/auth/auth.service'
-import { Loading } from '@/view/assets'
 import Search from '@/view/assets/icons/search/search'
+import {
+  cleanFilters,
+  selectActiveTab,
+  selectAuthorId,
+  selectCurrentPage,
+  selectItemsPerPage,
+  selectMaxCardsCount,
+  selectMinCardsCount,
+  selectOrderBy,
+  selectSort,
+  setActiveTab,
+  setAuthorId,
+  setCurrentPage,
+  setItemsPerPage,
+  setMaxCardsCount,
+  setMinCardsCount,
+  setName,
+  setSort,
+} from '@/view/modules/decks/slice/DecksSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppRootStateType } from '@/app/store'
 
 export const DecksPage = () => {
-  const [sort, setSort] = useState<Sort>(null)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState<string | number>(10)
-  const searchTermRef = useRef('')
-  // TODO: ask is it possible to get rid of these states.
-  const [ownerId, setOwnerId] = useState<string | undefined>('')
-  const [activeBtn, setActiveBtn] = useState({
-    myDeck: false,
-    allDecks: true,
-  })
-  const [cardsCount, setCardsCount] = useState({
-    minCardsCount: 0,
-    maxCardsCount: 100,
-  })
+  const dispatch = useDispatch()
+  const sort = useSelector(selectSort)
+  const currentPage = useSelector(selectCurrentPage)
+  const itemsPerPage = useSelector(selectItemsPerPage)
+  const activeTab = useSelector(selectActiveTab)
+  const minCardsCount = useSelector(selectMinCardsCount)
+  const maxCardsCount = useSelector(selectMaxCardsCount)
+  const orderBy = useSelector(selectOrderBy)
+  const authorId = useSelector(selectAuthorId)
+  const name = useSelector((state: AppRootStateType) => state.decks.name)
+  const inputRef = useRef<HTMLInputElement | null>(null) // useRef is used only to display the data after cleaning. The state changes with redux.
 
-  const sortedString = useMemo(() => {
-    if (!sort) return null
-
-    return `${sort.key}-${sort.direction}`
-  }, [sort])
+  const handleSortChange = (sortObj: Sort) => {
+    dispatch(setSort(sortObj))
+  }
 
   const { data: user } = useAuthMeQuery({ skip: true })
 
   const {
     data: decks,
     isLoading,
-    isFetching,
     error,
-    refetch,
   } = useGetDecksQuery({
-    minCardsCount: cardsCount.minCardsCount,
-    maxCardsCount: cardsCount.maxCardsCount,
+    minCardsCount: minCardsCount,
+    maxCardsCount: maxCardsCount,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
-    orderBy: sortedString,
-    name: searchTermRef.current,
-    authorId: ownerId,
+    orderBy: orderBy,
+    name: name,
+    authorId: authorId,
   })
 
-  if (error) {
-    return <ErrorModal errorMessage={JSON.stringify(error)} />
-  }
-
-  //TODO: ask how to handle this properly
-  const filterDecksByOwner = (author: 'me' | 'all') => {
-    if (author === 'me') {
-      setOwnerId(user?.id)
-      setActiveBtn({
-        myDeck: true,
-        allDecks: false,
-      })
-      refetch()
-    } else {
-      setOwnerId('')
-      setActiveBtn({
-        myDeck: false,
-        allDecks: true,
-      })
-      refetch()
-    }
-  }
-
   const handleSetItemsPerPage = (numOfItemsPerPage: number | string) => {
-    setItemsPerPage(numOfItemsPerPage)
+    dispatch(setItemsPerPage(Number(numOfItemsPerPage)))
   }
 
   const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber)
+    dispatch(setCurrentPage(pageNumber))
   }
 
-  const cleanFilters = () => {
-    searchByCardsInDeck([0, 100])
-    setOwnerId('')
-    setActiveBtn({
-      myDeck: false,
-      allDecks: true,
-    })
+  const handleFiltersCleaning = () => {
+    if (inputRef.current) {
+      inputRef.current.value = ''
+    }
+    dispatch(cleanFilters())
   }
 
   const searchByCardsInDeck = (minMaxCardsValues: number[]) => {
-    setCardsCount({ minCardsCount: minMaxCardsValues[0], maxCardsCount: minMaxCardsValues[1] })
+    dispatch(setMinCardsCount(minMaxCardsValues[0]))
+    dispatch(setMaxCardsCount(minMaxCardsValues[1]))
   }
 
   let timeoutId: NodeJS.Timeout
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    searchTermRef.current = e.target.value
     if (timeoutId) {
       clearTimeout(timeoutId)
     }
     timeoutId = setTimeout(() => {
-      refetch()
+      dispatch(setName(e.target.value))
     }, 500)
   }
 
   const selectOptionsOfDecksToDisplay = ['10', '20', '30', '50', '100']
 
+  if (!user) {
+    return <Loading />
+  } // check for errors with this one
+
+  const filterDecksByOwner = (author: 'me' | 'all') => {
+    if (author === 'me') {
+      dispatch(setAuthorId(user.id))
+      dispatch(
+        setActiveTab({
+          myDeck: true,
+          allDecks: false,
+        })
+      )
+    } else {
+      dispatch(setAuthorId(''))
+      dispatch(
+        setActiveTab({
+          myDeck: false,
+          allDecks: true,
+        })
+      )
+    }
+  }
+
+  if (error) {
+    return <ErrorModal errorMessage={JSON.stringify(error)} />
+  }
+
   if (isLoading) {
     return <Loading />
   }
-
-  // if (!user && !isLoading) {
-  //   return 'No user!'
-  // }
 
   return (
     <>
@@ -130,7 +141,9 @@ export const DecksPage = () => {
         <div className={s.filtersContainer}>
           <TextField
             className={s.filtersTextfield}
-            defaultValue={searchTermRef.current}
+            defaultValue={name}
+            ref={inputRef}
+            // value={searchValue}
             onChange={handleSearchChange}
             placeholder={'Search deck'}
             icon={<Search />}
@@ -140,7 +153,7 @@ export const DecksPage = () => {
             <Typography variant={'caption'}>Select decks</Typography>
             <div className={s.decksFilterBtns}>
               <Button
-                variant={activeBtn.myDeck ? 'primary' : 'tertiary'}
+                variant={activeTab.myDeck ? 'primary' : 'tertiary'}
                 edges={'sharpRight'}
                 onClick={() => filterDecksByOwner('me')}
                 fullWidth={false}
@@ -148,7 +161,7 @@ export const DecksPage = () => {
                 My decks
               </Button>
               <Button
-                variant={activeBtn.allDecks ? 'primary' : 'tertiary'}
+                variant={activeTab.allDecks ? 'primary' : 'tertiary'}
                 edges={'sharpLeft'}
                 onClick={() => filterDecksByOwner('all')}
                 fullWidth={false}
@@ -159,26 +172,24 @@ export const DecksPage = () => {
           </div>
           <Slider
             onSubmit={searchByCardsInDeck}
-            // cardsCount={cardsCount}
-            //TODO make properly cleaner
-            // cleanOnSubmit={!!cardsCount}
+            minCardsCount={minCardsCount}
+            maxCardsCount={maxCardsCount}
           />
           <div className={s.cleanFilterBtn}>
-            <Button variant={'secondary'} onClick={cleanFilters} fullWidth={false}>
+            <Button variant={'secondary'} onClick={handleFiltersCleaning} fullWidth={false}>
               &nbsp; Clean filters &nbsp;
             </Button>
           </div>
         </div>
-        {isLoading || isFetching ? (
-          <TableSkeleton numRows={+itemsPerPage} />
-        ) : (
-          <DecksTable
-            userId={user?.id}
-            currentTableData={decks?.items}
-            sort={sort}
-            setSort={setSort}
-          />
-        )}
+        {/*{isLoading ? (*/}
+        {/*  <TableSkeleton numRows={+itemsPerPage} />*/}
+        {/*) : (*/}
+        <DecksTable
+          userId={user?.id}
+          currentTableData={decks?.items}
+          sort={sort}
+          setSort={handleSortChange}
+        />
         <Pagination
           currentPage={currentPage}
           totalCount={decks?.pagination.totalItems}

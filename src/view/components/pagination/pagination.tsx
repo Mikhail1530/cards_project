@@ -97,6 +97,7 @@ export const Pagination = (props: PaginatorPropsType) => {
           <div className={s.numOfPages}>
             <Typography>Show</Typography>
             <Select
+              placeholder={'10'}
               className={s.triggerBtn}
               onChangeOption={handleSetItemsPerPage}
               options={selectOptions}

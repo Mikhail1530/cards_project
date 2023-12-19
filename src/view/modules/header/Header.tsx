@@ -11,7 +11,6 @@ type HeaderPropsType = {
 
 export const Header = ({ text = 'Login' }: HeaderPropsType) => {
   const { data: user } = useAuthMeQuery({ skip: true })
-  console.log(user, 'userdata')
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
