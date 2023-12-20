@@ -1,12 +1,16 @@
 .body {
   .bodyItem {
-    position: relative; // FIXME: Problem with error messages position
-    margin-bottom: 24px;
+    //position: relative; // FIXME: Problem with error messages position
+    margin-bottom: 2px;
+  }
+
+  .bodyItemUploader {
+
   }
 
   .fileUploadersContainer {
     img {
-      max-width: 100px;
+      max-width: 200px;
       max-height: 200px;
     }
   }

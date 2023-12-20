@@ -79,11 +79,6 @@ export const decksService = baseApi.injectEndpoints({
           const orderBy = state.decks.orderBy
           const name = state.decks.name
 
-          console.log(
-            { authorId, currentPage, itemsPerPage, maxCardsCount, minCardsCount, name, orderBy },
-            'data'
-          )
-          debugger
           const patchResult = dispatch(
             decksService.util.updateQueryData(
               'getDecks',

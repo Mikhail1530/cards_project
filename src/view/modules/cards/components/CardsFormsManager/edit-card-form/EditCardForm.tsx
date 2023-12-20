@@ -5,6 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import s from './EditCardForm.module.scss'
 import { ReactNode, useState } from 'react'
 import { ControlledFileUploader, ControlledSelect } from '@/view/components/shared-controlled'
+import { useSelector } from 'react-redux'
+import { answerImgSelector, questionImgSelector } from '@/view/modules/cards/slice/cards.slice'
 
 export type EditCardFormProps = {
   onSubmit: (data: { cardId: string | undefined; formData: FormData }) => void
@@ -43,6 +45,8 @@ export const EditCardForm = ({
   question,
 }: EditCardFormProps) => {
   const [questionForm, setQuestionForm] = useState('')
+  const questionImgPreview = useSelector(questionImgSelector)
+  const answerImgPreview = useSelector(answerImgSelector)
   const {
     control,
     handleSubmit,
@@ -63,8 +67,12 @@ export const EditCardForm = ({
     const formData = new FormData()
     formData.append('question', data.question)
     formData.append('answer', data.answer)
-    formData.append('questionImg', data.questionImg)
-    formData.append('answerImg', data.answerImg)
+    if (data.questionForm) {
+      formData.append('questionImg', data.questionImg)
+    }
+    if (data.answerImg) {
+      formData.append('answerImg', data.answerImg)
+    }
     onSubmit({ cardId, formData })
   })
 
@@ -91,19 +99,43 @@ export const EditCardForm = ({
           />
           {questionForm === 'image' ? (
             <div className={s.fileUploadersContainer}>
-              {questionImg && <img src={questionImg} alt={'questionImg'} />}
+              {questionImgPreview ? (
+                <img src={String(questionImgPreview)} alt={'question image'} />
+              ) : (
+                questionImg && <img src={questionImg} alt={'questionImg'} />
+              )}
               <ControlledFileUploader
-                className={s.bodyItem}
+                className={s.bodyItemUploader}
                 control={control}
                 name={'questionImg'}
                 fileInputLabelText={'Change question image'}
+                imagePreviewType={'question'}
               />
-              {answerImg && <img src={answerImg} alt={'answerImg'} />}
+              <ControlledTextField
+                className={s.bodyItem}
+                control={control}
+                name={'question'}
+                label={'Question'}
+                errorMessage={errors.question?.message}
+              />
+              {answerImgPreview ? (
+                <img src={String(answerImgPreview)} alt={'answer image'} />
+              ) : (
+                answerImg && <img src={answerImg} alt={'answerImg'} />
+              )}
               <ControlledFileUploader
                 className={s.bodyItem}
                 control={control}
                 name={'answerImg'}
                 fileInputLabelText={'Change answer image'}
+                imagePreviewType={'answer'}
+              />
+              <ControlledTextField
+                className={s.bodyItemUploader}
+                control={control}
+                name={'answer'}
+                label={'Answer'}
+                errorMessage={errors.answer?.message}
               />
             </div>
           ) : (

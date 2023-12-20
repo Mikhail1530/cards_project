@@ -16,8 +16,26 @@
   }
 
   .bodyItem.question {
-    position: relative; // FIXME: Problem with error messages position
+    position: relative;
     margin-bottom: 24px;
+  }
+
+  .questionContainer {
+    display: inline-flex;
+    flex-direction: column;
+
+    > img {
+      max-height: 200px;
+    }
+  }
+
+  .answerContainer {
+    display: inline-flex;
+    flex-direction: column;
+
+    > img {
+      max-height: 200px;
+    }
   }
 }
 

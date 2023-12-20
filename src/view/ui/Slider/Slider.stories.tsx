@@ -11,5 +11,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Slider: Story = {
-  args: {},
+  args: {
+    cardsCount: [10],
+    onSubmit: () => {},
+    minCardsCount: 0,
+    maxCardsCount: 100,
+  },
 }

@@ -37,7 +37,7 @@ export const Select = forwardRef<ElementRef<typeof RSelect.Root>, SelectMenuProp
 
     const onChangeCallback = (value: string) => {
       setQuestionForm?.(value)
-      onChangeOption && onChangeOption(Number(value))
+      onChangeOption && onChangeOption(value)
     }
 
     const toggleIsOpened = () => {

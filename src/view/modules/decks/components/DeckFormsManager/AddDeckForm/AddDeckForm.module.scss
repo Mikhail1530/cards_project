@@ -4,8 +4,14 @@
 
 .body {
   .bodyItem {
-    position: relative; // FIXME: Problem with error messages position
+    position: relative;
+
     //margin-bottom: 24px;
+  }
+
+  > img {
+    width: 100%;
+    max-height: 200px;
   }
 
   .addDeckCheckbox {

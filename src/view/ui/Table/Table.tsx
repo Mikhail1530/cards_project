@@ -14,20 +14,28 @@ export const THead = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRe
 )
 
 export const TBody = forwardRef<HTMLTableSectionElement, ComponentPropsWithoutRef<'tbody'>>(
-  ({ className, ...rest }, ref) => {
+  ({ className, children, ...rest }, ref) => {
     const classNames = {
       tbody: clsx(className, s.tbody),
     }
-    return <tbody className={classNames.tbody} {...rest} ref={ref}></tbody>
+    return (
+      <tbody className={classNames.tbody} {...rest} ref={ref}>
+        {children}
+      </tbody>
+    )
   }
 )
 
 export const TRow = forwardRef<HTMLTableRowElement, ComponentPropsWithoutRef<'tr'>>(
-  ({ className, ...rest }, ref) => {
+  ({ className, children, ...rest }, ref) => {
     const classNames = {
       tr: clsx(className, s.tr),
     }
-    return <tr className={classNames.tr} {...rest} ref={ref}></tr>
+    return (
+      <tr className={classNames.tr} {...rest} ref={ref}>
+        {children}
+      </tr>
+    )
   }
 )
 
