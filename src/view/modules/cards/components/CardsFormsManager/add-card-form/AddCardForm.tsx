@@ -6,6 +6,12 @@ import s from './AddCardForm.module.scss'
 import { ReactNode, useState } from 'react'
 import { ControlledSelect } from '@/view/components/shared-controlled/ControlledSelect/ControlledSelect'
 import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledFileUploader/ControlledFileUploader'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  answerImgSelector,
+  cardsActions,
+  questionImgSelector,
+} from '@/view/modules/cards/slice/cards.slice'
 
 export type AddCardFormProps = {
   onSubmit: (data: { deckId: string; formData: FormData }) => void
@@ -40,10 +46,14 @@ export const AddCardForm = ({
   questionImg,
   answerImg,
 }: AddCardFormProps) => {
+  const dispatch = useDispatch()
   const [questionForm, setQuestionForm] = useState('')
+  const questionImgPreview = useSelector(questionImgSelector)
+  const answerImgPreview = useSelector(answerImgSelector)
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<AddDeckFormValues>({
     resolver: zodResolver(addCardForm),
@@ -65,6 +75,9 @@ export const AddCardForm = ({
     formData.append('answerImg', data.answerImg)
     onSubmit({ formData, deckId })
     onClose()
+    dispatch(cardsActions.setQuestionImagePreview(''))
+    dispatch(cardsActions.setAnswerImagePreview(''))
+    reset()
   })
 
   return (
@@ -91,11 +104,15 @@ export const AddCardForm = ({
             <div className={s.fileUploadersContainer}>
               <div className={s.questionContainer}>
                 {questionImg && <img src={questionImg} alt={'questionImg'} />}
+                {questionImgPreview && (
+                  <img src={String(questionImgPreview)} alt={'imagePreview'} />
+                )}
                 <ControlledFileUploader
                   className={s.bodyItem}
                   control={control}
                   name={'questionImg'}
                   fileInputLabelText={'Add question picture'}
+                  imagePreviewType={'question'}
                 />
                 <ControlledTextField
                   className={s.bodyItem + ' ' + errors && s.question}
@@ -107,11 +124,15 @@ export const AddCardForm = ({
               </div>
               <div className={s.answerContainer}>
                 {answerImg && <img src={answerImg} alt={'answerImg'} />}
+                {answerImgPreview && (
+                  <img src={String(answerImgPreview)} alt={'answer preview image'} />
+                )}
                 <ControlledFileUploader
                   className={s.bodyItem}
                   control={control}
                   name={'answerImg'}
                   fileInputLabelText={'Add answer picture '}
+                  imagePreviewType={'answer'}
                 />
                 <ControlledTextField
                   className={s.bodyItem}

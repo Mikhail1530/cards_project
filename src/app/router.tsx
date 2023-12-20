@@ -75,7 +75,7 @@ function PrivateRoutes() {
   if (isLoading) {
     return <Loading />
   }
-  // // FIXME: currently it sets data from useAuthMeQuery everytime i open new page, but do i need to do so?
+  // TODO: currently it sets data from useAuthMeQuery everytime i open new page, but do i need to do so?
   // if (isSuccess && data) {
   //   dispatch(userActions.setUserDataAC(data))
   // }

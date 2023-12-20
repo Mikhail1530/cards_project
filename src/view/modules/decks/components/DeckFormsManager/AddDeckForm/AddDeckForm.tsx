@@ -5,6 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import s from './AddDeckForm.module.scss'
 import { ReactNode } from 'react'
 import { ControlledFileUploader } from '@/view/components/shared-controlled/ControlledFileUploader/ControlledFileUploader'
+import { useSelector } from 'react-redux'
+import { coverImagePreviewSelector } from '@/view/modules/decks/slice/DecksSlice'
 
 export type AddDeckProps = {
   onSubmit: (data: FormData) => void
@@ -15,26 +17,15 @@ export type AddDeckProps = {
 
 type AddDeckFormValues = z.infer<typeof addDeckForm>
 
-// const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg']
-
 const addDeckForm = z.object({
-  // cover: z
-  //   .instanceof(File)
-  //   .superRefine((f, ctx) => {
-  //     if (!ACCEPTED_IMAGE_TYPES.includes(f.type)) {
-  //       ctx.addIssue({
-  //         code: z.ZodIssueCode.custom,
-  //         message: `File must be one of [${ACCEPTED_IMAGE_TYPES.join(', ')}] but was ${f.type}`,
-  //       })
-  //     }
-  //   })
-  //   .or(z.literal('')),
   cover: z.any(),
   name: z.string().min(3, 'Too short deck name. It should be at least 3 symbols.').max(25),
   isPrivate: z.boolean().optional(),
 })
 
 export const AddDeckForm = ({ icon, onSubmit, open, onClose }: AddDeckProps) => {
+  const coverImagePreview = useSelector(coverImagePreviewSelector)
+
   const {
     control,
     handleSubmit,
@@ -64,13 +55,14 @@ export const AddDeckForm = ({ icon, onSubmit, open, onClose }: AddDeckProps) => 
     >
       <form>
         <div className={s.body}>
+          {coverImagePreview && <img src={coverImagePreview} alt={'Cover preview image'} />}
           <ControlledFileUploader
             className={s.bodyItem}
             control={control}
             name={'cover'}
             label={'Cover'}
-            fileInputLabelText={'Change cover'}
-            // errorMessage={errors.cover?.message}
+            fileInputLabelText={coverImagePreview ? 'Change cover' : 'Add cover'}
+            imagePreviewType={'cover'}
           />
           <ControlledTextField
             className={s.bodyItem}

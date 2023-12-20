@@ -22,12 +22,16 @@ const initialState = {
   name: '',
   authorId: '',
   orderBy: null as string | null,
+  coverImagePreview: '',
 }
 
 const decksSlice = createSlice({
   name: 'decks',
   initialState,
   reducers: {
+    setCoverImagePreview(state, action: PayloadAction<string>) {
+      state.coverImagePreview = action.payload
+    },
     setSort(state, action: PayloadAction<Sort>) {
       state.sort = action.payload
     },
@@ -83,8 +87,10 @@ export const {
   setAuthorId,
   setName,
   cleanFilters,
+  setCoverImagePreview,
 } = decksSlice.actions
 
+export const coverImagePreviewSelector = (state: AppRootStateType) => state.decks.coverImagePreview
 export const selectSort = (state: AppRootStateType) => state.decks.sort
 export const selectCurrentPage = (state: AppRootStateType) => state.decks.currentPage
 export const selectItemsPerPage = (state: AppRootStateType) => state.decks.itemsPerPage
