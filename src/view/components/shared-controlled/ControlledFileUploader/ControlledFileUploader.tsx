@@ -10,7 +10,7 @@ type ControlledFileUploaderProps<T extends FieldValues> = {
   control: Control<T>
   name: FieldPath<T>
   icon?: ReactNode
-  imagePreviewType: 'question' | 'answer' | 'cover'
+  imagePreviewType?: 'question' | 'answer' | 'cover' // TODO finish for personialINformationForm
 } & Omit<TextFieldProps, 'value' | 'onChange' | 'ref'>
 
 export const ControlledFileUploader = <T extends FieldValues>({
