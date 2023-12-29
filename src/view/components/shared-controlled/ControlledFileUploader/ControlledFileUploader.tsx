@@ -26,6 +26,8 @@ export const ControlledFileUploader = <T extends FieldValues>({
   const dispatch = useDispatch()
   //If FileList is empty keep defaulValue of 'cover' as value from useController otherwise
   //change value from useController to Img File
+  console.log(value.filename, 'value from field usecontroller1')
+
   const handleOnChange = (e: ChangeEvent<HTMLInputElement> | undefined) => {
     if (!e || !e.target || !e.target.files) return
     const image = e.target.files[0]
@@ -49,7 +51,7 @@ export const ControlledFileUploader = <T extends FieldValues>({
     <FileUploader
       icon={icon}
       ref={ref}
-      value={value.filename}
+      // value={value.filename}
       name={name}
       onChange={handleOnChange}
       {...rest}
