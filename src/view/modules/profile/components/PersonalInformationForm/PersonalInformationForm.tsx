@@ -58,6 +58,7 @@ export const PersonalInformationForm = ({
   }
 
   const handleFormSubmit = handleSubmit((data: PersonalInformationFormValues) => {
+    console.log(data, 'data ')
     setIsNameEditing(false)
     const formData = new FormData()
     // if default value of data wasn't changed don't append to formData
@@ -65,7 +66,8 @@ export const PersonalInformationForm = ({
       formData.append('avatar', data.avatar)
     }
     formData.append('name', data.name)
-    formData.append('email', data.email)
+    // formData.append('email', data.email)
+    console.log(formData, 'logFormDAta')
     onSubmit(formData)
   })
 
