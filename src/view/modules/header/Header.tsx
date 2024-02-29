@@ -1,5 +1,5 @@
 import s from './Header.module.scss'
-import fancy_logo from '../../assets/pictures/fancy_logo.png'
+import fancy_logo from '../../assets/pictures/rtk.png'
 import { HeaderAvatarPopup } from '@/view/modules/header/HeaderSelect/HeaderAvatarPopup'
 import { Button, Typography } from '@/view/ui'
 import { useLocation, useNavigate } from 'react-router-dom'
